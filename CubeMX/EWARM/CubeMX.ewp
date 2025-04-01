@@ -1149,6 +1149,12 @@
       <file>
         <name>$PROJ_DIR$/../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_spi_ex.c</name>
       </file>
+      <file>
+        <name>$PROJ_DIR$/../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_uart.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$/../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_uart_ex.c</name>
+      </file>
     </group>
     <group>
       <name>CMSIS</name>
