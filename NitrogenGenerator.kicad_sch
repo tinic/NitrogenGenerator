@@ -4124,6 +4124,12 @@
 		(uuid "2e53ad6e-4c90-433b-a4f5-b33468195cf4")
 	)
 	(junction
+		(at 97.79 101.6)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "34f1670d-7b3c-4788-94b1-2c553105c702")
+	)
+	(junction
 		(at 63.5 149.86)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4134,6 +4140,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "513de5f1-1158-4301-ad43-186d968efba6")
+	)
+	(junction
+		(at 93.98 99.06)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5cbffe69-d8fd-46ac-b238-8fe12782cffe")
 	)
 	(junction
 		(at 88.9 163.83)
@@ -4230,10 +4242,6 @@
 		(uuid "ac073154-17a4-4d9b-a5b7-88db596a4cbb")
 	)
 	(no_connect
-		(at 101.6 96.52)
-		(uuid "c4a109d8-d5d5-4016-bce3-7790f41df45a")
-	)
-	(no_connect
 		(at 99.06 48.26)
 		(uuid "d9ae5137-a518-46e8-9576-49829b5da59f")
 	)
@@ -4244,10 +4252,6 @@
 	(no_connect
 		(at 149.86 60.96)
 		(uuid "e4c80e87-1956-4501-bf9f-c2098810bd34")
-	)
-	(no_connect
-		(at 101.6 99.06)
-		(uuid "fc6c39cc-7b05-45cd-a176-62c5a4e49767")
 	)
 	(wire
 		(pts
@@ -4498,6 +4502,16 @@
 			(type default)
 		)
 		(uuid "3540b257-fbe2-49a6-adcc-4b43a25968ea")
+	)
+	(wire
+		(pts
+			(xy 93.98 99.06) (xy 101.6 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "36f43ba3-01c6-403e-8ef6-e9dfc15373db")
 	)
 	(wire
 		(pts
@@ -5281,6 +5295,16 @@
 	)
 	(wire
 		(pts
+			(xy 101.6 96.52) (xy 97.79 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d493a4ae-8962-42a7-9d41-60812aca6a9e")
+	)
+	(wire
+		(pts
 			(xy 195.58 54.61) (xy 214.63 54.61)
 		)
 		(stroke
@@ -5311,7 +5335,7 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 93.98) (xy 93.98 104.14)
+			(xy 93.98 93.98) (xy 93.98 99.06)
 		)
 		(stroke
 			(width 0)
@@ -5338,6 +5362,26 @@
 			(type default)
 		)
 		(uuid "ecfc2a1c-7158-4941-858a-a47983b4e27f")
+	)
+	(wire
+		(pts
+			(xy 97.79 96.52) (xy 97.79 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ed070a1f-b56f-446b-ac4b-5acf9ec560e9")
+	)
+	(wire
+		(pts
+			(xy 93.98 99.06) (xy 93.98 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "edac6051-dfbc-4fcd-8479-66fe5acafa1f")
 	)
 	(wire
 		(pts
@@ -7292,7 +7336,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+5V"
+		(property "Value" "+3.3V"
 			(at 93.98 88.9 0)
 			(effects
 				(font
