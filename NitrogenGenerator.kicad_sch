@@ -5186,10 +5186,6 @@
 		(uuid "657e19a8-2be5-49c8-8a3e-a1b1275f6fc9")
 	)
 	(no_connect
-		(at 41.91 167.64)
-		(uuid "9b48e76b-a3e7-46d6-9786-a592d771918a")
-	)
-	(no_connect
 		(at 26.67 110.49)
 		(uuid "e31d6e83-d908-4b25-a24e-1b309d2bf527")
 	)
@@ -6095,6 +6091,16 @@
 	)
 	(wire
 		(pts
+			(xy 41.91 167.64) (xy 52.07 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9368f197-cfbe-4667-8d84-4225b389ce57")
+	)
+	(wire
+		(pts
 			(xy 133.35 154.94) (xy 142.24 154.94)
 		)
 		(stroke
@@ -6942,6 +6948,16 @@
 			(justify left bottom)
 		)
 		(uuid "711523eb-ffc2-4f87-ae0a-97a1d8538f48")
+	)
+	(label "UART1_TX"
+		(at 52.07 167.64 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "79c2b072-7795-4588-a833-cc06986dbb4e")
 	)
 	(label "CTRL_VALVE_OUT"
 		(at 195.58 54.61 0)
