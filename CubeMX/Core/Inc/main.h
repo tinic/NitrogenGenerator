@@ -71,6 +71,8 @@ void Error_Handler(void);
 #define LCD_CD_GPIO_Port GPIOA
 #define LCD_SDA_Pin GPIO_PIN_7
 #define LCD_SDA_GPIO_Port GPIOA
+#define LCD_RESET_Pin GPIO_PIN_11
+#define LCD_RESET_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
 

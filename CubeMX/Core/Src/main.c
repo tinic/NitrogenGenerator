@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -54,15 +54,119 @@ UART_HandleTypeDef huart1;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_ADC1_Init(void);
-static void MX_SPI1_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_SPI1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+__attribute__((optimize(2)))
+void delay256() {
+  #define NOP16 \
+    __NOP(); __NOP(); __NOP(); __NOP(); \
+    __NOP(); __NOP(); __NOP(); __NOP(); \
+    __NOP(); __NOP(); __NOP(); __NOP(); \
+    __NOP(); __NOP(); __NOP(); __NOP();
+    NOP16;
+    NOP16;
+    NOP16;
+    NOP16;
+    NOP16;
+    NOP16;
+    NOP16;
+    NOP16;
+    NOP16;
+    NOP16;
+    NOP16;
+    NOP16;
+    NOP16;
+    NOP16;
+    NOP16;
+    NOP16;
+}
+  
+__attribute__((optimize(2)))
+void spi_send(uint8_t v) {
+    for (int i = 0; i < 8; i++) {
+    HAL_GPIO_WritePin(GPIOA, LCD_SDA_Pin, (v&(1<<(7-i))) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOA, LCD_SCK_Pin, GPIO_PIN_SET);
+    delay256();
+    HAL_GPIO_WritePin(GPIOA, LCD_SCK_Pin, GPIO_PIN_RESET);
+    delay256();
+  }
+}
 
+void send_cmd(uint8_t v) {
+  HAL_GPIO_WritePin(GPIOA, LCD_CD_Pin, GPIO_PIN_RESET);
+  spi_send(v);
+}
+
+void send_dat(uint8_t v) {
+  HAL_GPIO_WritePin(GPIOA, LCD_CD_Pin, GPIO_PIN_SET);
+  spi_send(v);
+}
+
+#define ST7525_COLUMNS						192
+#define ST7525_LINES							64
+#define ST7525_PAGES							(ST7525_LINES/8)
+uint8_t FrameBuffer[ST7525_PAGES * ST7525_COLUMNS] = { 0xFF };
+
+void set_pixel(uint8_t x, uint8_t y, uint8_t c) {
+  if (c) {
+    FrameBuffer[((y/8)*ST7525_COLUMNS) + x] &= ~(1 << (y%8));
+  } else {
+    FrameBuffer[((y/8)*ST7525_COLUMNS) + x] |=  (1 << (y%8));
+  }
+}
+
+#define ST7525_CMD_SET_COLUMN_LSB				0x00
+#define ST7525_CMD_SET_COLUMN_MSB				0x10
+#define ST7525_CMD_SET_SCROLL_LINE				0x40
+#define ST7525_CMD_SET_PAGE_ADRESS				0xB0
+#define ST7525_CMD_SET_CONTRAST					0X81
+#define ST7525_CMD_SET_PARTIAL_SCREEN			0X84
+#define ST7525_CMD_SET_RAM_ADDR_CTRL			0X88
+#define ST7525_CMD_SET_FRAME_RATE				0xA0
+#define ST7525_CMD_SET_ALL_PIXEL_ON				0xA4
+#define ST7525_CMD_SET_INVERSE_DISPLAY			0xA5
+#define ST7525_CMD_SET_DISPLAY_EN				0xAE
+#define ST7525_CMD_SET_SCAN_DIR					0XC0
+#define ST7525_CMD_SOFT_RESET					0xE2
+#define ST7525_CMD_SET_BIAS						0xE4
+#define ST7525_CMD_SET_COM_END					0xF1
+#define ST7525_CMD_SET_PART_START_ADDR			0xF2
+#define ST7525_CMD_SET_PART_END_ADDR			0xF3
+#define ST7525_CMD_SET_TEST_CONTROL				0xF0
+#define ST7525_CMD_NOP							0xE3
+
+void write_frame() {
+	send_cmd(ST7525_CMD_SET_PAGE_ADRESS);
+	send_cmd(ST7525_CMD_SET_COLUMN_MSB);
+	send_cmd(ST7525_CMD_SET_COLUMN_LSB);
+  for (int i=0; i<ST7525_COLUMNS*ST7525_PAGES; i++) {
+    send_dat(FrameBuffer[i]);
+  }
+}
+
+void screen_init() {
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
+  HAL_Delay(1);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
+  send_cmd(ST7525_CMD_SOFT_RESET);
+  HAL_Delay(5);
+
+  send_cmd(0xa0);//set Frame Rate[A0: 76fps, A1b: 95fps, A2b: 132fps, A3b: 168fps(fps: frame-per-second)] 
+	send_cmd(0xeb);//set BR 
+	send_cmd(0x2f);//set Power Control
+  send_cmd(0xc4);//set LCD Mapping Control
+  send_cmd(0x81);//set output voltage 
+  send_cmd(154); //set voltage volum
+  send_cmd(0xaf);//display Enable
+
+	send_cmd(ST7525_CMD_SET_ALL_PIXEL_ON);
+}
 /* USER CODE END 0 */
 
 /**
@@ -95,10 +199,10 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_ADC1_Init();
-  MX_SPI1_Init();
   MX_USART1_UART_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-
+  screen_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -108,6 +212,10 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    //memset(FrameBuffer, 0xFF, sizeof(FrameBuffer));
+    //write_frame();
+    //memset(FrameBuffer, 0x00, sizeof(FrameBuffer));
+    //write_frame();
   }
   /* USER CODE END 3 */
 }
@@ -321,12 +429,15 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, SOLENOID_VALVE1_Pin|SOLENOID_VAVLE2_Pin|LCD_CD_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, SOLENOID_VALVE1_Pin|SOLENOID_VAVLE2_Pin|LCD_CD_Pin|LCD_RESET_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PB8 PB9 PB0 PB1
-                           PB2 PB3 PB4 PB5 */
-  GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_0|GPIO_PIN_1
-                          |GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5;
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : PB8 PB9 PB1 PB2
+                           PB3 PB4 PB5 */
+  GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_1|GPIO_PIN_2
+                          |GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
@@ -337,20 +448,25 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : SOLENOID_VALVE1_Pin SOLENOID_VAVLE2_Pin LCD_CD_Pin */
-  GPIO_InitStruct.Pin = SOLENOID_VALVE1_Pin|SOLENOID_VAVLE2_Pin|LCD_CD_Pin;
+  /*Configure GPIO pins : SOLENOID_VALVE1_Pin SOLENOID_VAVLE2_Pin LCD_CD_Pin LCD_RESET_Pin */
+  GPIO_InitStruct.Pin = SOLENOID_VALVE1_Pin|SOLENOID_VAVLE2_Pin|LCD_CD_Pin|LCD_RESET_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA2 PA8 PA11 PA12
-                           PA15 */
-  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_8|GPIO_PIN_11|GPIO_PIN_12
-                          |GPIO_PIN_15;
+  /*Configure GPIO pins : PA2 PA8 PA12 PA15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_8|GPIO_PIN_12|GPIO_PIN_15;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PB0 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
