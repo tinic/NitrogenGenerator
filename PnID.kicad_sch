@@ -2297,21 +2297,84 @@
 			(embedded_fonts no)
 		)
 	)
+	(rectangle
+		(start 33.02 48.26)
+		(end 237.49 134.62)
+		(stroke
+			(width 0)
+			(type solid)
+			(color 194 194 194 1)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 40ed0a93-2691-4b86-a268-e676cb8362d6)
+	)
+	(rectangle
+		(start 102.87 64.77)
+		(end 111.76 76.2)
+		(stroke
+			(width 0)
+			(type default)
+			(color 132 0 0 1)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 4bb525d2-45ef-47f2-90f3-5c7c9022b347)
+	)
+	(rectangle
+		(start 77.47 64.77)
+		(end 86.36 76.2)
+		(stroke
+			(width 0)
+			(type default)
+			(color 132 0 0 1)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 4eac1fc3-cd4f-4675-932d-970faaefd8bb)
+	)
+	(rectangle
+		(start 90.17 64.77)
+		(end 99.06 76.2)
+		(stroke
+			(width 0)
+			(type default)
+			(color 132 0 0 1)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 635e9d46-99a2-47ec-bf7e-877268266b7c)
+	)
+	(text "Air Filter 3-stage\n0.5um, 0.1um, 0.01um"
+		(exclude_from_sim no)
+		(at 94.996 59.944 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 0 72 72 1)
+			)
+		)
+		(uuid "42bc3e43-09ad-443b-9637-963d2528c874")
+	)
 	(junction
-		(at 120.65 69.85)
+		(at 129.54 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "188e2c3f-4397-446f-8ea1-d11f54bbf0f6")
 	)
 	(junction
-		(at 156.21 31.75)
+		(at 162.56 69.85)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "cf8904c2-fd53-4038-8b6b-54e9173bea47")
 	)
 	(wire
 		(pts
-			(xy 195.58 69.85) (xy 209.55 69.85)
+			(xy 201.93 116.84) (xy 215.9 116.84)
 		)
 		(stroke
 			(width 0)
@@ -2321,7 +2384,7 @@
 	)
 	(wire
 		(pts
-			(xy 100.33 69.85) (xy 120.65 69.85)
+			(xy 109.22 116.84) (xy 129.54 116.84)
 		)
 		(stroke
 			(width 0)
@@ -2331,7 +2394,17 @@
 	)
 	(wire
 		(pts
-			(xy 161.29 69.85) (xy 185.42 69.85)
+			(xy 231.14 116.84) (xy 247.65 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "04a02b1d-aa44-4317-a764-9128de234819")
+	)
+	(wire
+		(pts
+			(xy 167.64 116.84) (xy 191.77 116.84)
 		)
 		(stroke
 			(width 0)
@@ -2339,9 +2412,53 @@
 		)
 		(uuid "074b8e14-2e75-4517-88ed-0e1cd460d84b")
 	)
+	(polyline
+		(pts
+			(xy 80.01 68.58) (xy 80.01 73.66)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+			(color 132 0 0 1)
+		)
+		(uuid "0893cc74-593f-4d5f-a7df-6194a86216cc")
+	)
 	(wire
 		(pts
-			(xy 63.5 69.85) (xy 85.09 69.85)
+			(xy 86.36 69.85) (xy 90.17 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+			(color 0 132 0 1)
+		)
+		(uuid "08f7667c-e6fb-4efa-8bdd-67d5847b3a98")
+	)
+	(polyline
+		(pts
+			(xy 77.47 68.58) (xy 80.01 68.58)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+			(color 132 0 0 1)
+		)
+		(uuid "09ad7877-83b3-45a8-824b-1d5aabb23006")
+	)
+	(polyline
+		(pts
+			(xy 105.41 73.66) (xy 109.22 73.66)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+			(color 132 0 0 1)
+		)
+		(uuid "0a033701-1751-45a6-870b-c6ed3fe0b614")
+	)
+	(wire
+		(pts
+			(xy 82.55 116.84) (xy 93.98 116.84)
 		)
 		(stroke
 			(width 0)
@@ -2351,7 +2468,17 @@
 	)
 	(wire
 		(pts
-			(xy 156.21 31.75) (xy 185.42 31.75)
+			(xy 68.58 69.85) (xy 77.47 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "12b762e2-7068-4354-9d89-5d4f1cd40d29")
+	)
+	(wire
+		(pts
+			(xy 162.56 69.85) (xy 191.77 69.85)
 		)
 		(stroke
 			(width 0)
@@ -2359,9 +2486,20 @@
 		)
 		(uuid "1855d2fb-840f-4e55-8afa-d01333a8717b")
 	)
+	(polyline
+		(pts
+			(xy 92.71 68.58) (xy 92.71 73.66)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+			(color 132 0 0 1)
+		)
+		(uuid "21f4600b-9c0b-4fe6-bd56-123372c7a2ed")
+	)
 	(wire
 		(pts
-			(xy 46.99 109.22) (xy 63.5 109.22)
+			(xy 66.04 181.61) (xy 82.55 181.61)
 		)
 		(stroke
 			(width 0)
@@ -2371,7 +2509,7 @@
 	)
 	(wire
 		(pts
-			(xy 21.59 31.75) (xy 33.02 31.75)
+			(xy 29.21 35.56) (xy 35.56 35.56)
 		)
 		(stroke
 			(width 0)
@@ -2379,9 +2517,20 @@
 		)
 		(uuid "2c9d68f5-e944-4d14-be90-31683618d584")
 	)
+	(polyline
+		(pts
+			(xy 83.82 73.66) (xy 83.82 68.58)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+			(color 132 0 0 1)
+		)
+		(uuid "305ca484-f2f1-4220-88ff-c5bb174db33a")
+	)
 	(wire
 		(pts
-			(xy 63.5 101.6) (xy 63.5 109.22)
+			(xy 82.55 173.99) (xy 82.55 181.61)
 		)
 		(stroke
 			(width 0)
@@ -2389,39 +2538,63 @@
 		)
 		(uuid "372c8c6f-cfb3-477f-9002-2df98515574e")
 	)
+	(polyline
+		(pts
+			(xy 109.22 73.66) (xy 109.22 68.58)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+			(color 132 0 0 1)
+		)
+		(uuid "38932fbc-b3ed-47c4-861e-8ed6aae68201")
+	)
 	(wire
 		(pts
-			(xy 237.49 24.13) (xy 251.46 24.13)
+			(xy 102.87 68.58) (xy 102.87 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+			(color 132 0 0 1)
+		)
+		(uuid "3acaa84d-b034-4ac0-9867-1c37dc0ad09a")
+	)
+	(polyline
+		(pts
+			(xy 92.71 73.66) (xy 96.52 73.66)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+			(color 132 0 0 1)
+		)
+		(uuid "3d61e50e-6481-409e-a847-350a1b74804c")
+	)
+	(polyline
+		(pts
+			(xy 80.01 73.66) (xy 83.82 73.66)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+			(color 132 0 0 1)
+		)
+		(uuid "4496aa7d-d7a6-451d-8a82-9614ec4fe782")
+	)
+	(wire
+		(pts
+			(xy 48.26 69.85) (xy 53.34 69.85)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "44c1ace6-7068-475d-8156-e04e4a39407d")
+		(uuid "5477e6b9-d2d5-4de4-83e6-cf7846568c92")
 	)
 	(wire
 		(pts
-			(xy 224.79 69.85) (xy 237.49 69.85)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4590f597-c73a-4822-a46c-1a26f50c800d")
-	)
-	(wire
-		(pts
-			(xy 237.49 69.85) (xy 237.49 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4656c79c-425e-49bd-b80f-975dc4cd03f8")
-	)
-	(wire
-		(pts
-			(xy 43.18 31.75) (xy 59.69 31.75)
+			(xy 45.72 35.56) (xy 48.26 35.56)
 		)
 		(stroke
 			(width 0)
@@ -2431,17 +2604,7 @@
 	)
 	(wire
 		(pts
-			(xy 74.93 31.75) (xy 115.57 31.75)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5d048fa2-a1c7-43d1-b8ef-bfa366bb8365")
-	)
-	(wire
-		(pts
-			(xy 224.79 31.75) (xy 237.49 31.75)
+			(xy 231.14 69.85) (xy 247.65 69.85)
 		)
 		(stroke
 			(width 0)
@@ -2449,9 +2612,30 @@
 		)
 		(uuid "6286b381-de76-4112-8f54-8eb000a0379d")
 	)
+	(polyline
+		(pts
+			(xy 105.41 68.58) (xy 105.41 73.66)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+			(color 132 0 0 1)
+		)
+		(uuid "6e670d6b-b5c1-4d6b-93e1-1ee97e6548a2")
+	)
 	(wire
 		(pts
-			(xy 251.46 24.13) (xy 251.46 38.1)
+			(xy 111.76 69.85) (xy 124.46 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7538124b-9d69-4cd9-8d96-ecc63e4e7ec4")
+	)
+	(wire
+		(pts
+			(xy 247.65 69.85) (xy 247.65 80.01)
 		)
 		(stroke
 			(width 0)
@@ -2461,7 +2645,18 @@
 	)
 	(wire
 		(pts
-			(xy 195.58 31.75) (xy 209.55 31.75)
+			(xy 99.06 69.85) (xy 102.87 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+			(color 0 132 0 1)
+		)
+		(uuid "89a24290-5253-482d-a5f5-a9e18e79a1db")
+	)
+	(wire
+		(pts
+			(xy 201.93 69.85) (xy 215.9 69.85)
 		)
 		(stroke
 			(width 0)
@@ -2469,19 +2664,31 @@
 		)
 		(uuid "90eceee6-93c6-47a2-a9cb-cc70fdcf314d")
 	)
-	(wire
+	(polyline
 		(pts
-			(xy 237.49 31.75) (xy 237.49 24.13)
+			(xy 90.17 68.58) (xy 92.71 68.58)
 		)
 		(stroke
 			(width 0)
-			(type default)
+			(type dash)
+			(color 132 0 0 1)
 		)
-		(uuid "9801fc4a-eae4-4ab7-bbce-0f69704162de")
+		(uuid "95d5373c-6667-4114-8c6a-78d8cb45bdf8")
+	)
+	(polyline
+		(pts
+			(xy 102.87 68.58) (xy 105.41 68.58)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+			(color 132 0 0 1)
+		)
+		(uuid "97901fc6-b133-4f93-b5e3-43abfe7eee67")
 	)
 	(wire
 		(pts
-			(xy 63.5 69.85) (xy 63.5 76.2)
+			(xy 82.55 116.84) (xy 82.55 148.59)
 		)
 		(stroke
 			(width 0)
@@ -2491,7 +2698,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 31.75) (xy 156.21 31.75)
+			(xy 134.62 69.85) (xy 162.56 69.85)
 		)
 		(stroke
 			(width 0)
@@ -2499,9 +2706,31 @@
 		)
 		(uuid "998267cb-41c6-43c1-bd7d-ae16c022b1f7")
 	)
+	(polyline
+		(pts
+			(xy 96.52 68.58) (xy 99.06 68.58)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+			(color 132 0 0 1)
+		)
+		(uuid "b9b91f34-6103-47f2-9a05-784c85a30c7e")
+	)
+	(polyline
+		(pts
+			(xy 96.52 73.66) (xy 96.52 68.58)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+			(color 132 0 0 1)
+		)
+		(uuid "c0399370-6f2f-45c9-a8ba-71761e110ae9")
+	)
 	(wire
 		(pts
-			(xy 251.46 63.5) (xy 251.46 78.74)
+			(xy 247.65 105.41) (xy 247.65 116.84)
 		)
 		(stroke
 			(width 0)
@@ -2509,9 +2738,20 @@
 		)
 		(uuid "c335f833-b807-4210-bd56-b3b6a4300d35")
 	)
+	(polyline
+		(pts
+			(xy 109.22 68.58) (xy 111.76 68.58)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+			(color 132 0 0 1)
+		)
+		(uuid "c8ff25ae-bec8-4e67-9a29-6f24fbca096b")
+	)
 	(wire
 		(pts
-			(xy 257.81 43.18) (xy 264.16 43.18)
+			(xy 254 85.09) (xy 259.08 85.09)
 		)
 		(stroke
 			(width 0)
@@ -2521,17 +2761,28 @@
 	)
 	(wire
 		(pts
-			(xy 237.49 78.74) (xy 251.46 78.74)
+			(xy 48.26 35.56) (xy 48.26 69.85)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "cf5cbef2-89cc-41fc-b522-bf808483e4e2")
+		(uuid "d5a613b7-41ca-47b8-9943-bcac7df84ad5")
+	)
+	(polyline
+		(pts
+			(xy 83.82 68.58) (xy 86.36 68.58)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+			(color 132 0 0 1)
+		)
+		(uuid "f2ab7f2f-7ae4-4b40-8160-ba8c53a46ead")
 	)
 	(wire
 		(pts
-			(xy 120.65 69.85) (xy 151.13 69.85)
+			(xy 129.54 116.84) (xy 157.48 116.84)
 		)
 		(stroke
 			(width 0)
@@ -2541,7 +2792,7 @@
 	)
 	(global_label "AIR"
 		(shape input)
-		(at 21.59 31.75 180)
+		(at 29.21 35.56 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2551,7 +2802,7 @@
 		)
 		(uuid "3f1fc8e8-fc33-4cc8-b43c-2ffbeba2906d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 15.6414 31.75 0)
+			(at 23.2614 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2563,7 +2814,7 @@
 	)
 	(global_label "Nitrogen"
 		(shape output)
-		(at 36.83 109.22 0)
+		(at 55.88 181.61 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2573,7 +2824,7 @@
 		)
 		(uuid "53ba9cda-ce46-452c-8c0f-991078b2b834")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 47.798 109.22 0)
+			(at 66.848 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2585,15 +2836,15 @@
 	)
 	(symbol
 		(lib_id "pnid-lib:Tank_Slim")
-		(at 251.46 50.8 0)
+		(at 247.65 92.71 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "063dfe38-128a-4055-8a91-dc5659620222")
-		(property "Reference" "NitrogenMembrane"
-			(at 260.096 51.308 0)
+		(property "Reference" "NitrogenMembrane1"
+			(at 256.286 93.218 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2601,8 +2852,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Tank_Slim"
-			(at 259.842 53.34 0)
+		(property "Value" "KL-AIR-RANE MNH-1512A"
+			(at 256.032 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2611,7 +2862,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 251.46 50.8 0)
+			(at 247.65 92.71 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -2620,7 +2871,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 251.46 50.8 0)
+			(at 247.65 92.71 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -2629,7 +2880,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 251.46 50.8 0)
+			(at 247.65 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2638,7 +2889,7 @@
 			)
 		)
 		(property "Unit" "%"
-			(at 251.46 50.8 0)
+			(at 247.65 92.71 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -2647,7 +2898,7 @@
 			)
 		)
 		(property "Action_Reference" " "
-			(at 251.46 50.8 0)
+			(at 247.65 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2656,7 +2907,7 @@
 			)
 		)
 		(property "Data_Content" " "
-			(at 251.46 50.8 0)
+			(at 247.65 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2673,7 +2924,7 @@
 		(instances
 			(project "NitrogenGenerator"
 				(path "/c5365556-9b4a-4e37-8bb8-20fd18113201/1b754a42-13ad-4d8b-8663-062e1b8a93f8"
-					(reference "NitrogenMembrane")
+					(reference "NitrogenMembrane1")
 					(unit 1)
 				)
 			)
@@ -2681,7 +2932,7 @@
 	)
 	(symbol
 		(lib_id "pnid-lib:Tank")
-		(at 63.5 88.9 0)
+		(at 82.55 161.29 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2689,8 +2940,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1895a213-9079-4f6c-bd50-548786518d37")
-		(property "Reference" "HoldingTank"
-			(at 73.66 87.6299 0)
+		(property "Reference" "HoldingTank1"
+			(at 92.71 160.0199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2698,8 +2949,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "5GAL"
-			(at 73.66 90.1699 0)
+		(property "Value" "5GAL 100PSI"
+			(at 92.71 162.5599 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2708,7 +2959,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 63.5 88.9 0)
+			(at 82.55 161.29 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -2717,7 +2968,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 63.5 88.9 0)
+			(at 82.55 161.29 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -2726,7 +2977,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 63.5 88.9 0)
+			(at 82.55 161.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2735,7 +2986,7 @@
 			)
 		)
 		(property "Unit" "%"
-			(at 63.5 88.9 0)
+			(at 82.55 161.29 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -2744,7 +2995,7 @@
 			)
 		)
 		(property "Action_Reference" " "
-			(at 63.5 88.9 0)
+			(at 82.55 161.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2753,7 +3004,7 @@
 			)
 		)
 		(property "Data_Content" " "
-			(at 63.5 88.9 0)
+			(at 82.55 161.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2770,7 +3021,7 @@
 		(instances
 			(project "NitrogenGenerator"
 				(path "/c5365556-9b4a-4e37-8bb8-20fd18113201/1b754a42-13ad-4d8b-8663-062e1b8a93f8"
-					(reference "HoldingTank")
+					(reference "HoldingTank1")
 					(unit 1)
 				)
 			)
@@ -2778,7 +3029,7 @@
 	)
 	(symbol
 		(lib_id "pnid-lib:Sensor_Pressure")
-		(at 156.21 24.13 90)
+		(at 162.56 62.23 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2786,7 +3037,7 @@
 		(dnp no)
 		(uuid "3254d5e0-b2a3-4914-874a-76d424c72a33")
 		(property "Reference" "AirPressure1"
-			(at 154.686 17.78 90)
+			(at 161.036 55.88 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2795,7 +3046,7 @@
 			)
 		)
 		(property "Value" "Autex 200Psi Pressure Transducer"
-			(at 141.986 20.066 90)
+			(at 148.336 58.166 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2804,7 +3055,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 156.21 24.13 0)
+			(at 162.56 62.23 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -2813,7 +3064,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 156.21 24.13 0)
+			(at 162.56 62.23 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -2822,7 +3073,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 156.21 24.13 0)
+			(at 162.56 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2831,7 +3082,7 @@
 			)
 		)
 		(property "Unit" "bar"
-			(at 156.21 24.13 0)
+			(at 162.56 62.23 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -2840,7 +3091,7 @@
 			)
 		)
 		(property "Action_Reference" " "
-			(at 156.21 24.13 0)
+			(at 162.56 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2849,7 +3100,7 @@
 			)
 		)
 		(property "Data_Content" " "
-			(at 160.02 26.6699 90)
+			(at 166.37 64.7699 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2871,7 +3122,7 @@
 	)
 	(symbol
 		(lib_id "pnid-lib:Vent")
-		(at 271.78 43.18 0)
+		(at 266.7 85.09 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2880,7 +3131,7 @@
 		(fields_autoplaced yes)
 		(uuid "33065e7a-d727-4eb9-b001-97f9c6a74d79")
 		(property "Reference" "Permeate"
-			(at 273.05 43.1799 0)
+			(at 267.97 85.0899 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2889,7 +3140,7 @@
 			)
 		)
 		(property "Value" "8MM Push-In"
-			(at 274.32 44.45 0)
+			(at 269.24 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2898,7 +3149,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 271.78 43.18 0)
+			(at 266.7 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2907,7 +3158,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 271.78 43.18 0)
+			(at 266.7 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2916,7 +3167,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 271.78 43.18 0)
+			(at 266.7 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2939,7 +3190,7 @@
 	(symbol
 		(lib_name "Valve_Needle_1")
 		(lib_id "pnid-lib:Valve_Needle")
-		(at 190.5 69.85 0)
+		(at 196.85 116.84 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2948,7 +3199,7 @@
 		(fields_autoplaced yes)
 		(uuid "35ac0a1c-05ac-48c7-b2f0-968cee6bb36a")
 		(property "Reference" "NitrogrenNeedleValve1"
-			(at 190.5 59.69 0)
+			(at 196.85 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2956,7 +3207,7 @@
 			)
 		)
 		(property "Value" "Needle valve 1/4\"NPT, 3mm"
-			(at 190.5 62.23 0)
+			(at 196.85 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2964,7 +3215,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 190.5 69.85 0)
+			(at 196.85 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2973,7 +3224,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 190.5 69.85 0)
+			(at 196.85 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2982,7 +3233,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 190.5 69.85 0)
+			(at 196.85 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2991,7 +3242,7 @@
 			)
 		)
 		(property "Action_Reference" " "
-			(at 190.5 69.85 0)
+			(at 196.85 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3016,7 +3267,7 @@
 	)
 	(symbol
 		(lib_id "pnid-lib:Valve_Needle")
-		(at 190.5 31.75 0)
+		(at 196.85 69.85 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3024,7 +3275,7 @@
 		(dnp no)
 		(uuid "574ee57e-e499-486b-ba47-4b2047380c06")
 		(property "Reference" "AirNeedleValve1"
-			(at 190.5 20.828 0)
+			(at 196.85 58.928 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3032,7 +3283,7 @@
 			)
 		)
 		(property "Value" "Needle valve 1/4\"NPT, 3mm"
-			(at 190.754 24.13 0)
+			(at 197.104 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3040,7 +3291,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 190.5 31.75 0)
+			(at 196.85 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3049,7 +3300,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 190.5 31.75 0)
+			(at 196.85 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3058,7 +3309,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 190.5 31.75 0)
+			(at 196.85 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3067,7 +3318,7 @@
 			)
 		)
 		(property "Action_Reference" " "
-			(at 190.5 31.75 0)
+			(at 196.85 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3093,7 +3344,7 @@
 	(symbol
 		(lib_name "Valve_Solenoid_1")
 		(lib_id "pnid-lib:Valve_Solenoid")
-		(at 156.21 69.85 0)
+		(at 162.56 116.84 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3101,7 +3352,7 @@
 		(dnp no)
 		(uuid "5abc35f9-86ce-4e59-9896-649c0cf91031")
 		(property "Reference" "NitrogenSolendoid1"
-			(at 157.734 53.086 0)
+			(at 164.084 100.076 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3109,7 +3360,7 @@
 			)
 		)
 		(property "Value" "AirTAC 2WA030-08 24V"
-			(at 157.48 56.896 0)
+			(at 163.83 103.886 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3117,7 +3368,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 156.21 69.85 0)
+			(at 162.56 116.84 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -3126,7 +3377,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 156.21 69.85 0)
+			(at 162.56 116.84 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -3135,7 +3386,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 156.21 69.85 0)
+			(at 162.56 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3144,7 +3395,7 @@
 			)
 		)
 		(property "Unit" "%"
-			(at 156.21 69.85 0)
+			(at 162.56 116.84 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -3153,7 +3404,7 @@
 			)
 		)
 		(property "Action_Reference" " "
-			(at 156.21 69.85 0)
+			(at 162.56 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3178,15 +3429,15 @@
 	)
 	(symbol
 		(lib_id "pnid-lib:Sensor_Pressure")
-		(at 120.65 62.23 90)
+		(at 129.54 109.22 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "a4df1b44-847c-40e9-b634-fa967a7be656")
-		(property "Reference" "NitrogenPressure"
-			(at 113.284 53.848 90)
+		(property "Reference" "NitrogenPressure1"
+			(at 122.174 100.838 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3195,7 +3446,7 @@
 			)
 		)
 		(property "Value" "Autex 200Psi Pressure Transducer"
-			(at 105.918 57.15 90)
+			(at 114.808 104.14 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3204,7 +3455,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 120.65 62.23 0)
+			(at 129.54 109.22 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -3213,7 +3464,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 120.65 62.23 0)
+			(at 129.54 109.22 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -3222,7 +3473,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 120.65 62.23 0)
+			(at 129.54 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3231,7 +3482,7 @@
 			)
 		)
 		(property "Unit" "bar"
-			(at 120.65 62.23 0)
+			(at 129.54 109.22 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -3240,7 +3491,7 @@
 			)
 		)
 		(property "Action_Reference" " "
-			(at 120.65 62.23 0)
+			(at 129.54 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3249,7 +3500,7 @@
 			)
 		)
 		(property "Data_Content" " "
-			(at 124.46 66.0399 90)
+			(at 133.35 113.0299 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3263,7 +3514,7 @@
 		(instances
 			(project "NitrogenGenerator"
 				(path "/c5365556-9b4a-4e37-8bb8-20fd18113201/1b754a42-13ad-4d8b-8663-062e1b8a93f8"
-					(reference "NitrogenPressure")
+					(reference "NitrogenPressure1")
 					(unit 1)
 				)
 			)
@@ -3272,7 +3523,7 @@
 	(symbol
 		(lib_name "QuickConnect_1")
 		(lib_id "pnid-lib:QuickConnect")
-		(at 92.71 69.85 0)
+		(at 101.6 116.84 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3281,7 +3532,7 @@
 		(fields_autoplaced yes)
 		(uuid "a6ea1cce-b250-4309-899c-f2260c97c291")
 		(property "Reference" "NitrogenOUT1"
-			(at 92.71 62.23 0)
+			(at 101.6 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3289,7 +3540,7 @@
 			)
 		)
 		(property "Value" "QuickConnect 1/4NPT"
-			(at 92.71 64.77 0)
+			(at 101.6 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3297,7 +3548,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 92.71 69.85 0)
+			(at 101.6 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3306,7 +3557,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 92.71 69.85 0)
+			(at 101.6 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3315,7 +3566,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 92.71 69.85 0)
+			(at 101.6 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3340,7 +3591,7 @@
 	)
 	(symbol
 		(lib_id "pnid-lib:Valve_Solenoid")
-		(at 120.65 31.75 0)
+		(at 129.54 69.85 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3348,7 +3599,7 @@
 		(dnp no)
 		(uuid "ab78e816-54fe-400a-b608-58043bfab5cd")
 		(property "Reference" "AirSolenoid1"
-			(at 120.904 18.034 0)
+			(at 129.794 56.134 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3356,7 +3607,7 @@
 			)
 		)
 		(property "Value" "AirTAC 2WA030-08 24V"
-			(at 120.65 20.066 0)
+			(at 129.54 58.166 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3364,7 +3615,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 120.65 31.75 0)
+			(at 129.54 69.85 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -3373,7 +3624,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 120.65 31.75 0)
+			(at 129.54 69.85 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -3382,7 +3633,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 120.65 31.75 0)
+			(at 129.54 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3391,7 +3642,7 @@
 			)
 		)
 		(property "Unit" "%"
-			(at 120.65 31.75 0)
+			(at 129.54 69.85 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -3400,7 +3651,7 @@
 			)
 		)
 		(property "Action_Reference" " "
-			(at 120.65 31.75 0)
+			(at 129.54 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3425,7 +3676,7 @@
 	)
 	(symbol
 		(lib_id "pnid-lib:PressureRegulator")
-		(at 38.1 31.75 0)
+		(at 40.64 35.56 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3433,16 +3684,16 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e0d11aef-27e6-40d2-a72b-a3ebd12be7b2")
-		(property "Reference" "Compressor"
-			(at 37.465 20.32 0)
+		(property "Reference" "Compressor1"
+			(at 40.005 24.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "100PSI"
-			(at 37.465 22.86 0)
+		(property "Value" "125PSI"
+			(at 40.005 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3450,7 +3701,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 38.1 31.75 0)
+			(at 40.64 35.56 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -3459,7 +3710,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 38.1 31.75 0)
+			(at 40.64 35.56 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -3468,7 +3719,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 38.1 31.75 0)
+			(at 40.64 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3485,7 +3736,7 @@
 		(instances
 			(project "NitrogenGenerator"
 				(path "/c5365556-9b4a-4e37-8bb8-20fd18113201/1b754a42-13ad-4d8b-8663-062e1b8a93f8"
-					(reference "Compressor")
+					(reference "Compressor1")
 					(unit 1)
 				)
 			)
@@ -3494,7 +3745,7 @@
 	(symbol
 		(lib_name "QuickConnect_3")
 		(lib_id "pnid-lib:QuickConnect")
-		(at 217.17 69.85 0)
+		(at 223.52 116.84 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3503,7 +3754,7 @@
 		(fields_autoplaced yes)
 		(uuid "e2bef5fb-1f19-4858-9b64-57030e103087")
 		(property "Reference" "NitrogenIN1"
-			(at 217.17 62.23 0)
+			(at 223.52 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3511,7 +3762,7 @@
 			)
 		)
 		(property "Value" "8MM Push-In"
-			(at 217.17 64.77 0)
+			(at 223.52 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3519,7 +3770,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 217.17 69.85 0)
+			(at 223.52 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3528,7 +3779,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 217.17 69.85 0)
+			(at 223.52 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3537,7 +3788,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 217.17 69.85 0)
+			(at 223.52 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3562,7 +3813,7 @@
 	)
 	(symbol
 		(lib_id "pnid-lib:QuickConnect")
-		(at 67.31 31.75 0)
+		(at 60.96 69.85 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3571,7 +3822,7 @@
 		(fields_autoplaced yes)
 		(uuid "e7497661-aabc-4852-98cf-4a2100ba7acd")
 		(property "Reference" "AirIN1"
-			(at 67.31 24.13 0)
+			(at 60.96 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3579,7 +3830,7 @@
 			)
 		)
 		(property "Value" "QuickConnect 1/4NPT"
-			(at 67.31 26.67 0)
+			(at 60.96 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3587,7 +3838,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 67.31 31.75 0)
+			(at 60.96 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3596,7 +3847,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 67.31 31.75 0)
+			(at 60.96 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3605,7 +3856,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 67.31 31.75 0)
+			(at 60.96 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3631,7 +3882,7 @@
 	(symbol
 		(lib_name "QuickConnect_2")
 		(lib_id "pnid-lib:QuickConnect")
-		(at 217.17 31.75 0)
+		(at 223.52 69.85 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3639,7 +3890,7 @@
 		(dnp no)
 		(uuid "e7844bfd-b4ac-446b-a07a-3a020bc94237")
 		(property "Reference" "AirOUT1"
-			(at 217.17 21.082 0)
+			(at 223.52 59.182 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3647,7 +3898,7 @@
 			)
 		)
 		(property "Value" "8MM Push-In"
-			(at 216.662 24.13 0)
+			(at 223.012 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3655,7 +3906,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 217.17 31.75 0)
+			(at 223.52 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3664,7 +3915,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 217.17 31.75 0)
+			(at 223.52 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3673,7 +3924,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 217.17 31.75 0)
+			(at 223.52 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
