@@ -11319,9 +11319,9 @@
 	(sheet
 		(at 236.22 140.97)
 		(size 41.91 19.05)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(stroke
