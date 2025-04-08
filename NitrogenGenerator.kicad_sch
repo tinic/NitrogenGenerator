@@ -11340,6 +11340,48 @@
 			)
 		)
 	)
+	(sheet
+		(at 236.22 140.97)
+		(size 41.91 19.05)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 194 194 1.0000)
+		)
+		(uuid "1b754a42-13ad-4d8b-8663-062e1b8a93f8")
+		(property "Sheetname" "PnID"
+			(at 236.22 140.2584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "PnID.kicad_sch"
+			(at 236.22 160.6046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "NitrogenGenerator"
+				(path "/c5365556-9b4a-4e37-8bb8-20fd18113201"
+					(page "2")
+				)
+			)
+		)
+	)
 	(sheet_instances
 		(path "/"
 			(page "1")

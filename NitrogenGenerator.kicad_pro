@@ -457,7 +457,7 @@
       "no_connect_dangling": "warning",
       "pin_not_connected": "error",
       "pin_not_driven": "error",
-      "pin_to_pin": "warning",
+      "pin_to_pin": "error",
       "power_pin_not_driven": "error",
       "same_local_global_label": "warning",
       "similar_label_and_power": "warning",
@@ -639,6 +639,10 @@
     [
       "c5365556-9b4a-4e37-8bb8-20fd18113201",
       "Root"
+    ],
+    [
+      "1b754a42-13ad-4d8b-8663-062e1b8a93f8",
+      "PnID"
     ]
   ],
   "text_variables": {}

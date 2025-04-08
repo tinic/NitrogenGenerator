@@ -1,4 +1,5 @@
 (sym_lib_table
   (version 7)
   (lib (name "NitrogenGenerator")(type "KiCad")(uri "${KIPRJMOD}/NitrogenGenerator.kicad_sym")(options "")(descr ""))
+  (lib (name "pnid-lib")(type "KiCad")(uri "${KIPRJMOD}/pnid-lib/PnID.kicad_sym")(options "")(descr ""))
 )
