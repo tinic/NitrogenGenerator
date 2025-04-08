@@ -1,0 +1,40 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug (OpenOCD)",
+            "cwd": "${workspaceRoot}",
+            "executable": "${command:cmake.launchTargetPath}",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "interface": "swd",
+            "runToEntryPoint": "main",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+            },
+            "svdFile": "${workspaceRoot}/STM32G030.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32g0x.cfg"
+            ],
+            "preLaunchTask": "pre-debug-tasks",
+            "swoConfig": {
+                "source": "probe",
+                "enabled": true,
+                "swoFrequency": 8000,
+                "cpuFrequency": 64000000,
+                "decoders": [
+                    {
+                        "port": 0,
+                        "type": "console",
+                        "showOnStartup": true,
+                        "label": "Output",
+                        "encoding":"utf8"
+                    }
+                ]
+            }
+        }
+   ],
+}

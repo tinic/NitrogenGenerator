@@ -1,0 +1,21 @@
+{
+    "env": {},
+    "configurations": [
+        {
+            "name": "Win32",
+            "compilerPath": "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin/arm-none-eabi-g++.exe",
+            "cStandard": "gnu23",
+            "cppStandard": "c++23",
+            "configurationProvider": "ms-vscode.cmake-tools",
+            "intelliSenseMode": "windows-gcc-arm"
+        },
+        {
+            "name": "Mac",
+            "compilerPath": "/opt/homebrew/bin/arm-none-eabi-g++",
+            "cStandard": "gnu23",
+            "cppStandard": "c++23",
+            "intelliSenseMode": "macos-gcc-arm"
+        }
+    ],
+    "version": 4
+}

@@ -1,0 +1,63 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "pre-debug-tasks",
+      "dependsOn": [
+        //"Debug: Disconnect", @#$@#$@#!!!
+        "CMake: build"
+      ],
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    },
+    {
+      "label": "STM32 compile",
+      "type": "shell",
+      "command": "ninja",
+      "options": {
+        "cwd": "${workspaceRoot}/build"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "close": true,
+        "clear": true
+      }
+    },
+    {
+      "label": "Debug: Disconnect",
+      "type": "shell",
+      "command": "code",
+      "args": ["--command", "workbench.action.debug.disconnect"],
+      "problemMatcher": []
+    },
+    {
+      "type": "cmake",
+      "label": "CMake: configure",
+      "command": "configure",
+      "problemMatcher": [],
+      "detail": "CMake template configure task"
+    },
+    {
+      "type": "cmake",
+      "label": "CMake: build",
+      "command": "build",
+      "targets": [
+        "all"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "detail": "CMake template build task"
+    },
+    {
+      "type": "cmake",
+      "label": "CMake: build",
+      "command": "build",
+      "targets": [
+        "all"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "detail": "CMake template build task"
+    }
+  ]
+}
