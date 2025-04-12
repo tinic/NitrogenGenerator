@@ -4,3 +4,6 @@
 [submodule "pnid-lib"]
 	path = pnid-lib
 	url = https://github.com/SpaceTeam/pnid-lib.git
+[submodule "CubeMX/fontbm"]
+	path = CubeMX/fontbm
+	url = https://github.com/vladimirgamalyan/fontbm.git
