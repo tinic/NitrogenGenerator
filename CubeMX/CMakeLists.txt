@@ -21,6 +21,12 @@ endif()
 # Set the project name
 set(CMAKE_PROJECT_NAME NitrogenGenerator)
 
+# init sub modules
+if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.gitmodules")
+  execute_process (COMMAND git submodule update --init --recursive
+                   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+endif() 
+
 # Include toolchain file
 include("cmake/gcc-arm-none-eabi.cmake")
 
@@ -66,6 +72,28 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 
     # Add user defined libraries
 )
+
+IF (${CMAKE_HOST_SYSTEM_NAME} STREQUAL  "Windows")
+    set(FONTBM_BINARY ${PROJECT_SOURCE_DIR}/fontbm/build/Debug/fontbm.exe)
+    set(FONTBM_CMAKE_COMMAND cmake -Wno-deprecated -G "Visual Studio 16 2019" .. )
+ELSE (${CMAKE_HOST_SYSTEM_NAME} STREQUAL  "Windows")
+    set(FONTBM_BINARY ${PROJECT_SOURCE_DIR}/fontbm/build/fontbm)
+    set(FONTBM_CMAKE_COMMAND cmake -Wno-deprecated -G "Ninja" .. )
+ENDIF (${CMAKE_HOST_SYSTEM_NAME} STREQUAL  "Windows")
+
+file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/fontbm/build)
+add_custom_command(
+    OUTPUT ${FONTBM_BINARY}
+    COMMAND ${FONTBM_CMAKE_COMMAND}
+    COMMAND cmake --build . 
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/fontbm/build
+    DEPENDS ${PROJECT_SOURCE_DIR}/fontbm/scr/main.cpp)
+
+add_custom_command(
+    OUTPUT ${PROJECT_BINARY_DIR}/font.png
+    COMMAND ${FONTBM_BINARY} --font-file ${PROJECT_SOURCE_DIR}/SF-Compact-Display-Bold.otf --monochrome --font-size 20 --output font.png --data-format bin
+    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+    DEPENDS ${FONTBM_BINARY})
 
 add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_OBJDUMP} -D $<TARGET_FILE:${CMAKE_PROJECT_NAME}> > ${CMAKE_PROJECT_NAME}.S
