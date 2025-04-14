@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <cstring>
 
+#include "font_0.h"
 #include "font.h"
 #include "Core/Inc/main.h"
 
