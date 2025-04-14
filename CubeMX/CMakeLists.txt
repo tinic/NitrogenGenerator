@@ -21,7 +21,7 @@ endif()
 set(CMAKE_PROJECT_NAME NitrogenGenerator)
 
 # init sub modules
-if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.gitmodules")
+if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.gitmodules")
   execute_process (COMMAND git submodule update --init --recursive
                    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endif() 
