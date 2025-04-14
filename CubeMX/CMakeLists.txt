@@ -12,7 +12,6 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS ON)
 
-
 # Define the build type
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Debug")
@@ -87,13 +86,31 @@ add_custom_command(
     COMMAND ${FONTBM_CMAKE_COMMAND}
     COMMAND cmake --build . 
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/fontbm/build
-    DEPENDS ${PROJECT_SOURCE_DIR}/fontbm/scr/main.cpp)
+    DEPENDS ${PROJECT_SOURCE_DIR}/fontbm/src/main.cpp)
 
+set(FONT_FNT ${PROJECT_BINARY_DIR}/font.fnt)
+set(FONT_PNG ${PROJECT_BINARY_DIR}/font_0.png)
 add_custom_command(
-    OUTPUT ${PROJECT_BINARY_DIR}/font.png
-    COMMAND ${FONTBM_BINARY} --font-file ${PROJECT_SOURCE_DIR}/SF-Compact-Display-Bold.otf --monochrome --font-size 20 --output font.png --data-format bin
+    OUTPUT ${FONT_PNG} ${FONT_FNT}
+    COMMAND ${FONTBM_BINARY} --font-file ${PROJECT_SOURCE_DIR}/SF-Compact-Display-Bold.otf --kerning-pairs extended --monochrome --font-size 20 --output font --data-format json
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     DEPENDS ${FONTBM_BINARY})
+
+set(FONT_BITMAP_HEADER ${PROJECT_BINARY_DIR}/font_0.h)
+add_custom_command(
+        OUTPUT ${FONT_BITMAP_HEADER}
+        COMMAND python3 ${PROJECT_SOURCE_DIR}/png_to_header.py -i ${FONT_PNG} -o ${FONT_BITMAP_HEADER}
+        WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+        DEPENDS ${FONT_PNG})
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${FONT_BITMAP_HEADER})
+
+set(FONT_HEADER ${PROJECT_BINARY_DIR}/font.h)
+add_custom_command(
+        OUTPUT ${FONT_HEADER}
+        COMMAND python3 ${PROJECT_SOURCE_DIR}/font_to_header.py -i ${FONT_FNT} -o ${FONT_HEADER}
+        WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+        DEPENDS ${FONT_FNT})
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${FONT_HEADER})
 
 add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_OBJDUMP} -D $<TARGET_FILE:${CMAKE_PROJECT_NAME}> > ${CMAKE_PROJECT_NAME}.S
