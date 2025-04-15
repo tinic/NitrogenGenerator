@@ -95,14 +95,13 @@ class ST7525Display {
         y += ch.yoffset;
         int32_t x2 = x + int32_t(ch.width);
         int32_t y2 = y + int32_t(ch.height);
-    
         for (int32_t yy = y; yy < y2; yy++) {
             for (int32_t xx = x; xx < x2; xx++) {
-                int byte_index = (xx - x) / 8;
-                int bit_index = 7 - ((xx - x) % 8);
-    
+                int x_off = (xx - x) + (ch.x % 8);
+                int byte_index = x_off / 8;
+                int bit_index = 7 - (x_off % 8);
                 uint8_t a = (data[byte_index] >> bit_index) & 1;
-                if (a) {
+                if (!a) {
                     set_pixel(xx, yy, 1);
                 }
             }
@@ -138,7 +137,9 @@ class ST7525Display {
                 return 0;
             }
 
-            x += FONT_KERNINGS.at({lastCodePoint, codePoint});
+            if (FONT_KERNINGS_COUNT) {
+                x += FONT_KERNINGS.at({lastCodePoint, codePoint});
+            }
             chInfo = &FONT_CHARS_FIXED.at(codePoint);
             chData = &image_asset_data[0];
 
@@ -157,6 +158,10 @@ class ST7525Display {
         return x;
 
     }    
+
+    void clear() {
+        memset(framebuffer, 0, sizeof(framebuffer));
+    }
        
     void write_frame() {
         send_cmd(CMD_SET_PAGE_ADRESS);
@@ -191,22 +196,34 @@ void screen_init() {
     ST7525Display::instance().init();
 }
 
+static uint32_t seconds = 0;
+
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (htim == &htim1) {
+        ST7525Display::instance().clear();
         static volatile int32_t c = 0;
         static char output[32] = {0};
-        sprintf(output, "YEAH! %d", int(c));
+        sprintf(output, "AIR:");
         ST7525Display::instance().draw_string(0, 0, output);
+        sprintf(output, "%dpsi", int(c));
+        ST7525Display::instance().draw_string(192/2-ST7525Display::instance().draw_string(0, 0, output, true)-8, 0, output);
+        sprintf(output, "N2:");
+        ST7525Display::instance().draw_string(192/2, 0, output);
+        sprintf(output, "%dpsi", int(c));
+        ST7525Display::instance().draw_string(192-ST7525Display::instance().draw_string(0, 0, output, true)-8, 0, output);
+
+        uint32_t h = (seconds  / 3600);
+        uint32_t m = (seconds  /   60) % 60;
+        uint32_t s = (seconds        ) % 60;
+        sprintf(output, "%04d:%02d:%02d", h, m, s);
+        ST7525Display::instance().draw_string(0, 44, output);
+
         c = c + 1;
+        if (c > 120) c = 0;
+        ST7525Display::instance().write_frame();
     }
     if (htim == &htim3) {
-      static volatile int32_t c = 0;
-      static char output[32] = {0};
-      c ^= 1;
+        seconds ++;
       //HAL_GPIO_WritePin(GPIOA, SOLENOID_VAVLE2_Pin, GPIO_PinState(c));
-
-      sprintf(output, "SWITCH! %d", int(c));
-      ST7525Display::instance().draw_string(0, 16, output);
-  }
-  ST7525Display::instance().write_frame();
+    }
 }

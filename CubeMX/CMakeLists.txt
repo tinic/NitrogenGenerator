@@ -81,9 +81,9 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     # Add user defined libraries
 )
 
-IF (${CMAKE_HOST_SYSTEM_NAME} STREQUAL  "Windows")
+IF (${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
     set(FONTBM_BINARY ${PROJECT_SOURCE_DIR}/fontbm/build/Debug/fontbm.exe)
-    set(FONTBM_CMAKE_COMMAND cmake -Wno-deprecated -G "Visual Studio 16 2019" .. )
+    set(FONTBM_CMAKE_COMMAND cmake --preset=default )
 ELSE (${CMAKE_HOST_SYSTEM_NAME} STREQUAL  "Windows")
     set(FONTBM_BINARY ${PROJECT_SOURCE_DIR}/fontbm/build/fontbm)
     set(FONTBM_CMAKE_COMMAND cmake -Wno-deprecated -G "Ninja" .. )
@@ -93,15 +93,15 @@ file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/fontbm/build)
 add_custom_command(
     OUTPUT ${FONTBM_BINARY}
     COMMAND ${FONTBM_CMAKE_COMMAND}
-    COMMAND cmake --build . 
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/fontbm/build
+    COMMAND cmake --build build
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/fontbm
     DEPENDS ${PROJECT_SOURCE_DIR}/fontbm/src/main.cpp)
 
 set(FONT_FNT ${PROJECT_BINARY_DIR}/font.fnt)
 set(FONT_PNG ${PROJECT_BINARY_DIR}/font_0.png)
 add_custom_command(
     OUTPUT ${FONT_PNG} ${FONT_FNT}
-    COMMAND ${FONTBM_BINARY} --font-file ${PROJECT_SOURCE_DIR}/SF-Compact-Display-Bold.otf --kerning-pairs regular --monochrome --font-size 20 --output font --data-format json
+    COMMAND ${FONTBM_BINARY} --font-file ${PROJECT_SOURCE_DIR}/SF-Compact-Display-Bold.otf --kerning-pairs regular --monochrome --font-size 18 --output font --data-format json
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     DEPENDS ${FONTBM_BINARY})
 

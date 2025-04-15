@@ -17,50 +17,29 @@ def generate_cpp_header(data, header_name_base):
     // Data structures generated from JSON
 
     struct CharInfo {{
-        int chnl;
-        int height;
-        int id;
-        int page;
-        int width;
-        int x;
-        int xadvance;
-        int xoffset;
-        int y;
-        int yoffset;
-    }};
-
-    struct CommonInfo {{
-        int alphaChnl;
-        int base;
-        int blueChnl;
-        int greenChnl;
-        int lineHeight;
-        int packed;
-        int pages;
-        int redChnl;
-        int scaleH;
-        int scaleW;
+        int8_t height;
+        int8_t id;
+        int8_t width;
+        int8_t x;
+        int8_t xadvance;
+        int8_t xoffset;
+        int8_t y;
+        int8_t yoffset;
     }};
 
     struct FontInfo {{
-        int aa;
-        int bold;
+        int8_t bold;
         const char* charset; // Assuming charset is always empty or a string literal
         const char* face;
-        int italic;
-        int outline;
-        int padding[4];
-        int size;
-        int smooth;
-        int spacing[2];
-        int stretchH;
-        int unicode;
+        int8_t italic;
+        int8_t outline;
+        int8_t size;
     }};
 
     struct KerningInfo {{
-        int amount;
-        int first;
-        int second;
+        int8_t amount;
+        int8_t first;
+        int8_t second;
     }};
 
     """)
@@ -75,8 +54,8 @@ def generate_cpp_header(data, header_name_base):
     chars_array_content = []
     for char in chars_data:
         chars_array_content.append(
-            f"    {{ {char.get('chnl', 0)}, {char.get('height', 0)}, {char.get('id', 0)}, "
-            f"{char.get('page', 0)}, {char.get('width', 0)}, {char.get('x', 0)}, "
+            f"    {{ {char.get('height', 0)}, {char.get('id', 0)}, "
+            f"{char.get('width', 0)}, {char.get('x', 0)}, "
             f"{char.get('xadvance', 0)}, {char.get('xoffset', 0)}, {char.get('y', 0)}, "
             f"{char.get('yoffset', 0)} }}"
         )
@@ -95,17 +74,8 @@ def generate_cpp_header(data, header_name_base):
         index = index + 1
 
     chars_array_fixed = textwrap.dedent("""\
-        static constexpr fixed_containers::FixedMap<uint32_t, const CharInfo&, FONT_CHARS_COUNT> FONT_CHARS_FIXED = {
+        static constexpr fixed_containers::FixedMap<uint8_t, const CharInfo&, FONT_CHARS_COUNT> FONT_CHARS_FIXED = {
         """) + ",\n".join(chars_array_fixed_content) + "\n};"
-
-    # --- Generate Common Data ---
-    common_struct = textwrap.dedent(f"""\
-    const CommonInfo FONT_COMMON = {{
-        {common_data.get('alphaChnl', 0)}, {common_data.get('base', 0)}, {common_data.get('blueChnl', 0)},
-        {common_data.get('greenChnl', 0)}, {common_data.get('lineHeight', 0)}, {common_data.get('packed', 0)},
-        {common_data.get('pages', 0)}, {common_data.get('redChnl', 0)}, {common_data.get('scaleH', 0)},
-        {common_data.get('scaleW', 0)}
-    }};""")
 
     # --- Generate Info Data ---
     # Escape backslashes and quotes in face/charset strings for C++
@@ -116,12 +86,9 @@ def generate_cpp_header(data, header_name_base):
 
     info_struct = textwrap.dedent(f"""\
     const FontInfo FONT_INFO = {{
-        {info_data.get('aa', 0)}, {info_data.get('bold', 0)}, {charset_str},
+        {info_data.get('bold', 0)}, {charset_str},
         {face_str}, {info_data.get('italic', 0)}, {info_data.get('outline', 0)},
-        {{ {padding_arr[0]}, {padding_arr[1]}, {padding_arr[2]}, {padding_arr[3]} }},
-        {info_data.get('size', 0)}, {info_data.get('smooth', 0)},
-        {{ {spacing_arr[0]}, {spacing_arr[1]} }},
-        {info_data.get('stretchH', 0)}, {info_data.get('unicode', 0)}
+        {info_data.get('size', 0)}
     }};""")
 
     # --- Generate Kernings Array ---
@@ -135,17 +102,17 @@ def generate_cpp_header(data, header_name_base):
     if kernings_data:
         kernings_array = textwrap.dedent(f"""\
         const int FONT_KERNINGS_COUNT = {len(kernings_data)};
-        static constexpr fixed_containers::FixedMap<std::pair<uint32_t, uint32_t>, int32_t, FONT_KERNINGS_COUNT> FONT_KERNINGS = {{
+        static constexpr fixed_containers::FixedMap<std::pair<uint8_t, uint8_t>, uint8_t, FONT_KERNINGS_COUNT> FONT_KERNINGS = {{
         """) + ",\n".join(kernings_array_content) + "\n};"
     else:
         kernings_array = textwrap.dedent(f"""\
         const int FONT_KERNINGS_COUNT = 0;
-        static constexpr fixed_containers::FixedMap<std::pair<uint32_t, uint32_t>, int32_t, FONT_KERNINGS_COUNT> FONT_KERNINGS = {{
+        static constexpr fixed_containers::FixedMap<std::pair<uint8_t, uint8_t>, uint8_t, FONT_KERNINGS_COUNT> FONT_KERNINGS = {{
         """) + ",\n".join(kernings_array_content) + "\n};"
 
     # --- Assemble Final Header ---
     footer = "\n#endif // " + header_name_base.upper() + "_H\n"
-    return struct_defs + "\n" + info_struct + "\n\n" + common_struct + "\n\n" + chars_array + "\n\n" + chars_array_fixed + "\n\n" + kernings_array + footer
+    return struct_defs + "\n" + info_struct + "\n\n" + chars_array + "\n\n" + chars_array_fixed + "\n\n" + kernings_array + footer
 
 
 def main():

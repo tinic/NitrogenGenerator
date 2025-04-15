@@ -1,3 +1,6 @@
+import sys
+print(sys.executable)
+
 import argparse, os
 from PIL import Image
 
