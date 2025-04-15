@@ -90,7 +90,8 @@ class ST7525Display {
     }
 
     void draw_char(int32_t x, int32_t y, const CharInfo &ch, const uint8_t *data) {
-        data += (ch.y * IMAGE_ASSET_WIDTH + ch.x) / 8;
+        const size_t stride = (IMAGE_ASSET_WIDTH + 7) & ~(7);
+        data += (ch.y * stride + ch.x) / 8;
         x += ch.xoffset;
         y += ch.yoffset;
         int32_t x2 = x + int32_t(ch.width);
@@ -105,7 +106,7 @@ class ST7525Display {
                     set_pixel(xx, yy, 1);
                 }
             }
-            data += IMAGE_ASSET_WIDTH / 8;
+            data += stride / 8;
         }
     
     }
@@ -196,7 +197,7 @@ void screen_init() {
     ST7525Display::instance().init();
 }
 
-static uint32_t seconds = 0;
+static int32_t seconds = 0;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (htim == &htim1) {
@@ -212,10 +213,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
         sprintf(output, "%dpsi", int(c));
         ST7525Display::instance().draw_string(192-ST7525Display::instance().draw_string(0, 0, output, true)-8, 0, output);
 
-        uint32_t h = (seconds  / 3600);
-        uint32_t m = (seconds  /   60) % 60;
-        uint32_t s = (seconds        ) % 60;
-        sprintf(output, "%04d:%02d:%02d", h, m, s);
+        int32_t h = (seconds  / 3600);
+        int32_t m = (seconds  /   60) % 60;
+        int32_t s = (seconds        ) % 60;
+        sprintf(output, "%04d:%02d:%02d", int(h), int(m), int(s));
         ST7525Display::instance().draw_string(0, 44, output);
 
         c = c + 1;
