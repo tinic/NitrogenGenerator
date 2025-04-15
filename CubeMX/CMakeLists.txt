@@ -11,6 +11,7 @@ cmake_minimum_required(VERSION 3.22)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS ON)
+set(CMAKE_CXX_STANDARD 23)
 
 # Define the build type
 if(NOT CMAKE_BUILD_TYPE)
@@ -44,6 +45,12 @@ add_executable(${CMAKE_PROJECT_NAME})
 
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)
+
+add_subdirectory(magic_enum EXCLUDE_FROM_ALL)
+target_link_libraries(${CMAKE_PROJECT_NAME} magic_enum::magic_enum)
+
+add_subdirectory(fixed-containers EXCLUDE_FROM_ALL)
+target_link_libraries(${CMAKE_PROJECT_NAME} fixed_containers::fixed_containers)
 
 # Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE

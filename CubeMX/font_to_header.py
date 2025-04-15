@@ -85,6 +85,19 @@ def generate_cpp_header(data, header_name_base):
     const CharInfo FONT_CHARS[FONT_CHARS_COUNT] = {{
     """) + ",\n".join(chars_array_content) + "\n};"
 
+    chars_array_fixed_content = []
+    index = 0
+    for char in chars_data:
+        chars_array_fixed_content.append(
+            f"    {{ {char.get('id', 0)}, FONT_CHARS[{index}]"
+            f" }}"
+        )
+        index = index + 1
+
+    chars_array_fixed = textwrap.dedent("""\
+        static constexpr fixed_containers::FixedMap<uint32_t, const CharInfo&, FONT_CHARS_COUNT> FONT_CHARS_FIXED = {
+        """) + ",\n".join(chars_array_fixed_content) + "\n};"
+
     # --- Generate Common Data ---
     common_struct = textwrap.dedent(f"""\
     const CommonInfo FONT_COMMON = {{
@@ -132,10 +145,9 @@ def generate_cpp_header(data, header_name_base):
          // const KerningInfo FONT_KERNINGS[FONT_KERNINGS_COUNT]; // Cannot declare zero-size array
          """)
 
-
     # --- Assemble Final Header ---
     footer = "\n#endif // " + header_name_base.upper() + "_H\n"
-    return struct_defs + "\n" + info_struct + "\n\n" + common_struct + "\n\n" + chars_array + "\n\n" + kernings_array + footer
+    return struct_defs + "\n" + info_struct + "\n\n" + common_struct + "\n\n" + chars_array + "\n\n" + chars_array_fixed + "\n\n" + kernings_array + footer
 
 
 def main():
