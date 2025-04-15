@@ -124,26 +124,24 @@ def generate_cpp_header(data, header_name_base):
         {info_data.get('stretchH', 0)}, {info_data.get('unicode', 0)}
     }};""")
 
-
     # --- Generate Kernings Array ---
     kernings_array_content = []
     for kerning in kernings_data:
         kernings_array_content.append(
-            f"    {{ {kerning.get('amount', 0)}, {kerning.get('first', 0)}, {kerning.get('second', 0)} }}"
+            f"    {{ {{ {kerning.get('first', 0)}, {kerning.get('second', 0)} }}, {kerning.get('amount', 0)} }}"
         )
 
     kernings_array = ""
     if kernings_data:
         kernings_array = textwrap.dedent(f"""\
         const int FONT_KERNINGS_COUNT = {len(kernings_data)};
-        const KerningInfo FONT_KERNINGS[FONT_KERNINGS_COUNT] = {{
+        static constexpr fixed_containers::FixedMap<std::pair<uint32_t, uint32_t>, int32_t, FONT_KERNINGS_COUNT> FONT_KERNINGS = {{
         """) + ",\n".join(kernings_array_content) + "\n};"
     else:
-         kernings_array = textwrap.dedent("""\
-         const int FONT_KERNINGS_COUNT = 0;
-         // No kerning data found in JSON.
-         // const KerningInfo FONT_KERNINGS[FONT_KERNINGS_COUNT]; // Cannot declare zero-size array
-         """)
+        kernings_array = textwrap.dedent(f"""\
+        const int FONT_KERNINGS_COUNT = 0;
+        static constexpr fixed_containers::FixedMap<std::pair<uint32_t, uint32_t>, int32_t, FONT_KERNINGS_COUNT> FONT_KERNINGS = {{
+        """) + ",\n".join(kernings_array_content) + "\n};"
 
     # --- Assemble Final Header ---
     footer = "\n#endif // " + header_name_base.upper() + "_H\n"

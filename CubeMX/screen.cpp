@@ -138,7 +138,7 @@ class ST7525Display {
                 return 0;
             }
 
-            x += FONT_KERNINGS_FIXED.at({lastCodePoint, codePoint});
+            x += FONT_KERNINGS.at({lastCodePoint, codePoint});
             chInfo = &FONT_CHARS_FIXED.at(codePoint);
             chData = &image_asset_data[0];
 
@@ -195,8 +195,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (htim == &htim1) {
         static volatile int32_t c = 0;
         static char output[32] = {0};
-        sprintf(output, "YEAH! %d", int(c++));
+        sprintf(output, "YEAH! %d", int(c));
         ST7525Display::instance().draw_string(0, 0, output);
+        c = c + 1;
     }
     if (htim == &htim3) {
       static volatile int32_t c = 0;
