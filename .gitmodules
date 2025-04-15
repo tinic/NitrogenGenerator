@@ -6,7 +6,7 @@
 	url = https://github.com/SpaceTeam/pnid-lib.git
 [submodule "CubeMX/fontbm"]
 	path = CubeMX/fontbm
-	url = https://github.com/vladimirgamalyan/fontbm.git
+	url = https://gitlab.local.tinic.net/forks/fontbm.git
 [submodule "CubeMX/fixed-containers"]
 	path = CubeMX/fixed-containers
 	url = https://github.com/teslamotors/fixed-containers.git
