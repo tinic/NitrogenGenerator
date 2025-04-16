@@ -12,10 +12,12 @@ MCP &MCP::instance() {
 }
 
 void MCP::Slice() {
-    static int timerRefill = 0;
+    static int32_t timeElapsedRefill = 0;
+
+    static int32_t timerRefill = 0;
     static bool timerRefillActive = false;
 
-    static int timerShutoff = 0;
+    static int32_t timerShutoff = 0;
     static bool timerShutoffActive = false;
 
     bool solenoid0 = false;
@@ -33,6 +35,7 @@ void MCP::Slice() {
         solenoid0 = true;
         if (PSI0() > 75.0f) {
             solenoid1 = true;
+            SetRefillElapsedTime(double(timeElapsedRefill++));
         }
     }
 
@@ -43,6 +46,7 @@ void MCP::Slice() {
         timerRefill = 0;
         timerShutoffActive = false;
         timerShutoff = 0;
+        timeElapsedRefill = 0;
     }
 
     if (timerRefillActive) {

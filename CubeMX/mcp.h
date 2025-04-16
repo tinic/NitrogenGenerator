@@ -27,6 +27,9 @@ class MCP {
     double SystemTime() const {
         return system_time;
     }
+    double RefillElapsedTime() const {
+        return refillElapsedTime;
+    }
 
     void SetRawPSI0(uint32_t v) {
         rank0 = v;
@@ -37,6 +40,9 @@ class MCP {
     void SetSystemTime(double v) {
         system_time = v;
     }
+    void SetRefillElapsedTime(double v) {
+        refillElapsedTime = v;
+    }
 
     void Slice();
 
@@ -46,6 +52,7 @@ class MCP {
 
     uint32_t rank0 = 0;
     uint32_t rank1 = 0;
+    double refillElapsedTime = 0;
     double system_time = 0;
     bool initialized = false;
 

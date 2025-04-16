@@ -170,17 +170,22 @@ class ST7525Display {
         sprintf(output, "AIR:");
         draw_string(0, 0, output);
         sprintf(output, "%dpsi", int(MCP::instance().PSI0()));
-        draw_string(192/2-draw_string(0, 0, output, true)-8, 0, output);
+        draw_string(192/2-draw_string(0, 0, output, true)-4, 0, output);
         sprintf(output, "N2:");
-        draw_string(192/2, 0, output);
+        draw_string(192/2+4, 0, output);
         sprintf(output, "%dpsi", int(MCP::instance().PSI1()));
-        draw_string(192-draw_string(0, 0, output, true)-8, 0, output);
+        draw_string(192-draw_string(0, 0, output, true), 0, output);
 
         int32_t h = (int(MCP::instance().SystemTime())  / 3600);
         int32_t m = (int(MCP::instance().SystemTime())  /   60) % 60;
         int32_t s = (int(MCP::instance().SystemTime())        ) % 60;
-        sprintf(output, "%04d:%02d:%02d", int(h), int(m), int(s));
+        sprintf(output, "T:%04d:%02d:%02d", int(h), int(m), int(s));
         draw_string(0, 44, output);
+
+        int32_t em = (int(MCP::instance().RefillElapsedTime())  /   60) % 60;
+        int32_t es = (int(MCP::instance().RefillElapsedTime())        ) % 60;
+        sprintf(output, "R:%02d:%02d", int(em), int(es));
+        draw_string(192-draw_string(0, 0, output, true), 44, output);
 
         write_frame();
     }
