@@ -1,7 +1,5 @@
 #include "screen.h"
 
-#include <cstdio>
-#include <cstring>
 
 #include <fixed_containers/fixed_map.hpp>
 
@@ -9,15 +7,7 @@
 #include "font.h"
 #include "Core/Inc/main.h"
 
-extern "C" ADC_HandleTypeDef hadc1;
-
 extern "C" SPI_HandleTypeDef hspi1;
-
-extern "C" UART_HandleTypeDef huart1;
-
-extern "C" TIM_HandleTypeDef htim1;
-
-extern "C" TIM_HandleTypeDef htim3;
 
 class ST7525Display {
    public:
@@ -197,58 +187,14 @@ void screen_init() {
     ST7525Display::instance().init();
 }
 
-static int32_t seconds = 0;
-static uint32_t adc_value[2] = {};
-
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *adc) {
-    if ( adc == &hadc1 ) {
-        static int32_t rank = 0;
-        adc_value[rank] = HAL_ADC_GetValue(&hadc1);
-        if (__HAL_ADC_GET_FLAG(&hadc1, ADC_FLAG_EOS)) {
-            rank = 0;
-        } else {
-            rank ++;
-            if ( rank >=2 ) {
-                rank = 0;
-            }
-        }
-    }
+void screen_clear() {
+    ST7525Display::instance().clear();
 }
 
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-    if (htim == &htim1) {
-        ST7525Display::instance().clear();
-        static volatile int32_t c = 0;
-        static char output[32] = {0};
-        sprintf(output, "AIR:");
-        ST7525Display::instance().draw_string(0, 0, output);
-        sprintf(output, "%dpsi", int(c));
-        ST7525Display::instance().draw_string(192/2-ST7525Display::instance().draw_string(0, 0, output, true)-8, 0, output);
-        sprintf(output, "N2:");
-        ST7525Display::instance().draw_string(192/2, 0, output);
-        sprintf(output, "%dpsi", int(c));
-        ST7525Display::instance().draw_string(192-ST7525Display::instance().draw_string(0, 0, output, true)-8, 0, output);
+int32_t screen_draw_string(int32_t x, int32_t y, const char *str, bool calcWidthOnly) {
+    return ST7525Display::instance().draw_string(x, y, str, calcWidthOnly);
+}
 
-        int32_t h = (seconds  / 3600);
-        int32_t m = (seconds  /   60) % 60;
-        int32_t s = (seconds        ) % 60;
-        sprintf(output, "%04d:%02d:%02d", int(h), int(m), int(s));
-        ST7525Display::instance().draw_string(0, 44, output);
-
-        sprintf(output, "%d", int(adc_value[0]));
-        ST7525Display::instance().draw_string(0, 20, output);
-        sprintf(output, "%d", int(adc_value[1]));
-        ST7525Display::instance().draw_string(192/2, 20, output);
-
-        c = c + 1;
-        if (c > 120) c = 0;
-        ST7525Display::instance().write_frame();
-
-        HAL_ADC_Start_IT(&hadc1);
-    }
-    if (htim == &htim3) {
-        seconds ++;
-
-      //HAL_GPIO_WritePin(GPIOA, SOLENOID_VAVLE2_Pin, GPIO_PinState(c));
-    }
+void screen_flip() {
+    ST7525Display::instance().write_frame();
 }
