@@ -54,7 +54,7 @@ class MCP {
         for (size_t c = 0; c < dutyCycleRecordCount; c++) {
             dutyCycle += dutyCycleRecord[c];
         }
-        return dutyCycle/dutyCycleRecordCount;
+        return dutyCycle/float(dutyCycleRecordCount);
     }
 
     void Slice();

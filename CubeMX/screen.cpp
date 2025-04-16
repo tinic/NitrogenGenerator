@@ -180,15 +180,15 @@ class ST7525Display {
         sprintf(output, "N2:");
         draw_string(192/2+4, 0, output);
         sprintf(output, "%dpsi", int(MCP::instance().PSI1()));
-        draw_string(192-draw_string(0, 0, output, true), 0, output);
+        draw_string(191-draw_string(0, 0, output, true), 0, output);
 
         sprintf(output, "%s", MCP::instance().Solenoid0() ? "ON" : "OFF");
         draw_string(0, 22, output);
         sprintf(output, "%s", MCP::instance().Solenoid1() ? "ON" : "OFF");
         draw_string(192/2+4, 22, output);
 
-        sprintf(output, "%02d%%", int(MCP::instance().DutyCycleAverage()*100.0f));
-        draw_string(192-draw_string(0, 0, output, true), 22, output);
+        sprintf(output, "%02d%%", 12);// int(MCP::instance().DutyCycleAverage()*100.0f));
+        draw_string(191-draw_string(0, 0, output, true), 22, output);
 
         int32_t h = (int(MCP::instance().SystemTime())  / 3600);
         int32_t m = (int(MCP::instance().SystemTime())  /   60) % 60;
@@ -199,7 +199,7 @@ class ST7525Display {
         int32_t em = (int(MCP::instance().RefillElapsedTime())  /   60) % 60;
         int32_t es = (int(MCP::instance().RefillElapsedTime())        ) % 60;
         sprintf(output, "R:%02d:%02d", int(em), int(es));
-        draw_string(192-draw_string(0, 0, output, true), 44, output);
+        draw_string(191-draw_string(0, 0, output, true), 44, output);
 
         write_frame();
     }
