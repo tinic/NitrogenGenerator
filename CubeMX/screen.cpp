@@ -1,5 +1,5 @@
 #include "screen.h"
-
+#include "mcp.h"
 
 #include <fixed_containers/fixed_map.hpp>
 
@@ -163,6 +163,28 @@ class ST7525Display {
         }
     }
 
+    void update() {
+        clear();
+
+        static char output[32] = {0};
+        sprintf(output, "AIR:");
+        draw_string(0, 0, output);
+        sprintf(output, "%dpsi", int(MCP::instance().PSI0()));
+        draw_string(192/2-draw_string(0, 0, output, true)-8, 0, output);
+        sprintf(output, "N2:");
+        draw_string(192/2, 0, output);
+        sprintf(output, "%dpsi", int(MCP::instance().PSI1()));
+        draw_string(192-draw_string(0, 0, output, true)-8, 0, output);
+
+        int32_t h = (int(MCP::instance().SystemTime())  / 3600);
+        int32_t m = (int(MCP::instance().SystemTime())  /   60) % 60;
+        int32_t s = (int(MCP::instance().SystemTime())        ) % 60;
+        sprintf(output, "%04d:%02d:%02d", int(h), int(m), int(s));
+        draw_string(0, 44, output);
+
+        write_frame();
+    }
+
    private:
     uint8_t framebuffer[PAGES * COLUMNS] = {0xFF};
     bool initialized = false;
@@ -187,14 +209,6 @@ void screen_init() {
     ST7525Display::instance().init();
 }
 
-void screen_clear() {
-    ST7525Display::instance().clear();
-}
-
-int32_t screen_draw_string(int32_t x, int32_t y, const char *str, bool calcWidthOnly) {
-    return ST7525Display::instance().draw_string(x, y, str, calcWidthOnly);
-}
-
-void screen_flip() {
-    ST7525Display::instance().write_frame();
+void screen_update() {
+    ST7525Display::instance().update();
 }
