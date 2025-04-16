@@ -7,25 +7,25 @@
 #include "mcp.h"
 
 extern "C" ADC_HandleTypeDef hadc1;
-extern "C" UART_HandleTypeDef huart1;
-extern "C" TIM_HandleTypeDef htim1;
-extern "C" TIM_HandleTypeDef htim3;
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *adc) {
     if ( adc == &hadc1 ) {
-        static uint32_t adc_value[32] = {};
+        static uint32_t adc_value[8] = {};
         static int32_t rank = 0;
         adc_value[rank] = HAL_ADC_GetValue(&hadc1);
         if (__HAL_ADC_GET_FLAG(&hadc1, ADC_FLAG_EOS)) {
             rank = 0;
         } else {
             rank ++;
-            rank %= 32;
+            rank %= 8;
         }
         MCP::instance().SetRawPSI0(adc_value[0]);
         MCP::instance().SetRawPSI1(adc_value[1]);
     }
 }
+
+extern "C" TIM_HandleTypeDef htim1;
+extern "C" TIM_HandleTypeDef htim3;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (htim == &htim1) {
