@@ -83,7 +83,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 
 IF (${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
     set(FONTBM_BINARY ${PROJECT_SOURCE_DIR}/fontbm/build/Debug/fontbm.exe)
-    set(FONTBM_CMAKE_COMMAND cmake --preset=default )
+    set(FONTBM_CMAKE_COMMAND cmake --preset=default .. )
 ELSE (${CMAKE_HOST_SYSTEM_NAME} STREQUAL  "Windows")
     set(FONTBM_BINARY ${PROJECT_SOURCE_DIR}/fontbm/build/fontbm)
     set(FONTBM_CMAKE_COMMAND cmake -Wno-deprecated -G "Ninja" .. )
@@ -93,8 +93,8 @@ file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/fontbm/build)
 add_custom_command(
     OUTPUT ${FONTBM_BINARY}
     COMMAND ${FONTBM_CMAKE_COMMAND}
-    COMMAND cmake --build build
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/fontbm
+    COMMAND cmake --build .
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/fontbm/build
     DEPENDS ${PROJECT_SOURCE_DIR}/fontbm/src/main.cpp)
 
 set(FONT_FNT ${PROJECT_BINARY_DIR}/font.fnt)
