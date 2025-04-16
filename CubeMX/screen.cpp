@@ -129,10 +129,17 @@ class ST7525Display {
             }
 
             if (FONT_KERNINGS_COUNT) {
-                x += FONT_KERNINGS.at({lastCodePoint, codePoint});
+                if (FONT_KERNINGS.contains({lastCodePoint, codePoint})) {
+                    x += FONT_KERNINGS.at({lastCodePoint, codePoint});
+                }
             }
-            chInfo = &FONT_CHARS_FIXED.at(codePoint);
-            chData = &image_asset_data[0];
+
+            chInfo = 0;
+            chData = 0;
+            if (FONT_CHARS_FIXED.contains(codePoint)) {
+                chInfo = &FONT_CHARS_FIXED.at(codePoint);
+                chData = &image_asset_data[0];
+            }
 
             if (chInfo && chData) {
                 if (!calcWidthOnly) {
@@ -147,7 +154,6 @@ class ST7525Display {
             x += chInfo->width;
         }
         return x;
-
     }    
 
     void clear() {
