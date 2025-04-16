@@ -183,12 +183,12 @@ class ST7525Display {
         draw_string(192-draw_string(0, 0, output, true), 0, output);
 
         sprintf(output, "%s", MCP::instance().Solenoid0() ? "ON" : "OFF");
-        draw_string(192/2-draw_string(0, 0, output, true)-4, 22, output);
+        draw_string(0, 22, output);
         sprintf(output, "%s", MCP::instance().Solenoid1() ? "ON" : "OFF");
-        draw_string(192-draw_string(0, 0, output, true), 22, output);
+        draw_string(192/2+4, 22, output);
 
         sprintf(output, "%02d%%", int(MCP::instance().DutyCycleAverage()*100.0f));
-        draw_string(192/2, 22, output);
+        draw_string(192-draw_string(0, 0, output, true), 22, output);
 
         int32_t h = (int(MCP::instance().SystemTime())  / 3600);
         int32_t m = (int(MCP::instance().SystemTime())  /   60) % 60;
