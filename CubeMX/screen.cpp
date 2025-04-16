@@ -198,6 +198,22 @@ void screen_init() {
 }
 
 static int32_t seconds = 0;
+static uint32_t adc_value[2] = {};
+
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *adc) {
+    if ( adc == &hadc1 ) {
+        static int32_t rank = 0;
+        adc_value[rank] = HAL_ADC_GetValue(&hadc1);
+        if (__HAL_ADC_GET_FLAG(&hadc1, ADC_FLAG_EOS)) {
+            rank = 0;
+        } else {
+            rank ++;
+            if ( rank >=2 ) {
+                rank = 0;
+            }
+        }
+    }
+}
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (htim == &htim1) {
@@ -219,12 +235,20 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
         sprintf(output, "%04d:%02d:%02d", int(h), int(m), int(s));
         ST7525Display::instance().draw_string(0, 44, output);
 
+        sprintf(output, "%d", int(adc_value[0]));
+        ST7525Display::instance().draw_string(0, 20, output);
+        sprintf(output, "%d", int(adc_value[1]));
+        ST7525Display::instance().draw_string(192/2, 20, output);
+
         c = c + 1;
         if (c > 120) c = 0;
         ST7525Display::instance().write_frame();
+
+        HAL_ADC_Start_IT(&hadc1);
     }
     if (htim == &htim3) {
         seconds ++;
+
       //HAL_GPIO_WritePin(GPIOA, SOLENOID_VAVLE2_Pin, GPIO_PinState(c));
     }
 }
