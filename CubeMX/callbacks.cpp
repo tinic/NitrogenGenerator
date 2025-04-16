@@ -29,13 +29,15 @@ extern "C" TIM_HandleTypeDef htim3;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (htim == &htim1) {
+        // 1/10s interval
         static double system_time = 0;
-        system_time += 1.0/100.0;
+        system_time += 1.0/10.0;
         MCP::instance().SetSystemTime(system_time);
         screen_update();
         HAL_ADC_Start_IT(&hadc1);
     }
     if (htim == &htim3) {
+        // 1s interval
         MCP::instance().Slice();
     }
 }
