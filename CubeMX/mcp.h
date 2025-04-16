@@ -44,6 +44,19 @@ class MCP {
         refillElapsedTime = v;
     }
 
+    void AddDutyCycleRecord(float v) {
+        dutyCycleRecord[dutyCycleRecordIndex++] = v;
+        dutyCycleRecordIndex %= dutyCycleRecordCount;
+    }
+
+    float DutyCycleAverage() const {
+        float dutyCycle = 0;
+        for (size_t c = 0; c < dutyCycleRecordCount; c++) {
+            dutyCycle += dutyCycleRecord[c];
+        }
+        return dutyCycle/dutyCycleRecordCount;
+    }
+
     void Slice();
 
    private:
@@ -55,6 +68,9 @@ class MCP {
     double refillElapsedTime = 0;
     double system_time = 0;
     bool initialized = false;
+    static constexpr size_t dutyCycleRecordCount = 8;
+    float dutyCycleRecord[dutyCycleRecordCount] = {};
+    size_t dutyCycleRecordIndex = 0;
 
     float adc_rank0_to_psi() const {
         return (float((rank0)-450.0f) / 1675.0f) * 100.0f;

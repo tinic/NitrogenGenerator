@@ -20,6 +20,8 @@ void MCP::Slice() {
     static int32_t timerShutoff = 0;
     static bool timerShutoffActive = false;
 
+    bool resetDuty = false;
+
     bool solenoid0 = false;
     bool solenoid1 = false;
 
@@ -47,6 +49,7 @@ void MCP::Slice() {
         timerShutoffActive = false;
         timerShutoff = 0;
         timeElapsedRefill = 0;
+        resetDuty = true;
     }
 
     if (timerRefillActive) {
@@ -55,6 +58,18 @@ void MCP::Slice() {
 
     if (timerShutoffActive) {
         timerShutoff++;
+    }
+
+    static int32_t dutyTotal = 0;
+    static int32_t dutyRefill = 0;
+    dutyTotal++;
+    if (solenoid1) {
+        dutyRefill++;
+    }
+    if (resetDuty) {
+        dutyTotal = 0;
+        dutyRefill = 0;
+        AddDutyCycleRecord(float(dutyRefill)/float(dutyTotal));
     }
 
     SetSolenoid0(solenoid0);
