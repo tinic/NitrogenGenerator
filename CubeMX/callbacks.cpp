@@ -9,6 +9,7 @@
 extern "C" ADC_HandleTypeDef hadc1;
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *adc) {
+#if 1
     if ( adc == &hadc1 ) {
         static uint32_t adc_value[8] = {};
         static int32_t rank = 0;
@@ -22,12 +23,14 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *adc) {
         MCP::instance().SetRawPSI0(adc_value[0]);
         MCP::instance().SetRawPSI1(adc_value[1]);
     }
+#endif  // #if 0
 }
 
 extern "C" TIM_HandleTypeDef htim1;
 extern "C" TIM_HandleTypeDef htim3;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+#if 1
     if (htim == &htim1) {
         // 1/10s interval
         static double system_time = 0;
@@ -40,4 +43,5 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
         // 1s interval
         MCP::instance().Slice();
     }
+#endif  // #if 0
 }
