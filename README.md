@@ -72,7 +72,7 @@ Given local prices for nitrogen membranes, which can be in the many thousands of
 \
 Be careful when looking on eBay for used membranes. There will be a good chance that those membranes are clogged/used-up. Pretty much no seller eBay will be able to test if a membrane still works properly. Also, don't make the same mistake I made where I got a nifty (almost free) deal on a membrane only to realize that it needs 170l/m (6cfm) to drive it. That's a LOT of air for a home gamer!
 
-![MNH-1512A](./images/membrane.jpeg)
+[<img src="./images/membrane.jpeg" width="100"/>](./images/membrane.jpeg)
 
 2. We need a 3-stage air filter to treat the air. The stages are usually a 10μm particulate filter, a 0.1μm oil filter and a 0.01μm coalescing filter. There are many variations on that but the key is that we want a 0.01μm stage in there somewhere. If yor air contains a lot of hydrocarbons (like in an active workshop) you'd also want a activated charcoal filter in addition to the 3-stage filter. Prices range from $200 to $2000 (if you get one on McMaster). I chose a PneumaticPlus SAFU460-N04-MEP which seemed reasonbly priced at $200.
 
