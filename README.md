@@ -78,7 +78,7 @@ Be careful when looking on eBay for used membranes. There will be a good chance 
 
 [<img src="./images/airfilter.jpg" width="100"/>](./images/airfilter.jpg)
 
-3. Most commerically available air compressors can easily provide the air required for this membrane. I chose a Makita MAC100Q which is plenty sized for the membrane I chose. It's small and quiet. About $250.
+3. Most commerically available air compressors can easily provide the air required for this membrane. I chose a Makita MAC100Q. It's small and quiet. About $250.
 
 [<img src="./images/compressor.png" width="100"/>](./images/compressor.png)
 
