@@ -62,13 +62,13 @@ Resulting technical metrics for my application:
 
 1. The core part of this build is the nitrogen membrane. For a 50l/h (2cfh) nitrogen flow the nitrogen membrane will be typically in a form a cylinder in the range of 300-500mm (12-15in) in length and 40-60mm (1.5-2.5in) in diameter. \
 \
-Consult the [specs](./docs/MNH-1512A.pdf) pages which usually contain tables explaining the required air input vs resulting nitrogen output at different concentrations. For practical purposes I would simply ignore any nitrogen concentration under 99.5%. Typical air input vs concentrated nitrogen air output ratios are 5:1. Focus on models which are in the 50l/h (2cfh) range at 100psi and 99.5%+ nitrogen concentation. \
+Consult the [spec](./docs/MNH-1512A.pdf) pages of the membranes which usually contain tables explaining the required air input vs resulting nitrogen output at different concentrations. For practical purposes I would simply ignore any nitrogen concentration under 99.5%. Typical air input vs concentrated nitrogen air output ratios are 5:1. Focus on models which are in the 50l/h (2cfh) range at 100psi and 99.5%+ nitrogen concentation. \
 \
 Nitrogen membranes have a maximum input pressure design limit. This can range from 80psi to 150psi or higher for special applications. Above that the membrane might disintegrate internally. Get a variant rated to around 120psi or higher as we targeting 100psi as the system pressure. \
 \
 Membranes have a 'knocking' limit, i.e. maximum pressure differential going into the system when suddendly opening a valve. This is usually 20-50psi. A too high pressure differential can shatter the membrane, completely destroying it. We will control this through a needle valve on the input side. Most commerical equiment will omit this valve since those systems are usually in a well controlled environment. I assume the user (me) will make a stupid mistake at some point and I'd rather protect the expensive membrane. \
 \
-Given local prices for nitrogen membranes, which can be in the many thousands of dollars, I sourced my membrane from Alibaba.com. Specifically the MNH-1512A model from KL-AIR. At the time of this writing it was $400, not including shipping and tariffs. I got two, which set me back $1000 in total including shipping. \
+Given local prices for nitrogen membranes, which can be in the many thousands of dollars, I sourced my membrane from Alibaba.com. Specifically the [MNH-1512A](./docs/MNH-1512A.pdf) model from KL-AIR. At the time of this writing it was $400, not including shipping and tariffs. I got two, which set me back $1000 in total including shipping. \
 \
 Be careful when looking on eBay for used membranes. There will be a good chance that those membranes are clogged/used-up. Pretty much no seller eBay will be able to test if a membrane still works properly. Also, don't make the same mistake I made where I got a nifty (almost free) deal on a membrane only to realize that it needs 170l/m (6cfm) to drive it. That's a LOT of air for a home gamer!
 
