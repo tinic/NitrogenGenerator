@@ -111,9 +111,9 @@ Be careful when looking on eBay for used membranes. There will be a good chance 
 
 Total cost (assuming one membrane) was $2222. That's still only about half the price of a commerical solution!
 
-## Design
+## System Design
 
-### Here is a P&ID alike schematic which shows the how the air goes through the system:
+### P&ID alike schematic which shows the how the air goes through the system:
 
 [<img src="./images/airschematic.png" width="100%"/>](./images/airschematic.png)
 
