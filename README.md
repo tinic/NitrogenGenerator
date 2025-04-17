@@ -133,7 +133,7 @@ Additionally the controller will monitor the following conditions:
 
 Some timers are used to stagger the activation of the solenoids to avoid ocillations and feedback loops.
 
-### Procedures to adjust input and output needle valves
+### Procedure to adjust input and output needle valves
 
 - The input needle valve should be adjusted so that suddendly feeding 100psi through it does not cause a "loud bang", but rather how 10psi air would feel coming out directly of a compressor. Rig something up and adjust that valve before you put the entire system together.
 - To test the entire system for leaks initially set the output needle valve to fully open.
