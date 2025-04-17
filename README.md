@@ -6,7 +6,7 @@
 
 As a home brewer CO2 is the gas of choice for most purposes, including pushing beverages to the tap. But sometimes you don't want to just serve beer but also coldbrew coffee and other non-carbonated beverages. In most cases a simple N2 cylinder does the job. But given that air is 78% nitrogen why not just extract it from the air? Recently products like NitroBev 360 have introduced this possibility on a small scale, at a price. Given the huge margins these niche products have my thought was to try to build a nitrogen generator from scratch for less.
 
-## How does a nitrogren generator work
+## How does a nitrogen generator work
 
 We will be talking about membrane based systems here only. A membrane-based nitrogen generator works by passing compressed air through a semi-permeable membrane made of bundles of hollow polymer fibers. Oxygen and water vapor molecules, being smaller and having a higher permeation rate, pass through the membrane walls and are vented out. Nitrogen molecules, being larger and having a lower permeation rate, are retained within the fibers and collected as a high-purity nitrogen gas stream at the outlet. Purity levels can be adjusted down to about 0.5% oxygen which is appropriate for beverage service.
 
@@ -60,7 +60,7 @@ Resulting technical metrics for my application:
 
 ### Details
 
-1. The core part of this build is the nitrogen membrane. For a 50l/h (2cfh) nitrogren flow the nitrogren membrane will be typically in a form a cylinder in the range of 300-500mm (12-15in) length and 40-60mm (1.5-2.5in) in diameter. \
+1. The core part of this build is the nitrogen membrane. For a 50l/h (2cfh) nitrogen flow the nitrogen membrane will be typically in a form a cylinder in the range of 300-500mm (12-15in) length and 40-60mm (1.5-2.5in) in diameter. \
 \
 Consult the spec pages which usually contain tables explaining the required air input vs resulting nitrogen output at different concentrations. For practical purposes I would simply ignore any nitrogen concentration under 99.5%. Typical air input vs concentrated nitrogen air output ratios are 5:1. Focus on models which are in the 50l/h (2cfh) range at 100psi and 99.5%+ nitrogen concentation. \
 \
