@@ -76,17 +76,31 @@ Be careful when looking on eBay for used membranes. There will be a good chance 
 
 2. We need a 3-stage air filter to treat the air. The stages are usually a 10μm particulate filter, a 0.1μm oil filter and a 0.01μm coalescing filter. There are many variations on that but the key is that we want a 0.01μm stage in there somewhere. If yor air contains a lot of hydrocarbons (like in an active workshop) you'd also want a activated charcoal filter in addition to the 3-stage filter. Prices range from $200 to $2000 (if you get one on McMaster). I chose a PneumaticPlus SAFU460-N04-MEP which seemed reasonbly priced at $200.
 
+[<img src="./images/airfilter.jpg" width="100"/>](./images/airfilter.jpg)
+
 3. Most commerically available air compressors can easily provide the air required for this membrane. I chose a Makita MAC100Q which is plenty sized for the membrane I chose. It's small and quiet. About $250.
+
+[<img src="./images/compressor.png" width="100"/>](./images/compressor.png)
 
 4. You will need an oxygen sensor. Otherwise you have no idea what the final oxygen concentration is. It's practically impossible to adjust the output needle valve without this! An scuba diving rated oxygen sensor which can detect 0%-30% oxygen concentration will work fine, on Amazon I chose "OXYGEN Analyzer by FORENSICS" for $200. Make sure that you can attach a tube and pass air through it. Cheap oxygen sensors can only sense environmental air.
 
+[<img src="./images/oxygensensor.jpg" width="100"/>](./images/oxygensensor.jpg)
+
 5. A holding tank for the nitrogen. A 5 gallon Cornelious will do, $130.
+
+[<img src="./images/corneliouskeg.jpeg" width="100"/>](./images/corneliouskeg.jpeg)
 
 6. We need a controller to sense the air and drive the solenoids. My initial prototype accomplished this with a Click PLC from Automation Direct. It's rather bulky, requires ladder logic knowledge and a complete system comes to about $500. Instead I built my own custom PCB which is way more compact. The DigiKey BOM for this about $150, 5 prototype PCBs from PCBWay cost $50 including shipping and I added an LCD screen for status display. Apart from a PLC or custom PCB, a hacked together Arduino project will also work.
 
+
 7. To control the air throughout the system we need two needle valves and two solenoids (normally closed, 24V). The exact specs depend on how you want to build up the system. I chose I mix of 1/4 NPT and 8mm push in tubing equipment. It's possible to go all the way into either. I went for some Amazon specials: 1. "stainless steel needle valve, 3mm orifice, 1/4" NPT, SURUIKE INDUSTRY" and "Solenoid Valve AirTAC 2WA030-08 1/4 NPT DC24V". Total was about $120 for these. 
 
+[<img src="./images/needlevalve.jpg" width="100"/>](./images/needlevalve.jpg)
+[<img src="./images/solenoid.jpg" width="100"/>](./images/solenoid.jpg)
+
 9. Two pressure inducers (pressure sensors) 0-200psi. On Amazon "AUTEX 200 Psi Pressure Transducer Sender Sensor with Connector Harness 1/8”-27 NPT". $52 total.
+
+[<img src="./images/pressureinducer.jpg" width="100"/>](./images/pressureinducer.jpg)
 
 10. Various other equipment like connectors, fittings, tubing, fasteners etc. They will amount to about $200. Most of the stuff can be had the regular hardware store and it's not useful to list a specific BOM for this as it will depend on your setup/enclosure.
 
