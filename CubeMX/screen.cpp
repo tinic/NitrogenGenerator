@@ -155,9 +155,9 @@ void ST7525::update() {
     sprintf(output, "%dpsi", int(MCP::instance().PSI1()));
     draw_string(191-draw_string(0, 0, output, true), 0, output);
 
-    sprintf(output, "%s", MCP::instance().Solenoid0() ? "ON" : "OFF");
+    sprintf(output, "%s", MCP::instance().Solenoid0() ? "Open" : "Closed");
     draw_string(0, 22, output);
-    sprintf(output, "%s", MCP::instance().Solenoid1() ? "ON" : "OFF");
+    sprintf(output, "%s", MCP::instance().Solenoid1() ? "Open" : "Closed");
     draw_string(192/2+4, 22, output);
 
     sprintf(output, "%02d%%", 12);// int(MCP::instance().DutyCycleAverage()*100.0f));
