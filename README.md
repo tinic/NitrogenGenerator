@@ -60,9 +60,9 @@ Resulting technical metrics for my application:
 
 ### Details
 
-1. The core part of this build is the nitrogen membrane. For a 50l/h (2cfh) nitrogen flow the nitrogen membrane will be typically in a form a cylinder in the range of 300-500mm (12-15in) length and 40-60mm (1.5-2.5in) in diameter. \
+1. The core part of this build is the nitrogen membrane. For a 50l/h (2cfh) nitrogen flow the nitrogen membrane will be typically in a form a cylinder in the range of 300-500mm (12-15in) in length and 40-60mm (1.5-2.5in) in diameter. \
 \
-Consult the spec pages which usually contain tables explaining the required air input vs resulting nitrogen output at different concentrations. For practical purposes I would simply ignore any nitrogen concentration under 99.5%. Typical air input vs concentrated nitrogen air output ratios are 5:1. Focus on models which are in the 50l/h (2cfh) range at 100psi and 99.5%+ nitrogen concentation. \
+Consult the [specs](./docs/MNH-1512A.pdf) pages which usually contain tables explaining the required air input vs resulting nitrogen output at different concentrations. For practical purposes I would simply ignore any nitrogen concentration under 99.5%. Typical air input vs concentrated nitrogen air output ratios are 5:1. Focus on models which are in the 50l/h (2cfh) range at 100psi and 99.5%+ nitrogen concentation. \
 \
 Nitrogen membranes have a maximum input pressure design limit. This can range from 80psi to 150psi or higher for special applications. Above that the membrane might disintegrate internally. Get a variant rated to around 120psi or higher as we targeting 100psi as the system pressure. \
 \
