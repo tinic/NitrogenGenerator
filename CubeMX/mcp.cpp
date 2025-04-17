@@ -27,6 +27,12 @@ void MCP::Slice() {
     bool solenoid0 = false;
     bool solenoid1 = false;
 
+    if (PSI0() >= 130.0f || PSI1() >= 130.0f) {
+        SetSolenoid0(false);
+        SetSolenoid1(false);
+        return;
+    }
+ 
     if (PSI1() < 75.0f) {
         timerRefillActive = true;
     }
