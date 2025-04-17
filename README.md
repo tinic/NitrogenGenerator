@@ -92,6 +92,8 @@ Be careful when looking on eBay for used membranes. There will be a good chance 
 
 6. We need a controller to sense the air and drive the solenoids. My initial prototype accomplished this with a Click PLC from Automation Direct. It's rather bulky, requires ladder logic knowledge and a complete system comes to about $500. Instead I built my own custom PCB which is way more compact. The DigiKey BOM for this about $150, 5 prototype PCBs from PCBWay cost $50 including shipping and I added an LCD screen for status display. Apart from a PLC or custom PCB, a hacked together Arduino project will also work.
 
+[<img src="./images/pcb1.jpg" width="100"/>](./images/pcb1.jpg)
+[<img src="./images/pcb2.jpg" width="100"/>](./images/pcb2.jpg)
 
 7. To control the air throughout the system we need two needle valves and two solenoids (normally closed, 24V). The exact specs depend on how you want to build up the system. I chose I mix of 1/4 NPT and 8mm push in tubing equipment. It's possible to go all the way into either. I went for some Amazon specials: 1. "stainless steel needle valve, 3mm orifice, 1/4" NPT, SURUIKE INDUSTRY" and "Solenoid Valve AirTAC 2WA030-08 1/4 NPT DC24V". Total was about $120 for these. 
 
