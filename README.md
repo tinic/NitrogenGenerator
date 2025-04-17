@@ -14,7 +14,7 @@ A membrane nitrogen generator requires a minimum amount of continuous compressed
 
 A critical component of a nitrogen generator is a needle valve which is placed post nitrogen membrane. This needle valve controls the resulting nitrogen purity. Too high air flow at the membrane output will result in high oxygen levels or no oxygen filtering at all. Too low and most of the compressed air input is lost in the permeate and the effiency of the system drops off a cliff. This adjustment is highly dependent on the type and size of membrane used and drive the required continious compressed air requirement.
 
-A nitrogen generator requires filtered air to protect its delicate internal components, primarily the semi-permeable membranes. Compressed air invariably contains contaminants like dust particles, oil aerosols, water vapor, and hydrocarbons. These contaminants can foul or block the tiny pores within the membranes of membrane-based generators, reducing their efficiency and drastically reduce lifespan. Typically any contaminants down to 0.01μm need to be filtered out of the air before it enters the membrane.
+A nitrogen generator requires filtered air to protect its delicate internal components, primarily the semi-permeable membranes. Compressed air invariably contains contaminants like dust particles, oil aerosols, water vapor, and hydrocarbons. These contaminants can foul or block the tiny pores within the membranes of membrane-based generators, reducing their efficiency and drastically reduce lifespan, from years down to a few hours. Typically any contaminants down to 0.01μm need to be filtered out of the air before it enters the membrane.
 
 ## Scope and scale
 
@@ -36,22 +36,59 @@ Resulting technical metrics for my application:
 - Max 30l/h (1cfm) of compressed air requirement so we can use a small quiet portable compressor.
 - Max system pressure of about 100psi. That way we can use a Cornelious keg as a holding tank. 
 
-# Selecting the components
+## Skills required
 
-- The core part of this build is the nitrogen membrane. For a 50l/h (2cfh) nitrogren flow the nitrogren membrane will be typically in a form a cylinder in the range of 300-500mm (12-15in) length and 40-60mm (1.5-2.5in) in diameter. 
+- Some experience with actively pressure controlled vessels is required. Home brewers which use kegs usually have this knowledge.
+- Experience with PLCs or building you own PCB / Arduino to control the air system. Some programming is required.
+- Generally knowledge of electrical and air equipment.
 
-Consult the spec pages which usually contain tables explaining the required air input vs resulting nitrogen output at different concentrations. For practical purposes I would simply ignore any nitrogen concentration under 99.5%. Typical air input vs concentrated nitrogen air output ratios are 5:1. Focus on models which are in the 50l/h range at 100psi and 99.5%+ nitrogen concentation.
+## Selecting the components
 
-Nitrogen membranes have a maximum input pressure design limit. This can range from 80psi to 150psi or higher for special applications. Above that and the membrane might disintegrate internally. Get a variant rated around 120psi or higher as we targeting 100psi as the system pressure. 
+# Summary
+
+1. nitrogen membrane
+2. air filter
+3. air compressor
+4. oxygen sensor
+5. holding tank
+6. controller 
+7. 2 x solenoid
+8. 2 x needle valve
+9. 2 x pressure inducer
+10. misc connector, fittings, tubing, cables
+11. enclosure
+
+# Details
+
+1. The core part of this build is the nitrogen membrane. For a 50l/h (2cfh) nitrogren flow the nitrogren membrane will be typically in a form a cylinder in the range of 300-500mm (12-15in) length and 40-60mm (1.5-2.5in) in diameter. 
+
+Consult the spec pages which usually contain tables explaining the required air input vs resulting nitrogen output at different concentrations. For practical purposes I would simply ignore any nitrogen concentration under 99.5%. Typical air input vs concentrated nitrogen air output ratios are 5:1. Focus on models which are in the 50l/h (2cfh) range at 100psi and 99.5%+ nitrogen concentation.
+
+Nitrogen membranes have a maximum input pressure design limit. This can range from 80psi to 150psi or higher for special applications. Above that the membrane might disintegrate internally. Get a variant rated to around 120psi or higher as we targeting 100psi as the system pressure. 
 
 Membranes have a 'knocking' limit, i.e. maximum pressure differential going into the system when suddendly opening a valve. This is usually 20-50psi. A too high pressure differential can shatter the membrane, completely destroying it. We will control this through a needle valve on the input side. Most commerical equiment will omit this valve since those systems are usually in a well controlled environment. I assume the user (me) will make a stupid mistake at some point and I'd rather protect the expensive membrane.
 
-Given local prices for nitrogren membranes, which can be in the many thousands of dollars, I sourced my membrane from Alibaba.com. Specifically the MNH-1512A model from KL-AIR. At the time of this writing it was $400, not including shipping and tariffs. 
+Given local prices for nitrogen membranes, which can be in the many thousands of dollars, I sourced my membrane from Alibaba.com. Specifically the MNH-1512A model from KL-AIR. At the time of this writing it was $400, not including shipping and tariffs. I got two, which set me back $1000 in total including shipping.
 
-Be careful when looking on eBay for used membranes. There will be a good chance that those membranes are clogged/used-up. Pretty much no seller eBay will be able to test if a membrane still works properly. Don't make the same mistake I made where I got a nifty deal on a membrane only to realize that it needs 170l/m (6cfm) to drive it. That's a LOT of air for a home gamer!
+Be careful when looking on eBay for used membranes. There will be a good chance that those membranes are clogged/used-up. Pretty much no seller eBay will be able to test if a membrane still works properly. Also, don't make the same mistake I made where I got a nifty (almost free) deal on a membrane only to realize that it needs 170l/m (6cfm) to drive it. That's a LOT of air for a home gamer!
 
-- We need a 3-stage air filter to treat the air. The stages are usually a 10μm particulate filter, a 0.1μm oil filter and a 0.01μm coalescing filter. There are many variations on that but the key is that we want a 0.01μm stage in there somewhere. If yor air contains a lot of hydrocarbons (like in an active workshop) you'd also want a activated charcoal filter in addition to the 3-stage filter. Prices range from $200 to $2000 (if you get one on McMaster). I chose a PneumaticPlus SAFU460-N04-MEP which seemed reasonbly priced.
+2. We need a 3-stage air filter to treat the air. The stages are usually a 10μm particulate filter, a 0.1μm oil filter and a 0.01μm coalescing filter. There are many variations on that but the key is that we want a 0.01μm stage in there somewhere. If yor air contains a lot of hydrocarbons (like in an active workshop) you'd also want a activated charcoal filter in addition to the 3-stage filter. Prices range from $200 to $2000 (if you get one on McMaster). I chose a PneumaticPlus SAFU460-N04-MEP which seemed reasonbly priced at $200.
 
-- Most commerically available air compressors can easily provide the air required. I chose a Makita MAC100Q which is plenty sized for the membrane I chose. It's small and quiet.
+3. Most commerically available air compressors can easily provide the air required for this membrane. I chose a Makita MAC100Q which is plenty sized for the membrane I chose. It's small and quiet. About $250.
 
-- 
+4. You will need an oxygen sensor. Otherwise you have no idea what the final oxygen concentration is. It's practically impossible to adjust the output needle valve without this! An scuba diving rated oxygen sensor which can detect 0%-30% oxygen concentration will work fine, on Amazon I chose "OXYGEN Analyzer by FORENSICS" for $200. Make sure that you can attach a tube and pass air through it. Cheap oxygen sensors can only sense environmental air.
+
+5. A holding tank for the nitrogen. A 5 gallon Cornelious will do, $130.
+
+6. We need a controller to sense the air and drive the solenoids. My initial prototype accomplished this with a Click PLC from Automation Direct. It's rather bulky, requires ladder logic knowledge and a complete system comes to about $500. Instead I built my own custom PCB which is way more compact. The DigiKey BOM for this about $150, 5 prototype PCBs from PCBWay cost $50 including shipping and I added an LCD screen for status display. Apart from a PLC or custom PCB, a hacked together Arduino project will also work.
+
+7. To control the air throughout the system we need two needle valves and two solenoids (normally closed, 24V). The exact specs depend on how you want to build up the system. I chose I mix of 1/4 NPT and 8mm push in tubing equipment. It's possible to go all the way into either. I went for some Amazon specials: 1. "stainless steel needle valve, 3mm orifice, 1/4" NPT, SURUIKE INDUSTRY" and "Solenoid Valve AirTAC 2WA030-08 1/4 NPT DC24V". Total was about $120 for these. 
+
+9. Two pressure inducers (pressure sensors) 0-200psi. On Amazon "AUTEX 200 Psi Pressure Transducer Sender Sensor with Connector Harness 1/8”-27 NPT". $52 total.
+
+10. Various other equipment like connectors, fittings, tubing, fasteners etc. They will amount to about $200. Most of the stuff can be had the regular hardware store and it's not useful to list a specific BOM for this as it will depend on your setup/enclosure.
+
+11. For extra bonus I designed a stainless steel enclosure as this equipment will be traveling. Laser cutting and bending was done by OshCut. $380 including shipping using pretty thick 17 gauge (1.9mm) stainless steel. Powder coated steel and thinner material could reduce this to about half. Or just build your own enclosure from whatever material you have, maybe 3d printed.
+
+Total cost (assuming one membrane) was $2222. That's still only about half the price of a commerical solution!
+
