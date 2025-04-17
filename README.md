@@ -70,7 +70,7 @@ Membranes have a 'knocking' limit, i.e. maximum pressure differential going into
 \
 Given local prices for nitrogen membranes, which can be in the many thousands of dollars, I sourced my membrane from Alibaba.com. Specifically the [MNH-1512A](./docs/MNH-1512A.pdf) model from KL-AIR. At the time of this writing it was $400, not including shipping and tariffs. I got two, which set me back $1000 in total including shipping. \
 \
-Be careful when looking on eBay for used membranes. There will be a good chance that those membranes are clogged/used-up. Pretty much no seller eBay will be able to test if a membrane still works properly. Also, don't make the same mistake I made where I got a nifty (almost free) deal on a membrane only to realize that it needs 170l/m (6cfm) to drive it. That's a LOT of air for a home gamer!
+Be careful when looking on eBay for used membranes. There will be a good chance that those membranes are clogged/used-up. No eBay seller will be able to test if a membrane still works properly. Also, don't make the same mistake I made where I got a nifty (almost free) deal on a membrane only to realize that it needs 170l/m (6cfm) to drive it. That's a LOT of air for a home gamer!
 
 [<img src="./images/membrane.jpeg" width="100"/>](./images/membrane.jpeg)
 
