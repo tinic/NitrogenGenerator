@@ -1,3 +1,6 @@
+#ifndef _MCP_H_
+#define _MCP_H_
+
 #include "Core/Inc/main.h"
 
 class MCP {
@@ -73,10 +76,12 @@ class MCP {
     size_t dutyCycleRecordIndex = 0;
 
     float adc_rank0_to_psi() const {
-        return (float((rank0)-450.0f) / 1675.0f) * 100.0f;
+        return ((float(rank0)-450.0f) / 1675.0f) * 100.0f;
     }
 
     float adc_rank1_to_psi() const {
-        return (float((rank1)-450.0f) / 1675.0f) * 100.0f;
+        return ((float(rank1)-450.0f) / 1675.0f) * 100.0f;
     }
 };
+
+#endif  // #ifndef _MCP_H_

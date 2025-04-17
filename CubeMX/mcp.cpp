@@ -1,5 +1,7 @@
 #include "mcp.h"
 
+#include <cstdint>
+
 #include "Core/Inc/main.h"
 
 MCP &MCP::instance() {

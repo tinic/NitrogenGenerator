@@ -15,6 +15,8 @@ def generate_cpp_header(data, header_name_base):
     #define {header_name_base.upper()}_H
 
     // Data structures generated from JSON
+    #include <cstdint>
+    #include <fixed_containers/fixed_map.hpp>
 
     struct CharInfo {{
         int8_t height;
@@ -60,21 +62,21 @@ def generate_cpp_header(data, header_name_base):
             f"{char.get('yoffset', 0)} }}"
         )
     chars_array = textwrap.dedent(f"""\
-    const int FONT_CHARS_COUNT = {len(chars_data)};
-    const CharInfo FONT_CHARS[FONT_CHARS_COUNT] = {{
+    static constexpr int charInfoCount = {len(chars_data)};
+    static constexpr CharInfo charInfo[charInfoCount] = {{
     """) + ",\n".join(chars_array_content) + "\n};"
 
     chars_array_fixed_content = []
     index = 0
     for char in chars_data:
         chars_array_fixed_content.append(
-            f"    {{ {char.get('id', 0)}, FONT_CHARS[{index}]"
+            f"    {{ {char.get('id', 0)}, charInfo[{index}]"
             f" }}"
         )
         index = index + 1
 
     chars_array_fixed = textwrap.dedent("""\
-        static constexpr fixed_containers::FixedMap<uint8_t, const CharInfo&, FONT_CHARS_COUNT> FONT_CHARS_FIXED = {
+        static constexpr fixed_containers::FixedMap<uint8_t, const CharInfo&, charInfoCount> charInfoMap = {
         """) + ",\n".join(chars_array_fixed_content) + "\n};"
 
     # --- Generate Info Data ---
@@ -85,7 +87,7 @@ def generate_cpp_header(data, header_name_base):
     spacing_arr = info_data.get('spacing', [0, 0])
 
     info_struct = textwrap.dedent(f"""\
-    const FontInfo FONT_INFO = {{
+    static constexpr FontInfo fontInfo = {{
         {info_data.get('bold', 0)}, {charset_str},
         {face_str}, {info_data.get('italic', 0)}, {info_data.get('outline', 0)},
         {info_data.get('size', 0)}
@@ -101,13 +103,13 @@ def generate_cpp_header(data, header_name_base):
     kernings_array = ""
     if kernings_data:
         kernings_array = textwrap.dedent(f"""\
-        const int FONT_KERNINGS_COUNT = {len(kernings_data)};
-        static constexpr fixed_containers::FixedMap<std::pair<uint8_t, uint8_t>, uint8_t, FONT_KERNINGS_COUNT> FONT_KERNINGS = {{
+        static constexpr int fontKerningCount = {len(kernings_data)};
+        static constexpr fixed_containers::FixedMap<std::pair<uint8_t, uint8_t>, uint8_t, fontKerningCount> fontKerningMap = {{
         """) + ",\n".join(kernings_array_content) + "\n};"
     else:
         kernings_array = textwrap.dedent(f"""\
-        const int FONT_KERNINGS_COUNT = 0;
-        static constexpr fixed_containers::FixedMap<std::pair<uint8_t, uint8_t>, uint8_t, FONT_KERNINGS_COUNT> FONT_KERNINGS = {{
+        static constexpr int fontKerningCount = 0;
+        static constexpr fixed_containers::FixedMap<std::pair<uint8_t, uint8_t>, uint8_t, fontKerningCount> fontKerningMap = {{
         """) + ",\n".join(kernings_array_content) + "\n};"
 
     # --- Assemble Final Header ---

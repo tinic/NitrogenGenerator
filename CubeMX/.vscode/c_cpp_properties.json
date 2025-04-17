@@ -14,7 +14,16 @@
             "compilerPath": "/opt/homebrew/bin/arm-none-eabi-g++",
             "cStandard": "gnu23",
             "cppStandard": "c++23",
-            "intelliSenseMode": "macos-gcc-arm"
+            "intelliSenseMode": "macos-gcc-arm",
+            "includePath": [
+                "${workspaceFolder}/fixed-containers/include",
+                "${workspaceFolder}/Drivers/STM32G0xx_HAL_Driver/Inc",
+                "${workspaceFolder}/Core/Inc/",
+                "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32G0xx/Include/",
+                "${workspaceFolder}/build/",
+                "${workspaceFolder}/build/Debug/",
+                "${workspaceFolder}/build/Release/"
+            ]
         }
     ],
     "version": 4
