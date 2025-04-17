@@ -115,4 +115,4 @@ Total cost (assuming one membrane) was $2222. That's still only about half the p
 
 ### Here is P&ID alike schematic which show the how the air goes through the system:
 
-[<img src="./images/pcb2.jpg" width="100%"/>](./images/pcb2.jpg)
+[<img src="./images/airschematic.png" width="100%"/>](./images/airschematic.png)
