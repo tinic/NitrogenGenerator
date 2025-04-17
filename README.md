@@ -132,3 +132,9 @@ Additionally the controller will monitor the following conditions:
 - If the input and output pressures are out of range (<0 or >150psi) (AirPressure1 and NitrogenPressure1), both solendoids stay closed. This could happens when one of the sensors fail.
 
 Some timers are used to stagger the activation of the solenoids to avoid ocillations and feedback loops.
+
+### Procedures to adjust input and output needle valves
+
+- The input needle valve should be adjusted so that suddendly feeding 100psi through it does not cause a "loud bang", but rather how 10psi air would feel coming out directly of a compressor. Rig something up and adjust that valve before you put the entire system together.
+- To test the entire system for leaks initially set the output needle valve to fully open.
+- To avoid destroying the oxygen sensor set the output valve to initially output half the air to it being completly open. Then attach the output oxygen directly to the output and start closing the valve slowly until you see the oxygen dropping. Very slowly and patiently continue to close the valve until you reach <1% oxygen. It can take some time for the oxygen to flush out. Do not be surprised but how little pure nitrogen comes out when you reach <%1. Remember that we only get 1cfh with this membrane, it's normal to just barely feel air coming out! Use your lips to determine if any air is coming out.
