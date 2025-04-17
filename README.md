@@ -107,7 +107,7 @@ Be careful when looking on eBay for used membranes. There will be a good chance 
 
 10. Various other equipment like connectors, fittings, tubing, fasteners etc. They will amount to about $200. Most of the stuff can be had the regular hardware store and it's not useful to list a specific BOM for this as it will depend on your setup/enclosure.
 
-11. For extra bonus I designed a stainless steel enclosure as this equipment will be traveling. Laser cutting and bending was done by OshCut. $380 including shipping using pretty thick 17 gauge (1.9mm) stainless steel. Powder coated steel and thinner material could reduce this to about half. Or just build your own enclosure from whatever material you have, maybe 3d printed.
+11. For extra bonus I designed a stainless steel enclosure as this equipment will be traveling. Laser cutting and bending was done by OshCut. $380 including shipping using way to thick 17 gauge (1.9mm) stainless steel. Powder coated steel and thinner material could reduce this to about half. Or just build your own enclosure from whatever material you have, maybe 3d printed.
 
 Total cost (assuming one membrane) was $2222. That's still only about half the price of a commerical solution!
 
