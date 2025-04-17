@@ -44,7 +44,7 @@ Resulting technical metrics for my application:
 
 ## Selecting the components
 
-# Summary
+### Summary
 
 1. nitrogen membrane
 2. air filter
@@ -58,7 +58,7 @@ Resulting technical metrics for my application:
 10. misc connector, fittings, tubing, cables
 11. enclosure
 
-# Details
+### Details
 
 1. The core part of this build is the nitrogen membrane. For a 50l/h (2cfh) nitrogren flow the nitrogren membrane will be typically in a form a cylinder in the range of 300-500mm (12-15in) length and 40-60mm (1.5-2.5in) in diameter. 
 
