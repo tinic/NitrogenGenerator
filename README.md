@@ -121,14 +121,14 @@ Total cost (assuming one membrane) was $2222. That's still only about half the p
 
 The solenoids are used to control how the air enters and nitrogen exits the system. The following logic is used by the controller:
 
-1. When pressure on the holding tank side / output side drops below 75psi open the solenoid on the input side to start filtering process.
-2. Hold the output solenoid closed until the internal pressue of the filtered section reaches 75psi. This makes sure that we have maximum nitrogen concentration before nitrogen goes into the holding tank.
-3. When the holding tank side / output side reaches 100psi close both solenoids and go back to step 1.
+1. When pressure on the holding tank side / output side (NitrogenPressure1) drops below 75psi open the solenoid on the input side (AirSolenoid1) to start filtering process.
+2. Hold the output solenoid (NitrogenSolenoid1) closed until the pressure of the filtering section (AirPressure1) reaches 75psi. This makes sure that we have maximum nitrogen concentration before nitrogen goes into the holding tank.
+3. When the holding tank side / output side reaches 100psi (NitrogenPressure1) close both solenoids and go back to step 1.
 
 Additionally the controller will monitor the following conditions:
 
-- If the input pressure drops below 75psi, both solenoids always stay closed (unpowered)
-- If the input pressure increases beyond 120psi, both solendoids stay closed (unpowered)
-- If the input and output pressures are out of range (<0 or >150psi), both solendoids stay closed (unpowered)
+- If the input pressure (AirPressure1) drops below 75psi at any point, both solenoids always stay closed. This is to prevent backfeeding and nitrogen loss in the holding tank.
+- If the input pressure (AirPressure1) increases beyond 120psi at any point, both solendoids stay closed. To high of pressure can destroy the membrane.
+- If the input and output pressures are out of range (<0 or >150psi) (AirPressure1 and NitrogenPressure1), both solendoids stay closed. This could happens when one of the sensors fail.
 
 Some timers are used to stagger the activation of the solenoids to avoid ocillations and feedback loops.
