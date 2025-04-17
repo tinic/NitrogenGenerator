@@ -90,7 +90,7 @@ Be careful when looking on eBay for used membranes. There will be a good chance 
 
 [<img src="./images/corneliouskeg.jpeg" width="100"/>](./images/corneliouskeg.jpeg)
 
-6. We need a controller to sense the air and drive the solenoids. My initial prototype accomplished this with a Click PLC from Automation Direct. It's rather bulky, requires ladder logic knowledge and a complete system comes to about $200. Instead I built my own custom PCB which is way more compact. The DigiKey BOM for this about $130, 5 prototype PCBs from PCBWay cost $50 including shipping and I added an LCD screen for status display as a bonus. Apart from a PLC or custom PCB, a hacked together Arduino project will also work.
+6. We need a controller to sense the air and drive the solenoids. My initial prototype accomplished this with a Click PLC from Automation Direct. It's rather bulky, requires ladder logic knowledge and a complete system comes to about $300. Instead I built my own custom PCB which is way more compact. The DigiKey BOM for this about $130, 5 prototype PCBs from PCBWay cost $50 including shipping and I added an LCD screen for status display as a bonus. Apart from a PLC or custom PCB, a hacked together Arduino project will also work.
 
 [<img src="./images/plc.jpg" width="100"/>](./images/plc.jpg)
 [<img src="./images/pcb1.jpg" width="100"/>](./images/pcb1.jpg)
