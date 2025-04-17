@@ -6,7 +6,7 @@
 
 As a home brewer CO2 is the gas of choice for most purposes, including pushing beverages to the tap. But sometimes you don't want to just serve beer but also coldbrew coffee and other non-carbonated beverages. In most cases a simple N2 cylinder does the job. But given that air is 78% nitrogen why not just extract it from the air? Recently products like NitroBev 360 have introduced this possibility on a small scale, at a price. Given the huge margins these niche products have my thought was to try to build a nitrogen generator from scratch for less.
 
-## How does a nitrogen generator work
+## How nitrogen generators work
 
 We will be talking about membrane based systems here only. A membrane-based nitrogen generator works by passing compressed air through a semi-permeable membrane made of bundles of hollow polymer fibers. Oxygen and water vapor molecules, being smaller and having a higher permeation rate, pass through the membrane walls and are vented out. Nitrogen molecules, being larger and having a lower permeation rate, are retained within the fibers and collected as a high-purity nitrogen gas stream at the outlet. Purity levels can be adjusted down to about 0.5% oxygen which is appropriate for beverage service.
 
@@ -40,7 +40,7 @@ Resulting technical metrics for my application:
 
 - Some experience with actively pressure controlled vessels is required. Home brewers which use kegs usually have this knowledge.
 - Experience with PLCs or building you own PCB / Arduino to control the air system. Some programming is required.
-- Generally knowledge of electrical and air equipment.
+- General knowledge of electrical and air equipment.
 
 ## Selecting the components
 
@@ -110,3 +110,25 @@ Be careful when looking on eBay for used membranes. There will be a good chance 
 11. For extra bonus I designed a stainless steel enclosure as this equipment will be traveling. Laser cutting and bending was done by OshCut. $380 including shipping using pretty thick 17 gauge (1.9mm) stainless steel. Powder coated steel and thinner material could reduce this to about half. Or just build your own enclosure from whatever material you have, maybe 3d printed.
 
 Total cost (assuming one membrane) was $2222. That's still only about half the price of a commerical solution!
+
+## System Design
+
+### P&ID alike schematic which shows the how the air goes through the system:
+
+[<img src="./images/airschematic.png" width="100%"/>](./images/airschematic.png)
+
+### Solenoid driving logic
+
+The solenoids are used to control how the air enters and nitrogen exits the system. The following logic is used by the controller:
+
+1. When pressure on the holding tank side / output side (NitrogenPressure1) drops below 75psi open the solenoid on the input side (AirSolenoid1) to start filtering process.
+2. Hold the output solenoid (NitrogenSolenoid1) closed until the pressure of the filtering section (AirPressure1) reaches 75psi. This makes sure that we have maximum nitrogen concentration before nitrogen goes into the holding tank.
+3. When the holding tank side / output side reaches 100psi (NitrogenPressure1) close both solenoids and go back to step 1.
+
+Additionally the controller will monitor the following conditions:
+
+- If the input pressure (AirPressure1) drops below 75psi at any point, both solenoids always stay closed. This is to prevent backfeeding and nitrogen loss in the holding tank.
+- If the input pressure (AirPressure1) increases beyond 120psi at any point, both solendoids stay closed. To high of pressure can destroy the membrane.
+- If the input and output pressures are out of range (<0 or >150psi) (AirPressure1 and NitrogenPressure1), both solendoids stay closed. This could happens when one of the sensors fail.
+
+Some timers are used to stagger the activation of the solenoids to avoid ocillations and feedback loops.
