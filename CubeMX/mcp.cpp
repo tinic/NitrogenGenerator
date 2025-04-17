@@ -45,7 +45,7 @@ void MCP::Slice() {
         solenoid0 = true;
         if (PSI0() > 75.0f) {
             solenoid1 = true;
-            SetRefillElapsedTime(double(timeElapsedRefill++));
+            SetRefillElapsedTime(float(timeElapsedRefill++));
         }
     }
 

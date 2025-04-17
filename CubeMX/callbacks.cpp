@@ -33,8 +33,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 #if 1
     if (htim == &htim1) {
         // 1/10s interval
-        static double system_time = 0;
-        system_time += 1.0/10.0;
+        static float system_time = 0;
+        system_time += 1.0f/10.0f;
         MCP::instance().SetSystemTime(system_time);
         ST7525::instance().update();
         HAL_ADC_Start_IT(&hadc1);

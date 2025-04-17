@@ -27,10 +27,10 @@ class MCP {
         return adc_rank1_to_psi();
     }
 
-    double SystemTime() const {
+    float SystemTime() const {
         return system_time;
     }
-    double RefillElapsedTime() const {
+    float RefillElapsedTime() const {
         return refillElapsedTime;
     }
 
@@ -40,10 +40,10 @@ class MCP {
     void SetRawPSI1(uint32_t v) {
         rank1 = v;
     }
-    void SetSystemTime(double v) {
+    void SetSystemTime(float v) {
         system_time = v;
     }
-    void SetRefillElapsedTime(double v) {
+    void SetRefillElapsedTime(float v) {
         refillElapsedTime = v;
     }
 
@@ -68,8 +68,8 @@ class MCP {
 
     uint32_t rank0 = 0;
     uint32_t rank1 = 0;
-    double refillElapsedTime = 0;
-    double system_time = 0;
+    float refillElapsedTime = 0;
+    float system_time = 0;
     bool initialized = false;
     static constexpr size_t dutyCycleRecordCount = 8;
     float dutyCycleRecord[dutyCycleRecordCount] = {};
