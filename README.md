@@ -74,7 +74,7 @@ Be careful when looking on eBay for used membranes. There will be a good chance 
 
 [<img src="./images/membrane.jpeg" width="100"/>](./images/membrane.jpeg)
 
-2. We need a 3-stage air filter to treat the air. The stages are usually a 1μm particulate filter, a 0.1μm oil filter and a 0.01μm coalescing filter. There are many variations on that but the key is that we want a 0.01μm stage in there somewhere. If yor air contains a lot of hydrocarbons (like in an active workshop) you'd also want a activated charcoal filter in addition to the 3-stage filter. Prices range from $200 to $2000 (if you get one on McMaster). I chose a PneumaticPlus SAFU460-N04-MEP which seemed reasonbly priced at $200.
+2. We need a 3-stage air filter to treat the air. The stages are usually a 1μm particulate filter, a 0.1μm oil filter and a 0.01μm coalescing filter. There are many variations on that but the key is that we want a 0.01μm stage in there somewhere. If yor air contains a lot of hydrocarbons (like in an active workshop) you'd also want an activated charcoal filter in addition to the 3-stage filter. Prices range from $200 to $2000 (if you get one on McMaster). I chose a PneumaticPlus SAFU460-N04-MEP which seemed reasonbly priced at $200.
 
 [<img src="./images/airfilter.jpg" width="100"/>](./images/airfilter.jpg)
 
