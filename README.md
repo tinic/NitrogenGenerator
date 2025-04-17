@@ -40,7 +40,7 @@ Resulting technical metrics for my application:
 
 - Some experience with actively pressure controlled vessels is required. Home brewers which use kegs usually have this knowledge.
 - Experience with PLCs or building you own PCB / Arduino to control the air system. Some programming is required.
-- Generally knowledge of electrical and air equipment.
+- General knowledge of electrical and air equipment.
 
 ## Selecting the components
 
