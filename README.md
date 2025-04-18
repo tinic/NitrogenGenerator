@@ -40,8 +40,8 @@ Resulting technical metrics for my application:
 
 - Some experience with actively pressure controlled vessels is required. Home brewers using kegs usually have this knowledge.
 - Experience with PLCs or building you own PCB / Arduino to control the air system. Some programming is required.
-- General knowledge on compressed air tubing, pipe fittings, air connectors, NPT fittings and 8mm push-in fittings. Know how to use the right PTFE tape and sealing compounds for each material so you don't have any leaks!
-- General knowledge on how sensors and solenoids work and how they are wired up.
+- General knowledge on compressed air tubing, pipe fittings, air connectors, NPT fittings and 8mm push-in fittings. 
+- General knowledge on how sensors and solenoids work and how they are wired up. 
 - General knowledge of electrical and air equipment.
 
 ## Selecting the components
