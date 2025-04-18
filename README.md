@@ -144,6 +144,6 @@ Additionally the controller will monitor the following conditions:
 
 3. When you are done checking for leaks and to avoid destroying the oxygen sensor open the output valve by only 4 turns or so. 
 4. Attach the output oxygen directly to the output and start closing the needle valve slowly until you see the oxygen dropping. 
-5. Very slowly and patiently continue to close the valve until you reach <1% oxygen. It can take some time for the oxygen to flush out. Do not be surprised but how little pure nitrogen comes out when you reach <%1. 
+5. Very slowly and patiently continue to close the valve until you reach <=1% oxygen. It can take some time for the oxygen to flush out. Do not be surprised by how little pure nitrogen comes out when you reach <=1%. 
 6. Stop right there. Closing it more will cause the permate air to nitrogen air ratio to go above the ideal, i.e. much higher than 5:1 and will not improve nitrogen concentration further. 
 7. Remember that we only get 1cfh with this membrane, it's normal to just barely feel air coming out! Use your lips to determine if any air is coming out.
