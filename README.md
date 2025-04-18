@@ -129,7 +129,7 @@ Additionally the controller will monitor the following conditions:
 
 - If the input pressure (AirPressure1) drops below 75psi at any point, both solenoids always stay closed. This is to prevent backfeeding and nitrogen loss in the holding tank.
 - If the input pressure (AirPressure1) increases beyond 120psi at any point, both solendoids stay closed. To high of pressure can destroy the membrane.
-- If the input and output pressures are out of range (<0 or >150psi) (AirPressure1 and NitrogenPressure1), both solendoids stay closed. This could happens when one of the sensors fail.
+- If the input and output pressures are out of range (<0 or >150psi) (AirPressure1 and NitrogenPressure1), both solendoids stay closed. This could happen when one of the pressure sensors fail.
 
 Some timers are used to stagger the activation of the solenoids to avoid ocillations and feedback loops.
 
