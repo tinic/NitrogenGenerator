@@ -125,7 +125,7 @@ The solenoids are used to control how the air enters and nitrogen exits the syst
 2. Hold the output solenoid (NitrogenSolenoid1) closed until the pressure of the filtering section (AirPressure1) reaches 75psi. This makes sure that we have maximum nitrogen concentration before nitrogen goes into the holding tank.
 3. When the holding tank side / output side reaches 100psi (NitrogenPressure1) close both solenoids and go back to step 1.
 
-Some timers (5-10s) are used to stagger the activation of the solenoids to avoid ocillations and feedback loops.
+Some timers (5-10s) are used to stagger the activation of the solenoids (hysteresis) to avoid ocillations and feedback loops.
 
 Additionally the controller will monitor the following conditions:
 
