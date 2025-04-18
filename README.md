@@ -98,7 +98,7 @@ Be careful when looking on eBay for used membranes. There will be a good chance 
 [<img src="./images/pcb1.jpg" width="100"/>](./images/pcb1.jpg)
 [<img src="./images/pcb2.jpg" width="100"/>](./images/pcb2.jpg)
 
-7. To control the air throughout the system we need two needle valves and two solenoids (normally closed, 24V). The exact specs depend on how you want to build up the system. I chose I mix of 1/4 NPT and 8mm push in tubing equipment. It's possible to go all the way into either. I went for some Amazon specials: 1. "stainless steel needle valve, 3mm orifice, 1/4" NPT, SURUIKE INDUSTRY" and "Solenoid Valve AirTAC 2WA030-08 1/4 NPT DC24V". Total was about $120 for these. 
+7. To control the air throughout the system we need two needle valves and two solenoids (normally closed, 24V). The exact specs depend on how you want to build up the system. I chose a mix of 1/4 NPT and 8mm push-in standards. It's possible to go all the way into either, i.e. there are 8mm push-in needle valves and solenoids. I went for some Amazon specials: 1. "Stainless steel needle valve, 3mm orifice, 1/4" NPT, SURUIKE INDUSTRY" and "Solenoid Valve AirTAC 2WA030-08 1/4 NPT DC24V". Total was about $120 for these. The downside with NPT is that you need a bunch of extra fittings and extenders and some experience making them leak proof. The downside of 8mm push-in is that it's harder to source generally but much easier to install and cheaper.
 
 [<img src="./images/needlevalve.jpg" width="100"/>](./images/needlevalve.jpg)
 [<img src="./images/solenoid.jpg" width="100"/>](./images/solenoid.jpg)
