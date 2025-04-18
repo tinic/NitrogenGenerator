@@ -84,7 +84,7 @@ Be careful when looking on eBay for used membranes. There will be a good chance 
 
 [<img src="./images/compressor.png" width="100"/>](./images/compressor.png)
 
-4. You will need an oxygen sensor. Otherwise you have no idea what the final oxygen concentration is. It's practically impossible to adjust the output needle valve without this! An scuba diving rated oxygen sensor which can detect 0%-30% oxygen concentration will work fine, on Amazon I picked "OXYGEN Analyzer by FORENSICS" for $200. Make sure that you can attach a tube and pass air through it. Cheap oxygen sensors can only sense environmental air.
+4. You will need an oxygen sensor. Otherwise you have no idea what the final oxygen concentration is. It's practically impossible to adjust the output needle valve without this! A scuba diving rated oxygen sensor which can detect 0%-30% oxygen concentration will work fine, on Amazon I picked a "OXYGEN Analyzer by FORENSICS" for $200. Make sure that you can attach a tube and pass air through it. Cheap oxygen sensors can only sense environmental air.
 
 [<img src="./images/oxygensensor.jpg" width="100"/>](./images/oxygensensor.jpg)
 
