@@ -165,34 +165,40 @@ void ST7525::update() {
     clear();
 
     static char output[64] = {};
-    snprintf(output, sizeof(output), "AIR:");
-    draw_string(0, 0, output);
-    snprintf(output, sizeof(output), "%dpsi", static_cast<int>(MCP::instance().PSI0()));
-    draw_string(192 / 2 - draw_string(0, 0, output, true) - 4, 0, output);
-    snprintf(output, sizeof(output), "N2:");
-    draw_string(192 / 2 + 4, 0, output);
-    snprintf(output, sizeof(output), "%dpsi", static_cast<int>(MCP::instance().PSI1()));
-    draw_string(191 - draw_string(0, 0, output, true), 0, output);
+    if (MCP::instance().SystemTime() < 10) {
+        snprintf(output, sizeof(output), "Nitrogen Generator 1.5");
+        draw_string((192 - draw_string(0, 0, output, true))/2, 8, output);
+        snprintf(output, sizeof(output), "by Tinic Uro in 2025");
+        draw_string((192 - draw_string(0, 0, output, true))/2, 18, output);
+    } else {
+        snprintf(output, sizeof(output), "AIR:");
+        draw_string(0, 0, output);
+        snprintf(output, sizeof(output), "%dpsi", static_cast<int>(MCP::instance().PSI0()));
+        draw_string(192 / 2 - draw_string(0, 0, output, true) - 4, 0, output);
+        snprintf(output, sizeof(output), "N2:");
+        draw_string(192 / 2 + 4, 0, output);
+        snprintf(output, sizeof(output), "%dpsi", static_cast<int>(MCP::instance().PSI1()));
+        draw_string(191 - draw_string(0, 0, output, true), 0, output);
 
-    snprintf(output, sizeof(output), "%s", MCP::instance().Solenoid0() ? "Open" : "Closed");
-    draw_string(0, 22, output);
-    snprintf(output, sizeof(output), "%s", MCP::instance().Solenoid1() ? "Open" : "Closed");
-    draw_string(192 / 2 + 4, 22, output);
+        snprintf(output, sizeof(output), "%s", MCP::instance().Solenoid0() ? "Open" : "Closed");
+        draw_string(0, 22, output);
+        snprintf(output, sizeof(output), "%s", MCP::instance().Solenoid1() ? "Open" : "Closed");
+        draw_string(192 / 2 + 4, 22, output);
 
-    snprintf(output, sizeof(output), "%02d%%", static_cast<int>(MCP::instance().DutyCycleAverage() * 100.0f));
-    draw_string(191 - draw_string(0, 0, output, true), 22, output);
+        snprintf(output, sizeof(output), "%02d%%", static_cast<int>(MCP::instance().DutyCycleAverage() * 100.0f));
+        draw_string(191 - draw_string(0, 0, output, true), 22, output);
 
-    int32_t h = (static_cast<int32_t>(MCP::instance().SystemTime()) / 3600);
-    int32_t m = (static_cast<int32_t>(MCP::instance().SystemTime()) / 60) % 60;
-    int32_t s = (static_cast<int32_t>(MCP::instance().SystemTime())) % 60;
-    snprintf(output, sizeof(output), "T:%04d:%02d:%02d", static_cast<int>(h), static_cast<int>(m), static_cast<int>(s));
-    draw_string(0, 44, output);
+        int32_t h = (static_cast<int32_t>(MCP::instance().SystemTime()) / 3600);
+        int32_t m = (static_cast<int32_t>(MCP::instance().SystemTime()) / 60) % 60;
+        int32_t s = (static_cast<int32_t>(MCP::instance().SystemTime())) % 60;
+        snprintf(output, sizeof(output), "T:%04d:%02d:%02d", static_cast<int>(h), static_cast<int>(m), static_cast<int>(s));
+        draw_string(0, 44, output);
 
-    int32_t em = (static_cast<int32_t>(MCP::instance().RefillElapsedTime()) / 60) % 60;
-    int32_t es = (static_cast<int32_t>(MCP::instance().RefillElapsedTime())) % 60;
-    snprintf(output, sizeof(output), "R:%02d:%02d", static_cast<int>(em), static_cast<int>(es));
-    draw_string(191 - draw_string(0, 0, output, true), 44, output);
-
+        int32_t em = (static_cast<int32_t>(MCP::instance().RefillElapsedTime()) / 60) % 60;
+        int32_t es = (static_cast<int32_t>(MCP::instance().RefillElapsedTime())) % 60;
+        snprintf(output, sizeof(output), "R:%02d:%02d", static_cast<int>(em), static_cast<int>(es));
+        draw_string(191 - draw_string(0, 0, output, true), 44, output);
+    }
     write_frame();
 }
 
