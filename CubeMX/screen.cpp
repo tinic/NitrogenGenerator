@@ -166,7 +166,7 @@ void ST7525::update() {
 
     static char output[64] = {};
     if (MCP::instance().SystemTime() < 10) {
-        snprintf(output, sizeof(output), "Nitrogen Generator 1.5");
+        snprintf(output, sizeof(output), "AERON²");
         draw_string((192 - draw_string(0, 0, output, true))/2, 8, output);
         snprintf(output, sizeof(output), "by Tinic Uro in 2025");
         draw_string((192 - draw_string(0, 0, output, true))/2, 18, output);
