@@ -28,6 +28,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "./mcp.h"
 #include "font_0.h"
 #include "boot.h"
+#include "version.h"
 
 extern "C" SPI_HandleTypeDef hspi1;
 
@@ -175,8 +176,15 @@ void ST7525::update() {
     clear();
 
     static char output[64] = {};
-    if (MCP::instance().SystemTime() < 10) {
+    if (MCP::instance().SystemTime() < 5) {
         write_boot();
+    } else if (MCP::instance().SystemTime() < 10) {
+        snprintf(output, sizeof(output), "www.aeron2.com");
+        draw_string((192 - draw_string(0, 0, output, true)) / 2, 0, output);
+        snprintf(output, sizeof(output), "build " GIT_REV_COUNT );
+        draw_string((192 - draw_string(0, 0, output, true)) / 2, 20, output);
+        snprintf(output, sizeof(output), GIT_COMMIT_DATE_SHORT);
+        draw_string((192 - draw_string(0, 0, output, true)) / 2, 40, output);
     } else {
         snprintf(output, sizeof(output), "AIR:");
         draw_string(0, 0, output);
