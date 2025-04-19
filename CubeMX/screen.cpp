@@ -1,10 +1,32 @@
-#include "screen.h"
-#include "mcp.h"
+/* Copyright 2025 Tinic Uro
 
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+#include "./screen.h"
+
+#include <cstdio>
 #include <fixed_containers/fixed_map.hpp>
 
+#include "./Core/Inc/main.h"
+#include "./mcp.h"
 #include "font_0.h"
-#include "Core/Inc/main.h"
 
 extern "C" SPI_HandleTypeDef hspi1;
 
@@ -45,20 +67,20 @@ void ST7525::init() {
 void ST7525::set_pixel(int32_t x, int32_t y, uint8_t c) {
     if (x >= COLUMNS || y >= LINES)
         return;
-    uint16_t idx = uint16_t((y / 8) * COLUMNS + x);
+    uint16_t idx = static_cast<uint16_t>((y / 8) * COLUMNS + x);
     if (c)
-        framebuffer[idx] |= uint8_t( (1 << (y % 8)));
+        framebuffer[idx] |= uint8_t((1 << (y % 8)));
     else
         framebuffer[idx] &= uint8_t(~(1 << (y % 8)));
 }
 
 void ST7525::draw_char(int32_t x, int32_t y, const CharInfo &ch, const uint8_t *data) {
-    const int32_t stride = (IMAGE_ASSET_WIDTH + 7) & ~(7);
+    const int32_t stride = (FONT_BITMAP_WIDTH + 7) & ~(7);
     data += (ch.y * stride + ch.x) / 8;
     x += ch.xoffset;
     y += ch.yoffset;
-    int32_t x2 = x + int32_t(ch.width);
-    int32_t y2 = y + int32_t(ch.height);
+    int32_t x2 = x + static_cast<int32_t>(ch.width);
+    int32_t y2 = y + static_cast<int32_t>(ch.height);
     for (int32_t yy = y; yy < y2; yy++) {
         for (int32_t xx = x; xx < x2; xx++) {
             int x_off = (xx - x) + (ch.x % 8);
@@ -71,13 +93,11 @@ void ST7525::draw_char(int32_t x, int32_t y, const CharInfo &ch, const uint8_t *
         }
         data += stride / 8;
     }
-
 }
 
 int32_t ST7525::draw_string(int32_t x, int32_t y, const char *str, bool calcWidthOnly) {
     uint32_t lastCodePoint = 0;
     const CharInfo *chInfo = 0;
-    const uint8_t *chData = 0;
     while (*str != '\0') {
         uint32_t codePoint = 0;
         unsigned char lead = *str;
@@ -107,11 +127,10 @@ int32_t ST7525::draw_string(int32_t x, int32_t y, const char *str, bool calcWidt
             }
         }
 
-        chInfo = 0;
-        chData = 0;
-        if (charInfoMap.contains(uint8_t(codePoint))) {
-            chInfo = &charInfoMap.at(uint8_t(codePoint));
-            chData = &image_asset_data[0];
+        const uint8_t *chData = 0;
+        if (charInfoMap.contains(static_cast<uint8_t>(codePoint))) {
+            chInfo = &charInfoMap.at(static_cast<uint8_t>(codePoint));
+            chData = &font_bitmap_data[0];
         }
 
         if (chInfo && chData) {
@@ -127,12 +146,12 @@ int32_t ST7525::draw_string(int32_t x, int32_t y, const char *str, bool calcWidt
         x += chInfo->width;
     }
     return x;
-}    
+}
 
 void ST7525::clear() {
     memset(framebuffer, 0, sizeof(framebuffer));
 }
-    
+
 void ST7525::write_frame() {
     send_cmd(CMD_SET_PAGE_ADRESS);
     send_cmd(CMD_SET_COLUMN_MSB);
@@ -145,34 +164,34 @@ void ST7525::write_frame() {
 void ST7525::update() {
     clear();
 
-    static char output[32] = {0};
-    sprintf(output, "AIR:");
+    static char output[64] = {};
+    snprintf(output, sizeof(output), "AIR:");
     draw_string(0, 0, output);
-    sprintf(output, "%dpsi", int(MCP::instance().PSI0()));
-    draw_string(192/2-draw_string(0, 0, output, true)-4, 0, output);
-    sprintf(output, "N2:");
-    draw_string(192/2+4, 0, output);
-    sprintf(output, "%dpsi", int(MCP::instance().PSI1()));
-    draw_string(191-draw_string(0, 0, output, true), 0, output);
+    snprintf(output, sizeof(output), "%dpsi", static_cast<int>(MCP::instance().PSI0()));
+    draw_string(192 / 2 - draw_string(0, 0, output, true) - 4, 0, output);
+    snprintf(output, sizeof(output), "N2:");
+    draw_string(192 / 2 + 4, 0, output);
+    snprintf(output, sizeof(output), "%dpsi", static_cast<int>(MCP::instance().PSI1()));
+    draw_string(191 - draw_string(0, 0, output, true), 0, output);
 
-    sprintf(output, "%s", MCP::instance().Solenoid0() ? "Open" : "Closed");
+    snprintf(output, sizeof(output), "%s", MCP::instance().Solenoid0() ? "Open" : "Closed");
     draw_string(0, 22, output);
-    sprintf(output, "%s", MCP::instance().Solenoid1() ? "Open" : "Closed");
-    draw_string(192/2+4, 22, output);
+    snprintf(output, sizeof(output), "%s", MCP::instance().Solenoid1() ? "Open" : "Closed");
+    draw_string(192 / 2 + 4, 22, output);
 
-    sprintf(output, "%02d%%", 12);// int(MCP::instance().DutyCycleAverage()*100.0f));
-    draw_string(191-draw_string(0, 0, output, true), 22, output);
+    snprintf(output, sizeof(output), "%02d%%", static_cast<int>(MCP::instance().DutyCycleAverage() * 100.0f));
+    draw_string(191 - draw_string(0, 0, output, true), 22, output);
 
-    int32_t h = (int(MCP::instance().SystemTime())  / 3600);
-    int32_t m = (int(MCP::instance().SystemTime())  /   60) % 60;
-    int32_t s = (int(MCP::instance().SystemTime())        ) % 60;
-    sprintf(output, "T:%04d:%02d:%02d", int(h), int(m), int(s));
+    int32_t h = (static_cast<int32_t>(MCP::instance().SystemTime()) / 3600);
+    int32_t m = (static_cast<int32_t>(MCP::instance().SystemTime()) / 60) % 60;
+    int32_t s = (static_cast<int32_t>(MCP::instance().SystemTime())) % 60;
+    snprintf(output, sizeof(output), "T:%04d:%02d:%02d", static_cast<int>(h), static_cast<int>(m), static_cast<int>(s));
     draw_string(0, 44, output);
 
-    int32_t em = (int(MCP::instance().RefillElapsedTime())  /   60) % 60;
-    int32_t es = (int(MCP::instance().RefillElapsedTime())        ) % 60;
-    sprintf(output, "R:%02d:%02d", int(em), int(es));
-    draw_string(191-draw_string(0, 0, output, true), 44, output);
+    int32_t em = (static_cast<int32_t>(MCP::instance().RefillElapsedTime()) / 60) % 60;
+    int32_t es = (static_cast<int32_t>(MCP::instance().RefillElapsedTime())) % 60;
+    snprintf(output, sizeof(output), "R:%02d:%02d", static_cast<int>(em), static_cast<int>(es));
+    draw_string(191 - draw_string(0, 0, output, true), 44, output);
 
     write_frame();
 }

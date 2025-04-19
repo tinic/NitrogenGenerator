@@ -79,7 +79,6 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
 # Add linked libraries
 target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
-
     # Add user defined libraries
 )
 
@@ -97,7 +96,8 @@ add_custom_command(
     COMMAND ${FONTBM_CMAKE_COMMAND}
     COMMAND cmake --build .
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/fontbm/build
-    DEPENDS ${PROJECT_SOURCE_DIR}/fontbm/src/main.cpp)
+    DEPENDS ${PROJECT_SOURCE_DIR}/fontbm/src/main.cpp
+    USES_TERMINAL)
 
 set(FONT_FNT ${PROJECT_BINARY_DIR}/font.fnt)
 set(FONT_PNG ${PROJECT_BINARY_DIR}/font_0.png)
@@ -105,14 +105,16 @@ add_custom_command(
     OUTPUT ${FONT_PNG} ${FONT_FNT}
     COMMAND ${FONTBM_BINARY} --font-file ${PROJECT_SOURCE_DIR}/SF-Compact-Display-Bold.otf --texture-crop-width --texture-crop-height --kerning-pairs regular --tabular-numbers --slashed-zero --monochrome --font-size 18 --output font --data-format json
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-    DEPENDS ${FONTBM_BINARY})
+    DEPENDS ${FONTBM_BINARY}
+    USES_TERMINAL)
 
 set(FONT_BITMAP_HEADER ${PROJECT_BINARY_DIR}/font_0.h)
 add_custom_command(
         OUTPUT ${FONT_BITMAP_HEADER}
-        COMMAND python3 ${PROJECT_SOURCE_DIR}/png_to_header.py -i ${FONT_PNG} -o ${FONT_BITMAP_HEADER}
+        COMMAND python3 ${PROJECT_SOURCE_DIR}/png_to_header.py -i ${FONT_PNG} -o ${FONT_BITMAP_HEADER} -n font_bitmap
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-        DEPENDS ${FONT_PNG})
+        DEPENDS ${FONT_PNG}
+        USES_TERMINAL)
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${FONT_BITMAP_HEADER})
 
 set(FONT_HEADER ${PROJECT_BINARY_DIR}/font.h)
@@ -120,10 +122,12 @@ add_custom_command(
         OUTPUT ${FONT_HEADER}
         COMMAND python3 ${PROJECT_SOURCE_DIR}/font_to_header.py -i ${FONT_FNT} -o ${FONT_HEADER}
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-        DEPENDS ${FONT_FNT})
+        DEPENDS ${FONT_FNT}
+        USES_TERMINAL)
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${FONT_HEADER})
 
 add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_OBJDUMP} -D $<TARGET_FILE:${CMAKE_PROJECT_NAME}> > ${CMAKE_PROJECT_NAME}.S
     COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${CMAKE_PROJECT_NAME}> ${CMAKE_PROJECT_NAME}.bin
-    COMMAND ${CMAKE_SIZE} ${CMAKE_PROJECT_NAME}.elf)
+    COMMAND ${CMAKE_SIZE} ${CMAKE_PROJECT_NAME}.elf
+    USES_TERMINAL)
