@@ -6,7 +6,11 @@ from PIL import Image
 
 def generate_header(png_path, header_path, array_name):
     try:
-        img = Image.open(png_path).getchannel('A').convert('1', dither=Image.NONE)
+        img = Image.open(png_path)
+        if img.has_transparency_data:
+            img = img.getchannel('A').convert('1', dither=Image.NONE)
+        else:
+            img = img.convert('1', dither=Image.NONE)
         width, height = img.size
         pixels = list(img.getdata()) # 0=black, 255=white
 

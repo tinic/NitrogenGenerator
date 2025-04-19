@@ -27,6 +27,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "./Core/Inc/main.h"
 #include "./mcp.h"
 #include "font_0.h"
+#include "boot.h"
 
 extern "C" SPI_HandleTypeDef hspi1;
 
@@ -152,6 +153,15 @@ void ST7525::clear() {
     memset(framebuffer, 0, sizeof(framebuffer));
 }
 
+void ST7525::write_boot() {
+    send_cmd(CMD_SET_PAGE_ADRESS);
+    send_cmd(CMD_SET_COLUMN_MSB);
+    send_cmd(CMD_SET_COLUMN_LSB);
+    for (uint16_t i = 0; i < sizeof(boot_bitmap_data); ++i) {
+        send_dat(boot_bitmap_data[i]^0xFF);
+    }
+}
+
 void ST7525::write_frame() {
     send_cmd(CMD_SET_PAGE_ADRESS);
     send_cmd(CMD_SET_COLUMN_MSB);
@@ -166,10 +176,7 @@ void ST7525::update() {
 
     static char output[64] = {};
     if (MCP::instance().SystemTime() < 10) {
-        snprintf(output, sizeof(output), "AERON²");
-        draw_string((192 - draw_string(0, 0, output, true))/2, 8, output);
-        snprintf(output, sizeof(output), "by Tinic Uro in 2025");
-        draw_string((192 - draw_string(0, 0, output, true))/2, 18, output);
+        write_boot();
     } else {
         snprintf(output, sizeof(output), "AIR:");
         draw_string(0, 0, output);

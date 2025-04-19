@@ -76,6 +76,7 @@ class ST7525 {
      int32_t draw_string(int32_t x, int32_t y, const char *str, bool calcWidthOnly = false);
 
      void clear();
+     void write_boot();
      void write_frame();
 
      void send_cmd(uint8_t v);
