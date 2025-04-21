@@ -69,7 +69,7 @@ void ST7525::init() {
 void ST7525::set_pixel(int32_t x, int32_t y, uint8_t c) {
     if (x >= COLUMNS || y >= LINES)
         return;
-    uint16_t idx = static_cast<uint16_t>((y / 8) * COLUMNS + x);
+    const uint16_t idx = static_cast<uint16_t>((y / 8) * COLUMNS + x);
     if (c)
         framebuffer[idx] |= uint8_t((1 << (y % 8)));
     else
@@ -78,22 +78,24 @@ void ST7525::set_pixel(int32_t x, int32_t y, uint8_t c) {
 
 void ST7525::draw_char(int32_t x, int32_t y, const CharInfo &ch, const uint8_t *data) {
     const int32_t stride = (FONT_BITMAP_WIDTH + 7) & ~(7);
-    data += (ch.y * stride + ch.x) / 8;
+    int32_t ch_data_off = (ch.y * stride + ch.x) / 8;
     x += ch.xoffset;
     y += ch.yoffset;
-    int32_t x2 = x + static_cast<int32_t>(ch.width);
-    int32_t y2 = y + static_cast<int32_t>(ch.height);
+    const int32_t x2 = x + static_cast<int32_t>(ch.width);
+    const int32_t y2 = y + static_cast<int32_t>(ch.height);
     for (int32_t yy = y; yy < y2; yy++) {
         for (int32_t xx = x; xx < x2; xx++) {
-            int x_off = (xx - x) + (ch.x % 8);
-            int byte_index = x_off / 8;
-            int bit_index = 7 - (x_off % 8);
-            uint8_t a = (data[byte_index] >> bit_index) & 1;
-            if (!a) {
-                set_pixel(xx, yy, 1);
+            const int32_t x_off = (xx - x) + (ch.x % 8);
+            const int32_t bit_index = 7 - (x_off % 8);
+            const int32_t byte_index = ch_data_off + x_off / 8;
+            if (byte_index >= 0 && byte_index < (FONT_BITMAP_WIDTH * FONT_BITMAP_HEIGHT)) {
+                const uint8_t a = (data[byte_index] >> bit_index) & 1;
+                if (!a) {
+                    set_pixel(xx, yy, 1);
+                }
             }
         }
-        data += stride / 8;
+        ch_data_off += stride / 8;
     }
 }
 
@@ -158,7 +160,7 @@ void ST7525::write_boot() {
     send_cmd(CMD_SET_PAGE_ADRESS);
     send_cmd(CMD_SET_COLUMN_MSB);
     send_cmd(CMD_SET_COLUMN_LSB);
-    for (uint16_t i = 0; i < sizeof(boot_bitmap_data); ++i) {
+    for (size_t i = 0; i < sizeof(boot_bitmap_data); i++) {
         send_dat(boot_bitmap_data[i]^0xFF);
     }
 }
@@ -167,7 +169,7 @@ void ST7525::write_frame() {
     send_cmd(CMD_SET_PAGE_ADRESS);
     send_cmd(CMD_SET_COLUMN_MSB);
     send_cmd(CMD_SET_COLUMN_LSB);
-    for (uint16_t i = 0; i < sizeof(framebuffer); ++i) {
+    for (size_t i = 0; i < sizeof(framebuffer); i++) {
         send_dat(framebuffer[i]);
     }
 }
