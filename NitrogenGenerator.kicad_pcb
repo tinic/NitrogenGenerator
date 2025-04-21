@@ -10248,7 +10248,7 @@
 		(layer "Edge.Cuts")
 		(uuid "2bacd1aa-f129-499c-b845-3130a7123f3f")
 	)
-	(gr_text "BY TINIC"
+	(gr_text "BY TINIC 2025-04-21"
 		(at 176.66 64.55 90)
 		(layer "F.SilkS")
 		(uuid "09c333e8-8220-483d-b489-f04b1692d50d")
@@ -10337,7 +10337,7 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "NITROGEN GENERATOR V1.5 2025"
+	(gr_text "NITROGEN GENERATOR V1.6 #146"
 		(at 174.49 64.6 90)
 		(layer "F.SilkS")
 		(uuid "7dd3dc34-d702-42cf-94f2-a2d1af55ae37")

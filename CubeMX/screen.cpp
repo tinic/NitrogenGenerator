@@ -150,6 +150,10 @@ int32_t ST7525::draw_string(int32_t x, int32_t y, const char *str, bool calcWidt
     return x;
 }
 
+void ST7525::draw_center_string(int32_t y, const char *str) {
+    draw_string((192-draw_string(0,0,str,true))/2, y, str);
+}
+
 void ST7525::clear() {
     memset(framebuffer, 0, sizeof(framebuffer));
 }
@@ -180,11 +184,11 @@ void ST7525::update() {
         write_boot();
     } else if (MCP::instance().SystemTime() < 10) {
         snprintf(output, sizeof(output), "www.aeron2.com");
-        draw_string((192 - draw_string(0, 0, output, true)) / 2, 0, output);
+        draw_center_string(0, output);
         snprintf(output, sizeof(output), "build " GIT_REV_COUNT );
-        draw_string((192 - draw_string(0, 0, output, true)) / 2, 20, output);
+        draw_center_string(20, output);
         snprintf(output, sizeof(output), GIT_COMMIT_DATE_SHORT);
-        draw_string((192 - draw_string(0, 0, output, true)) / 2, 40, output);
+        draw_center_string(40, output);
     } else {
         snprintf(output, sizeof(output), "AIR:");
         draw_string(0, 0, output);
