@@ -77,7 +77,7 @@ class ST7525 {
      void draw_center_string(int32_t y, const char *str);
 
      void clear();
-     void write_boot();
+     void set_boot();
      void write_frame();
 
      void send_cmd(uint8_t v);

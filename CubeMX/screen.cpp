@@ -160,12 +160,18 @@ void ST7525::clear() {
     memset(framebuffer, 0, sizeof(framebuffer));
 }
 
-void ST7525::write_boot() {
-    send_cmd(CMD_SET_PAGE_ADRESS);
-    send_cmd(CMD_SET_COLUMN_MSB);
-    send_cmd(CMD_SET_COLUMN_LSB);
-    for (size_t i = 0; i < sizeof(boot_bitmap_data); i++) {
-        send_dat(boot_bitmap_data[i]^0xFF);
+void ST7525::set_boot() {
+    static_assert( sizeof(framebuffer) == sizeof(boot_bitmap_data));
+    memset(framebuffer, 0, sizeof(framebuffer));
+    const uint8_t *data = &boot_bitmap_data[0];
+    for (size_t y = 0; y < LINES; y++) {
+        for (size_t x = 0; x < COLUMNS / 8; x ++) {
+            uint8_t bits = data[x];
+            for (size_t xx = 0; xx < 8; xx++) {
+                set_pixel(x*8 + xx, y, (bits & (1<<(7-xx))) ? 0 : 1);
+            }
+        }
+        data += COLUMNS / 8;
     }
 }
 
@@ -183,7 +189,7 @@ void ST7525::update() {
 
     static char output[64] = {};
     if (MCP::instance().SystemTime() < 5) {
-        write_boot();
+        set_boot();
     } else if (MCP::instance().SystemTime() < 10) {
         snprintf(output, sizeof(output), "www.aeron2.com");
         draw_center_string(0, output);
