@@ -70,15 +70,25 @@ class MCP {
         refillElapsedTime = v;
     }
 
-    void AddDutyCycleRecord(float v) {
-        dutyCycleRecord[dutyCycleRecordIndex++] = v;
+    void AddDutyCycleRecord(int32_t i, float v) {
+        if (dutyCycleRecordFirstTime[i]) {
+            dutyCycleRecordFirstTime[i] = false;
+            for (size_t c = 0; c < dutyCycleRecordCount; c++) {
+                dutyCycleRecord[i][c++] = v;
+            }
+            return;
+        }
+        dutyCycleRecord[i][dutyCycleRecordIndex++] = v;
         dutyCycleRecordIndex %= dutyCycleRecordCount;
     }
 
-    float DutyCycleAverage() const {
+    float DutyCycleAverage(int32_t i) const {
+        if ( i < 0 || i >= 2) {
+            return 0.0f;
+        }
         float dutyCycle = 0;
         for (size_t c = 0; c < dutyCycleRecordCount; c++) {
-            dutyCycle += dutyCycleRecord[c];
+            dutyCycle += dutyCycleRecord[i][c];
         }
         return dutyCycle/float(dutyCycleRecordCount);
     }
@@ -94,8 +104,10 @@ class MCP {
     float refillElapsedTime = 0;
     float system_time = 0;
     bool initialized = false;
+
     static constexpr size_t dutyCycleRecordCount = 8;
-    float dutyCycleRecord[dutyCycleRecordCount] = {};
+    bool dutyCycleRecordFirstTime[2] = { true, true };
+    float dutyCycleRecord[2][dutyCycleRecordCount] {};
     size_t dutyCycleRecordIndex = 0;
 
     float adc_rank0_to_psi() const {
