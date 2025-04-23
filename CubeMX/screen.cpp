@@ -213,6 +213,8 @@ void ST7525::update() {
         draw_string(192 / 2 + 4, 22, output);
 
         snprintf(output, sizeof(output), "%02d%%", static_cast<int>(MCP::instance().DutyCycleAverage() * 100.0f));
+        draw_string(192 / 2 - draw_string(0, 0, output, true) - 4, 22, output);
+        snprintf(output, sizeof(output), "%02d%%", static_cast<int>(MCP::instance().DutyCycleAverage() * 100.0f));
         draw_string(191 - draw_string(0, 0, output, true), 22, output);
 
         const int32_t h = (static_cast<int32_t>(MCP::instance().SystemTime()) / 3600);
