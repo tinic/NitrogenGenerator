@@ -72,6 +72,7 @@ class ST7525 {
      bool initialized = false;
  
      void set_pixel(int32_t x, int32_t y, uint8_t c);
+     void draw_line(int32_t x0, int32_t y0, int32_t x1, int32_t y1, uint8_t c);
      void draw_char(int32_t x, int32_t y, const CharInfo &ch, const uint8_t *data);
      int32_t draw_string(int32_t x, int32_t y, const char *str, bool calcWidthOnly = false);
      void draw_center_string(int32_t y, const char *str);

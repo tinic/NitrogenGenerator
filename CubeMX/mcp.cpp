@@ -39,17 +39,20 @@ void MCP::Slice() {
     static int32_t timerShutoff = 0;
     static bool timerShutoffActive = false;
 
-    if (PSI0() >= 130.0f || PSI1() >= 130.0f) {
+    if (PSI0() >= 130.0f || PSI1() >= 130.0f || PSI0() < -5.0f || PSI1() < -5.0f) {
         SetSolenoid0(false);
         SetSolenoid1(false);
+        faultState = true;
         return;
     }
+
+    faultState = false;
 
     bool resetDuty = false;
 
     bool solenoid0 = false;
     bool solenoid1 = false;
-   
+
     if (PSI1() < 75.0f) {
         timerRefillActive = true;
     }
@@ -86,7 +89,7 @@ void MCP::Slice() {
     }
 
     static int32_t dutyTotal = 0;
-    static int32_t dutyRefill[2] = { 0, 0 };
+    static int32_t dutyRefill[2] = {0, 0};
     dutyTotal++;
     if (solenoid0) {
         dutyRefill[0]++;
@@ -97,7 +100,7 @@ void MCP::Slice() {
     if (resetDuty) {
         AddDutyCycleRecord(0, static_cast<float>(dutyRefill[0]) / static_cast<float>(dutyTotal));
         AddDutyCycleRecord(1, static_cast<float>(dutyRefill[1]) / static_cast<float>(dutyTotal));
-        
+
         dutyTotal = 0;
         dutyRefill[0] = 0;
         dutyRefill[1] = 0;

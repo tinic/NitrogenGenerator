@@ -20,7 +20,7 @@ def generate_cpp_header(data, header_name_base):
 
     struct CharInfo {{
         int8_t height;
-        int8_t id;
+        uint8_t id;
         int8_t width;
         int8_t x;
         int8_t xadvance;

@@ -70,6 +70,14 @@ class MCP {
         refillElapsedTime = v;
     }
 
+    void SetFaultState(bool fault) {
+        faultState = fault;
+    }
+
+    bool FaultState() const {
+        return faultState;
+    }
+
     void AddDutyCycleRecord(int32_t i, float v) {
         if (dutyCycleRecordFirstTime[i]) {
             dutyCycleRecordFirstTime[i] = false;
@@ -99,6 +107,7 @@ class MCP {
     void init() {
     }
 
+    bool faultState = false;
     uint32_t rank0 = 0;
     uint32_t rank1 = 0;
     float refillElapsedTime = 0;

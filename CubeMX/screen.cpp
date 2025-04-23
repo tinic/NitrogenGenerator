@@ -76,6 +76,20 @@ void ST7525::set_pixel(int32_t x, int32_t y, uint8_t c) {
         framebuffer[idx] &= uint8_t(~(1 << (y % 8)));
 }
 
+void ST7525::draw_line(int32_t x0, int32_t y0, int32_t x1, int32_t y1, uint8_t c) {
+    int32_t dx = abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
+    int32_t dy = -abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
+    int32_t err = dx + dy, e2;
+
+    while (true) {
+        set_pixel(x0, y0, c);
+        if (x0 == x1 && y0 == y1) break;
+        e2 = 2 * err;
+        if (e2 >= dy) { err += dy; x0 += sx; }
+        if (e2 <= dx) { err += dx; y0 += sy; }
+    }
+}
+
 void ST7525::draw_char(int32_t x, int32_t y, const CharInfo &ch, const uint8_t *data) {
     const int32_t stride = (FONT_BITMAP_WIDTH + 7) & ~(7);
     int32_t ch_data_off = (ch.y * stride + ch.x) / 8;
@@ -198,11 +212,11 @@ void ST7525::update() {
         snprintf(output, sizeof(output), GIT_COMMIT_DATE_SHORT);
         draw_center_string(40, output);
     } else {
-        snprintf(output, sizeof(output), "AIR:");
+        snprintf(output, sizeof(output), "Air:");
         draw_string(0, 0, output);
         snprintf(output, sizeof(output), "%dpsi", static_cast<int>(MCP::instance().PSI0()));
         draw_string(192 / 2 - draw_string(0, 0, output, true) - 4, 0, output);
-        snprintf(output, sizeof(output), "N2:");
+        snprintf(output, sizeof(output), "N²:");
         draw_string(192 / 2 + 4, 0, output);
         snprintf(output, sizeof(output), "%dpsi", static_cast<int>(MCP::instance().PSI1()));
         draw_string(191 - draw_string(0, 0, output, true), 0, output);
@@ -211,6 +225,9 @@ void ST7525::update() {
         draw_string(0, 22, output);
         snprintf(output, sizeof(output), "%s", MCP::instance().Solenoid1() ? "Open" : "Clsd");
         draw_string(192 / 2 + 4, 22, output);
+
+        draw_line(192 / 2 + 1, 0, 192 / 2 + 1, 46, 1);
+        draw_line(0, 46, 192, 46, 1);
 
         snprintf(output, sizeof(output), "%02d%%", static_cast<int>(MCP::instance().DutyCycleAverage(0) * 100.0f));
         draw_string(192 / 2 - draw_string(0, 0, output, true) - 4, 22, output);
@@ -221,12 +238,17 @@ void ST7525::update() {
         const int32_t m = (static_cast<int32_t>(MCP::instance().SystemTime()) / 60) % 60;
         const int32_t s = (static_cast<int32_t>(MCP::instance().SystemTime())) % 60;
         snprintf(output, sizeof(output), "T:%04d:%02d:%02d", static_cast<int>(h), static_cast<int>(m), static_cast<int>(s));
-        draw_string(0, 44, output);
+        draw_string(0, 46, output);
 
-        const int32_t em = (static_cast<int32_t>(MCP::instance().RefillElapsedTime()) / 60) % 60;
-        const int32_t es = (static_cast<int32_t>(MCP::instance().RefillElapsedTime())) % 60;
-        snprintf(output, sizeof(output), "R:%02d:%02d", static_cast<int>(em), static_cast<int>(es));
-        draw_string(191 - draw_string(0, 0, output, true), 44, output);
+        if (MCP::instance().FaultState()) {
+            snprintf(output, sizeof(output), "FAULT!");
+            draw_string(191 - draw_string(0, 0, output, true), 46, output);
+        } else {
+            const int32_t em = (static_cast<int32_t>(MCP::instance().RefillElapsedTime()) / 60) % 60;
+            const int32_t es = (static_cast<int32_t>(MCP::instance().RefillElapsedTime())) % 60;
+            snprintf(output, sizeof(output), "R:%02d:%02d", static_cast<int>(em), static_cast<int>(es));
+            draw_string(191 - draw_string(0, 0, output, true), 46, output);
+        }
     }
     write_frame();
 }
