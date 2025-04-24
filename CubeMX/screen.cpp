@@ -212,11 +212,11 @@ void ST7525::update() {
         snprintf(output, sizeof(output), GIT_COMMIT_DATE_SHORT);
         draw_center_string(40, output);
     } else {
-        snprintf(output, sizeof(output), "Air:");
+        snprintf(output, sizeof(output), "􀇤");
         draw_string(0, 0, output);
         snprintf(output, sizeof(output), "%dpsi", static_cast<int>(MCP::instance().PSI0()));
         draw_string(192 / 2 - draw_string(0, 0, output, true) - 4, 0, output);
-        snprintf(output, sizeof(output), "N²:");
+        snprintf(output, sizeof(output), "N²");
         draw_string(192 / 2 + 4, 0, output);
         snprintf(output, sizeof(output), "%dpsi", static_cast<int>(MCP::instance().PSI1()));
         draw_string(191 - draw_string(0, 0, output, true), 0, output);
@@ -237,7 +237,7 @@ void ST7525::update() {
         const int32_t h = (static_cast<int32_t>(MCP::instance().SystemTime()) / 3600);
         const int32_t m = (static_cast<int32_t>(MCP::instance().SystemTime()) / 60) % 60;
         const int32_t s = (static_cast<int32_t>(MCP::instance().SystemTime())) % 60;
-        snprintf(output, sizeof(output), "T:%04d:%02d:%02d", static_cast<int>(h), static_cast<int>(m), static_cast<int>(s));
+        snprintf(output, sizeof(output), "􀐫%04d:%02d:%02d", static_cast<int>(h), static_cast<int>(m), static_cast<int>(s));
         draw_string(0, 46, output);
 
         if (MCP::instance().FaultState()) {
@@ -246,7 +246,7 @@ void ST7525::update() {
         } else {
             const int32_t em = (static_cast<int32_t>(MCP::instance().RefillElapsedTime()) / 60) % 60;
             const int32_t es = (static_cast<int32_t>(MCP::instance().RefillElapsedTime())) % 60;
-            snprintf(output, sizeof(output), "R:%02d:%02d", static_cast<int>(em), static_cast<int>(es));
+            snprintf(output, sizeof(output), "􀐯:%02d:%02d", static_cast<int>(em), static_cast<int>(es));
             draw_string(191 - draw_string(0, 0, output, true), 46, output);
         }
     }

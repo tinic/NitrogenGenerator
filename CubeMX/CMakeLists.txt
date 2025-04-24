@@ -114,7 +114,10 @@ set(FONT_FNT ${PROJECT_BINARY_DIR}/font.fnt)
 set(FONT_PNG ${PROJECT_BINARY_DIR}/font_0.png)
 add_custom_command(
     OUTPUT ${FONT_PNG} ${FONT_FNT}
-    COMMAND ${FONTBM_BINARY} --font-file ${PROJECT_SOURCE_DIR}/SF-Compact-Display-Bold.otf --chars 32-126,178 --texture-crop-width --texture-crop-height --kerning-pairs regular --tabular-numbers --slashed-zero --monochrome --font-size 18 --output font --data-format json
+    # 0x10042b // clock 1049643
+    # 0x10042f // stop 1049647
+    # 0x1001e4 // wind 1049060
+    COMMAND ${FONTBM_BINARY} --font-file ${PROJECT_SOURCE_DIR}/SF-Compact-Display-Bold.otf --chars 32-126,178,1049643,1049647,1049060 --texture-crop-width --texture-crop-height --kerning-pairs regular --tabular-numbers --slashed-zero --monochrome --font-size 18 --output font --data-format json
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     DEPENDS ${FONTBM_BINARY}
     USES_TERMINAL)
