@@ -116,7 +116,11 @@
         "format": "cpp",
         "version": "cpp",
         "__string": "cpp",
-        "text_encoding": "cpp"
+        "text_encoding": "cpp",
+        "valarray": "cpp",
+        "any": "cpp",
+        "codecvt": "cpp",
+        "forward_list": "cpp"
     },
     "editor.fontFamily": "JetBrains Mono, Menlo, Monaco, 'Courier New', monospace",
     "editor.fontLigatures": true,

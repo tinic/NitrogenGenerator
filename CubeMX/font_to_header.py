@@ -19,8 +19,8 @@ def generate_cpp_header(data, header_name_base):
     #include <fixed_containers/fixed_map.hpp>
 
     struct CharInfo {{
+        int32_t id;
         int8_t height;
-        uint8_t id;
         int8_t width;
         int8_t x;
         int8_t xadvance;
@@ -56,7 +56,7 @@ def generate_cpp_header(data, header_name_base):
     chars_array_content = []
     for char in chars_data:
         chars_array_content.append(
-            f"    {{ {char.get('height', 0)}, {char.get('id', 0)}, "
+            f"     {{ {char.get('id', 0)}, {char.get('height', 0)},  "
             f"{char.get('width', 0)}, {char.get('x', 0)}, "
             f"{char.get('xadvance', 0)}, {char.get('xoffset', 0)}, {char.get('y', 0)}, "
             f"{char.get('yoffset', 0)} }}"

@@ -237,11 +237,11 @@ void ST7525::update() {
         const int32_t h = (static_cast<int32_t>(MCP::instance().SystemTime()) / 3600);
         const int32_t m = (static_cast<int32_t>(MCP::instance().SystemTime()) / 60) % 60;
         const int32_t s = (static_cast<int32_t>(MCP::instance().SystemTime())) % 60;
-        snprintf(output, sizeof(output), "T:%04d:%02d:%02d", static_cast<int>(h), static_cast<int>(m), static_cast<int>(s));
+        snprintf(output, sizeof(output), "◴%04d:%02d:%02d", static_cast<int>(h), static_cast<int>(m), static_cast<int>(s));
         draw_string(0, 46, output);
 
         if (MCP::instance().FaultState()) {
-            snprintf(output, sizeof(output), "FAULT!");
+            snprintf(output, sizeof(output), "⚠FAULT!");
             draw_string(191 - draw_string(0, 0, output, true), 46, output);
         } else {
             const int32_t em = (static_cast<int32_t>(MCP::instance().RefillElapsedTime()) / 60) % 60;
