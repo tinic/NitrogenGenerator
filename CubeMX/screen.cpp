@@ -240,8 +240,8 @@ void ST7525::update() {
         snprintf(output, sizeof(output), "􀐫%04d:%02d:%02d", static_cast<int>(h), static_cast<int>(m), static_cast<int>(s));
         draw_string(0, 43, output);
 
-        if (0&&MCP::instance().FaultState()) {
-            snprintf(output, sizeof(output), "⚠FAULT!");
+        if (MCP::instance().FaultState()) {
+            snprintf(output, sizeof(output), "⚠Fault!");
             draw_string(191 - draw_string(0, 0, output, true), 43, output);
         } else {
             const int32_t em = (static_cast<int32_t>(MCP::instance().RefillElapsedTime()) / 60) % 60;
