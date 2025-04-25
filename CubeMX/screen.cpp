@@ -146,8 +146,8 @@ int32_t ST7525::draw_string(int32_t x, int32_t y, const char *str, bool calcWidt
         }
 
         const uint8_t *chData = 0;
-        if (charInfoMap.contains(static_cast<uint8_t>(codePoint))) {
-            chInfo = &charInfoMap.at(static_cast<uint8_t>(codePoint));
+        if (charInfoMap.contains(codePoint)) {
+            chInfo = &charInfoMap.at(codePoint);
             chData = &font_bitmap_data[0];
         }
 
@@ -212,42 +212,42 @@ void ST7525::update() {
         snprintf(output, sizeof(output), GIT_COMMIT_DATE_SHORT);
         draw_center_string(40, output);
     } else {
-        snprintf(output, sizeof(output), "Air:");
-        draw_string(0, 0, output);
+        snprintf(output, sizeof(output), "􀇤");
+        draw_string(0, -2, output);
         snprintf(output, sizeof(output), "%dpsi", static_cast<int>(MCP::instance().PSI0()));
-        draw_string(192 / 2 - draw_string(0, 0, output, true) - 4, 0, output);
-        snprintf(output, sizeof(output), "N²:");
-        draw_string(192 / 2 + 4, 0, output);
+        draw_string(192 / 2 - draw_string(0, 0, output, true) - 4, -2, output);
+        snprintf(output, sizeof(output), "N²");
+        draw_string(192 / 2 + 4, -2, output);
         snprintf(output, sizeof(output), "%dpsi", static_cast<int>(MCP::instance().PSI1()));
-        draw_string(191 - draw_string(0, 0, output, true), 0, output);
+        draw_string(191 - draw_string(0, 0, output, true), -2, output);
 
         snprintf(output, sizeof(output), "%s", MCP::instance().Solenoid0() ? "Open" : "Clsd");
-        draw_string(0, 22, output);
+        draw_string(0, 18, output);
         snprintf(output, sizeof(output), "%s", MCP::instance().Solenoid1() ? "Open" : "Clsd");
-        draw_string(192 / 2 + 4, 22, output);
+        draw_string(192 / 2 + 4, 18, output);
 
-        draw_line(192 / 2 + 1, 0, 192 / 2 + 1, 46, 1);
-        draw_line(0, 46, 192, 46, 1);
+        draw_line(192 / 2 + 1, 0, 192 / 2 + 1, 42, 1);
+        draw_line(0, 42, 192, 42, 1);
 
         snprintf(output, sizeof(output), "%02d%%", static_cast<int>(MCP::instance().DutyCycleAverage(0) * 100.0f));
-        draw_string(192 / 2 - draw_string(0, 0, output, true) - 4, 22, output);
+        draw_string(192 / 2 - draw_string(0, 0, output, true) - 4, 18, output);
         snprintf(output, sizeof(output), "%02d%%", static_cast<int>(MCP::instance().DutyCycleAverage(1) * 100.0f));
-        draw_string(191 - draw_string(0, 0, output, true), 22, output);
+        draw_string(191 - draw_string(0, 0, output, true), 18, output);
 
         const int32_t h = (static_cast<int32_t>(MCP::instance().SystemTime()) / 3600);
         const int32_t m = (static_cast<int32_t>(MCP::instance().SystemTime()) / 60) % 60;
         const int32_t s = (static_cast<int32_t>(MCP::instance().SystemTime())) % 60;
-        snprintf(output, sizeof(output), "◴%04d:%02d:%02d", static_cast<int>(h), static_cast<int>(m), static_cast<int>(s));
-        draw_string(0, 46, output);
+        snprintf(output, sizeof(output), "􀐫%04d:%02d:%02d", static_cast<int>(h), static_cast<int>(m), static_cast<int>(s));
+        draw_string(0, 43, output);
 
-        if (MCP::instance().FaultState()) {
+        if (0&&MCP::instance().FaultState()) {
             snprintf(output, sizeof(output), "⚠FAULT!");
-            draw_string(191 - draw_string(0, 0, output, true), 46, output);
+            draw_string(191 - draw_string(0, 0, output, true), 43, output);
         } else {
             const int32_t em = (static_cast<int32_t>(MCP::instance().RefillElapsedTime()) / 60) % 60;
             const int32_t es = (static_cast<int32_t>(MCP::instance().RefillElapsedTime())) % 60;
-            snprintf(output, sizeof(output), "R:%02d:%02d", static_cast<int>(em), static_cast<int>(es));
-            draw_string(191 - draw_string(0, 0, output, true), 46, output);
+            snprintf(output, sizeof(output), "􀐯%02d:%02d", static_cast<int>(em), static_cast<int>(es));
+            draw_string(191 - draw_string(0, 0, output, true), 43, output);
         }
     }
     write_frame();

@@ -19,7 +19,7 @@ def generate_cpp_header(data, header_name_base):
     #include <fixed_containers/fixed_map.hpp>
 
     struct CharInfo {{
-        int32_t id;
+        uint32_t id;
         int8_t height;
         int8_t width;
         int8_t x;
@@ -56,7 +56,7 @@ def generate_cpp_header(data, header_name_base):
     chars_array_content = []
     for char in chars_data:
         chars_array_content.append(
-            f"     {{ {char.get('id', 0)}, {char.get('height', 0)},  "
+            f"    {{ {char.get('id', 0)}, {char.get('height', 0)},  "
             f"{char.get('width', 0)}, {char.get('x', 0)}, "
             f"{char.get('xadvance', 0)}, {char.get('xoffset', 0)}, {char.get('y', 0)}, "
             f"{char.get('yoffset', 0)} }}"
@@ -76,7 +76,7 @@ def generate_cpp_header(data, header_name_base):
         index = index + 1
 
     chars_array_fixed = textwrap.dedent("""\
-        static constexpr fixed_containers::FixedMap<uint8_t, const CharInfo&, charInfoCount> charInfoMap = {
+        static constexpr fixed_containers::FixedMap<uint32_t, const CharInfo&, charInfoCount> charInfoMap = {
         """) + ",\n".join(chars_array_fixed_content) + "\n};"
 
     # --- Generate Info Data ---
@@ -104,12 +104,12 @@ def generate_cpp_header(data, header_name_base):
     if kernings_data:
         kernings_array = textwrap.dedent(f"""\
         static constexpr int fontKerningCount = {len(kernings_data)};
-        static constexpr fixed_containers::FixedMap<std::pair<uint8_t, uint8_t>, uint8_t, fontKerningCount> fontKerningMap = {{
+        static constexpr fixed_containers::FixedMap<std::pair<uint32_t, uint32_t>, int8_t, fontKerningCount> fontKerningMap = {{
         """) + ",\n".join(kernings_array_content) + "\n};"
     else:
         kernings_array = textwrap.dedent(f"""\
         static constexpr int fontKerningCount = 0;
-        static constexpr fixed_containers::FixedMap<std::pair<uint8_t, uint8_t>, uint8_t, fontKerningCount> fontKerningMap = {{
+        static constexpr fixed_containers::FixedMap<std::pair<uint32_t, uint32_t>, int8_t, fontKerningCount> fontKerningMap = {{
         """) + ",\n".join(kernings_array_content) + "\n};"
 
     # --- Assemble Final Header ---
