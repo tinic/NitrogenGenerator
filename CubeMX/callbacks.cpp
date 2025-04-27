@@ -29,19 +29,18 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 extern "C" ADC_HandleTypeDef hadc1;
 
+static int32_t adc_channel = 0;
+
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *adc) {
     if ( adc == &hadc1 ) {
-        static uint32_t adc_value[8] = {};
-        static int32_t rank = 0;
-        adc_value[rank] = HAL_ADC_GetValue(&hadc1);
         if (__HAL_ADC_GET_FLAG(&hadc1, ADC_FLAG_EOS)) {
-            rank = 0;
-        } else {
-            rank++;
-            rank %= 8;
+            uint32_t adc_value = HAL_ADC_GetValue(&hadc1);
+            if (adc_channel == 1) {
+                MCP::instance().SetRawPSI1(adc_value);
+            } else {
+                MCP::instance().SetRawPSI0(adc_value);
+            }
         }
-        MCP::instance().SetRawPSI0(adc_value[0]);
-        MCP::instance().SetRawPSI1(adc_value[1]);
     }
 }
 
@@ -55,6 +54,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
         system_time += 1.0f/10.0f;
         MCP::instance().SetSystemTime(system_time);
         ST7525::instance().update();
+
+        ADC_ChannelConfTypeDef sConfig {};
+        adc_channel ^= 1;
+        sConfig.Channel = adc_channel ? ADC_CHANNEL_4 : ADC_CHANNEL_3;
+        sConfig.Rank = ADC_REGULAR_RANK_1;
+        sConfig.SamplingTime = ADC_SAMPLINGTIME_COMMON_1;
+        HAL_ADC_ConfigChannel(&hadc1, &sConfig);
         HAL_ADC_Start_IT(&hadc1);
     }
     if (htim == &htim3) {

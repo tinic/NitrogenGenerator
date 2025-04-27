@@ -69,7 +69,7 @@ void MCP::Slice() {
         }
     }
 
-    if (timerShutoff >= 5) {
+    if (timerShutoff >= 120) {
         solenoid0 = false;
         solenoid1 = false;
         timerRefillActive = false;
