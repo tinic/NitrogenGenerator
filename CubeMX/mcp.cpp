@@ -57,7 +57,7 @@ void MCP::Slice() {
         timerRefillActive = true;
     }
 
-    if (PSI1() >= 100.0f) {
+    if (PSI1() >= 95.0f) {
         timerShutoffActive = true;
     }
 
@@ -69,7 +69,7 @@ void MCP::Slice() {
         }
     }
 
-    if (timerShutoff >= 120) {
+    if (timerShutoff >= 120 || PSI1() >= 100.0f) {
         solenoid0 = false;
         solenoid1 = false;
         timerRefillActive = false;
