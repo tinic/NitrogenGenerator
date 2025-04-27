@@ -943,6 +943,126 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "pnid-lib:CheckValve"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "CheckValve"
+				(at 0 -3.302 0)
+				(effects
+					(font
+						(size 0.508 0.508)
+					)
+				)
+			)
+			(property "Value" "CheckValve"
+				(at 0 -4.318 0)
+				(effects
+					(font
+						(size 0.508 0.508)
+					)
+					(hide yes)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 0.508 0.508)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 0.508 0.508)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "CheckValve_0_0"
+				(polyline
+					(pts
+						(xy -2.54 2.54) (xy -2.54 -2.54) (xy 2.54 0) (xy -2.54 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 2.54) (xy 2.54 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "CheckValve_1_1"
+				(pin bidirectional line
+					(at -2.54 0 0)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 2.54 0 180)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "pnid-lib:PressureRegulator"
 			(pin_numbers
 				(hide yes)
@@ -2361,10 +2481,10 @@
 		(uuid "42bc3e43-09ad-443b-9637-963d2528c874")
 	)
 	(junction
-		(at 129.54 116.84)
+		(at 101.6 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "188e2c3f-4397-446f-8ea1-d11f54bbf0f6")
+		(uuid "32d3a65f-26ae-4621-9de8-041777c1a56e")
 	)
 	(junction
 		(at 162.56 69.85)
@@ -2384,7 +2504,7 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 116.84) (xy 129.54 116.84)
+			(xy 77.47 116.84) (xy 101.6 116.84)
 		)
 		(stroke
 			(width 0)
@@ -2458,7 +2578,7 @@
 	)
 	(wire
 		(pts
-			(xy 82.55 116.84) (xy 93.98 116.84)
+			(xy 53.34 116.84) (xy 62.23 116.84)
 		)
 		(stroke
 			(width 0)
@@ -2499,13 +2619,33 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 181.61) (xy 82.55 181.61)
+			(xy 36.83 181.61) (xy 53.34 181.61)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "2549b9f6-1575-4321-8b47-25f5b674657d")
+	)
+	(wire
+		(pts
+			(xy 133.35 116.84) (xy 157.48 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2bfa1d74-adfb-4ecc-a65b-7b221bc45915")
+	)
+	(wire
+		(pts
+			(xy 101.6 116.84) (xy 128.27 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2c4cdb82-568d-4897-a0af-2f5b3ce5d329")
 	)
 	(wire
 		(pts
@@ -2530,7 +2670,7 @@
 	)
 	(wire
 		(pts
-			(xy 82.55 173.99) (xy 82.55 181.61)
+			(xy 53.34 173.99) (xy 53.34 181.61)
 		)
 		(stroke
 			(width 0)
@@ -2688,7 +2828,7 @@
 	)
 	(wire
 		(pts
-			(xy 82.55 116.84) (xy 82.55 148.59)
+			(xy 53.34 116.84) (xy 53.34 148.59)
 		)
 		(stroke
 			(width 0)
@@ -2780,16 +2920,6 @@
 		)
 		(uuid "f2ab7f2f-7ae4-4b40-8160-ba8c53a46ead")
 	)
-	(wire
-		(pts
-			(xy 129.54 116.84) (xy 157.48 116.84)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ff8194a1-baeb-4a37-93d7-70f27057fd77")
-	)
 	(global_label "AIR"
 		(shape input)
 		(at 29.21 35.56 180)
@@ -2814,7 +2944,7 @@
 	)
 	(global_label "Nitrogen"
 		(shape output)
-		(at 55.88 181.61 0)
+		(at 26.67 181.61 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2824,7 +2954,7 @@
 		)
 		(uuid "53ba9cda-ce46-452c-8c0f-991078b2b834")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.848 181.61 0)
+			(at 37.638 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2932,7 +3062,7 @@
 	)
 	(symbol
 		(lib_id "pnid-lib:Tank")
-		(at 82.55 161.29 0)
+		(at 53.34 161.29 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2941,7 +3071,7 @@
 		(fields_autoplaced yes)
 		(uuid "1895a213-9079-4f6c-bd50-548786518d37")
 		(property "Reference" "HoldingTank1"
-			(at 92.71 160.0199 0)
+			(at 63.5 160.0199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2950,7 +3080,7 @@
 			)
 		)
 		(property "Value" "5GAL 100PSI"
-			(at 92.71 162.5599 0)
+			(at 63.5 162.5599 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2959,7 +3089,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 82.55 161.29 0)
+			(at 53.34 161.29 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -2968,7 +3098,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 82.55 161.29 0)
+			(at 53.34 161.29 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -2977,7 +3107,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 82.55 161.29 0)
+			(at 53.34 161.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2986,7 +3116,7 @@
 			)
 		)
 		(property "Unit" "%"
-			(at 82.55 161.29 0)
+			(at 53.34 161.29 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -2995,7 +3125,7 @@
 			)
 		)
 		(property "Action_Reference" " "
-			(at 82.55 161.29 0)
+			(at 53.34 161.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3004,7 +3134,7 @@
 			)
 		)
 		(property "Data_Content" " "
-			(at 82.55 161.29 0)
+			(at 53.34 161.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3266,6 +3396,75 @@
 		)
 	)
 	(symbol
+		(lib_id "pnid-lib:CheckValve")
+		(at 130.81 116.84 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3ceae3fb-3035-4737-b7f2-1ebce5b800a1")
+		(property "Reference" "CheckValve1"
+			(at 130.81 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "CheckValve"
+			(at 130.81 112.522 0)
+			(effects
+				(font
+					(size 0.508 0.508)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 130.81 116.84 0)
+			(effects
+				(font
+					(size 0.508 0.508)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 130.81 116.84 0)
+			(effects
+				(font
+					(size 0.508 0.508)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 130.81 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "~"
+			(uuid "306bf3b9-15e1-49e1-ba34-16d327d7ba8b")
+		)
+		(pin "~"
+			(uuid "fa0113b0-5173-4618-8990-a1f5ab38d60b")
+		)
+		(instances
+			(project ""
+				(path "/c5365556-9b4a-4e37-8bb8-20fd18113201/1b754a42-13ad-4d8b-8663-062e1b8a93f8"
+					(reference "CheckValve1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "pnid-lib:Valve_Needle")
 		(at 196.85 69.85 0)
 		(unit 1)
@@ -3429,7 +3628,7 @@
 	)
 	(symbol
 		(lib_id "pnid-lib:Sensor_Pressure")
-		(at 129.54 109.22 90)
+		(at 101.6 109.22 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3437,7 +3636,7 @@
 		(dnp no)
 		(uuid "a4df1b44-847c-40e9-b634-fa967a7be656")
 		(property "Reference" "NitrogenPressure1"
-			(at 122.174 100.838 90)
+			(at 94.234 100.838 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3446,7 +3645,7 @@
 			)
 		)
 		(property "Value" "Autex 200Psi Pressure Transducer"
-			(at 114.808 104.14 90)
+			(at 86.868 104.14 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3455,7 +3654,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 129.54 109.22 0)
+			(at 101.6 109.22 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -3464,7 +3663,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 129.54 109.22 0)
+			(at 101.6 109.22 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -3473,7 +3672,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 129.54 109.22 0)
+			(at 101.6 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3482,7 +3681,7 @@
 			)
 		)
 		(property "Unit" "bar"
-			(at 129.54 109.22 0)
+			(at 101.6 109.22 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -3491,7 +3690,7 @@
 			)
 		)
 		(property "Action_Reference" " "
-			(at 129.54 109.22 0)
+			(at 101.6 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3500,7 +3699,7 @@
 			)
 		)
 		(property "Data_Content" " "
-			(at 133.35 113.0299 90)
+			(at 105.41 113.0299 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3523,7 +3722,7 @@
 	(symbol
 		(lib_name "QuickConnect_1")
 		(lib_id "pnid-lib:QuickConnect")
-		(at 101.6 116.84 0)
+		(at 69.85 116.84 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3532,7 +3731,7 @@
 		(fields_autoplaced yes)
 		(uuid "a6ea1cce-b250-4309-899c-f2260c97c291")
 		(property "Reference" "NitrogenOUT1"
-			(at 101.6 109.22 0)
+			(at 69.85 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3540,7 +3739,7 @@
 			)
 		)
 		(property "Value" "QuickConnect 1/4NPT"
-			(at 101.6 111.76 0)
+			(at 69.85 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3548,7 +3747,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 101.6 116.84 0)
+			(at 69.85 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3557,7 +3756,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 101.6 116.84 0)
+			(at 69.85 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3566,7 +3765,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 101.6 116.84 0)
+			(at 69.85 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
