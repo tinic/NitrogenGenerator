@@ -33,6 +33,7 @@ void screen_init();
 #ifdef __cplusplus
 
 #include <cstdint>
+#include <tuple>
 
 #include "font.h"
 
@@ -68,6 +69,7 @@ class ST7525 {
     void update();
 
     std::array<uint32_t, COLUMNS * LINES> bitmap() const;
+    std::tuple<size_t, size_t> bitmapSize() const { return { COLUMNS, LINES }; }
 
    private:
     std::array<uint8_t, PAGES * COLUMNS> framebuffer = {0xFF};
