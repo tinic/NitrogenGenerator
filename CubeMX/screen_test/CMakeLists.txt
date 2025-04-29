@@ -16,4 +16,4 @@ add_subdirectory(../fixed-containers ${CMAKE_BINARY_DIR}/fixed-containers EXCLUD
 target_link_libraries(screen_test fixed_containers::fixed_containers)
 
 target_compile_definitions(screen_test PRIVATE SCREEN_TEST)
-target_include_directories(screen_test PRIVATE "../" "../build/Debug")
+target_include_directories(screen_test PRIVATE "../" "../build/Debug" "./sixel-tools")

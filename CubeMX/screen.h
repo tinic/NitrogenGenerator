@@ -68,7 +68,10 @@ class ST7525 {
     void init();
     void update();
 
-    std::array<uint32_t, COLUMNS * LINES> bitmap() const;
+    static constexpr size_t bitmap1BitSize = ( COLUMNS + 7 ) / 8 * ( ( ( LINES + 5 ) / 6 ) * 6 );
+    std::array<uint8_t, bitmap1BitSize> bitmap1Bit() const;
+    static constexpr size_t bitmapbitmapRGBASize = COLUMNS * LINES;
+    std::array<uint32_t, bitmapbitmapRGBASize> bitmapRGBA() const;
     std::tuple<size_t, size_t> bitmapSize() const { return { COLUMNS, LINES }; }
 
    private:

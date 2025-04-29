@@ -47,7 +47,7 @@ ST7525 &ST7525::instance() {
 }
 
 void ST7525::init() {
-    #ifndef SCREEN_TEST
+#ifndef SCREEN_TEST
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
     HAL_Delay(1);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
@@ -62,7 +62,7 @@ void ST7525::init() {
     send_cmd(CMD_SOFT_RESET);
     HAL_Delay(2);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
-    #endif  // #ifndef SCREEN_TEST
+#endif  // #ifndef SCREEN_TEST
 
     send_cmd(0xA0);  // Frame Rate
     send_cmd(0xEB);  // BR
@@ -270,29 +270,41 @@ void ST7525::update() {
 }
 
 void ST7525::send_cmd(uint8_t v) {
-    #ifndef SCREEN_TEST
+#ifndef SCREEN_TEST
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOA, LCD_CD_Pin, GPIO_PIN_RESET);
     HAL_SPI_Transmit(&hspi1, &v, 1, HAL_MAX_DELAY);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
-    #endif  // #ifndef SCREEN_TEST
+#endif  // #ifndef SCREEN_TEST
 }
 
 void ST7525::send_dat(uint8_t v) {
-    #ifndef SCREEN_TEST
+#ifndef SCREEN_TEST
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOA, LCD_CD_Pin, GPIO_PIN_SET);
     HAL_SPI_Transmit(&hspi1, &v, 1, HAL_MAX_DELAY);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
-    #endif  // #ifndef SCREEN_TEST
+#endif  // #ifndef SCREEN_TEST
 }
 
-std::array<uint32_t, ST7525::COLUMNS * ST7525::LINES> ST7525::bitmap() const {
-    std::array<uint32_t, COLUMNS * LINES> bitmap;
+std::array<uint8_t, ST7525::bitmap1BitSize> ST7525::bitmap1Bit() const {
+    std::array<uint8_t, bitmap1BitSize> bitmap{};
 
     for (size_t y = 0; y < LINES; y++) {
         for (size_t x = 0; x < COLUMNS; x++) {
-            bitmap.at(y * COLUMNS + x) = get_pixel(x,y) ? 0xFFFFFFFF : 0x00000000; 
+            bitmap.at(y * (COLUMNS / 8) + x / 8) |= (get_pixel(x, y) ? 1 : 0) << (7 - (x & 7));
+        }
+    }
+
+    return bitmap;
+}
+
+std::array<uint32_t, ST7525::bitmapbitmapRGBASize> ST7525::bitmapRGBA() const {
+    std::array<uint32_t, bitmapbitmapRGBASize> bitmap{};
+
+    for (size_t y = 0; y < LINES; y++) {
+        for (size_t x = 0; x < COLUMNS; x++) {
+            bitmap.at(y * COLUMNS + x) = get_pixel(x, y) ? 0xFFFFFFFF : 0x00000000;
         }
     }
 

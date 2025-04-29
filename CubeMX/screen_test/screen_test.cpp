@@ -8,14 +8,24 @@
 
 #include "./Base64.h"
 #include "./stb_image_write.h"
+#include "sixel.h"
 
 static void output() {
+
+#if 1
+    sixel::image<sixel::format_1bit, ST7525::COLUMNS, ST7525::LINES> image;
+    image.clear();
+    image.copy(ST7525::instance().bitmap1Bit());
+    image.sixel([](uint8_t ch){
+        putc(ch,stdout);
+    });
+    printf("\n");
+#else  // #if 1
     auto bitmap = ST7525::instance().bitmap();
-    auto bitmapSize = ST7525::instance().bitmapSize();
     const uint8_t *ptr = reinterpret_cast<const uint8_t *>(bitmap.data());
     static std::vector<uint8_t> png_data;
     png_data.clear();
-
+    auto bitmapSize = ST7525::instance().bitmapSize();
     stbi_write_png_to_func([](void *context, void *data, int size){
         for (size_t c = 0; c < size; c++) {
             png_data.push_back(((uint8_t*)data)[c]);
@@ -23,6 +33,7 @@ static void output() {
     }, nullptr, std::get<0>(bitmapSize), std::get<1>(bitmapSize), 4, ptr, std::get<0>(bitmapSize)*4);
 
     printf("\033]1337;File=inline=1;width=24:%s\a\n",macaron::Base64::Encode(png_data).c_str());
+#endif  // #if 1
 }
 
 int main() {
