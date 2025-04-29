@@ -24,8 +24,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <array>
 #include <cstdint>
+#include <cstddef>
 
+#ifndef SCREEN_TEST
 #include "./Core/Inc/main.h"
+#endif // #ifndef SCREEN_TEST
 
 
 class MCP {
@@ -33,16 +36,28 @@ class MCP {
     static MCP &instance();
 
     void SetSolenoid0(bool state) {
+        #ifndef SCREEN_TEST
         HAL_GPIO_WritePin(GPIOA, SOLENOID_VALVE1_Pin, state ? GPIO_PIN_SET : GPIO_PIN_RESET);
+        #endif  // #ifndef SCREEN_TEST
     };
     void SetSolenoid1(bool state) {
+        #ifndef SCREEN_TEST
         HAL_GPIO_WritePin(GPIOA, SOLENOID_VAVLE2_Pin, state ? GPIO_PIN_SET : GPIO_PIN_RESET);
+        #endif  // #ifndef SCREEN_TEST
     };
     bool Solenoid0() const {
+        #ifndef SCREEN_TEST
         return (HAL_GPIO_ReadPin(GPIOA, SOLENOID_VALVE1_Pin) == GPIO_PIN_SET) ? true : false;
+        #else  // #ifndef SCREEN_TEST
+        return false;
+        #endif  // #ifndef SCREEN_TEST
     }
     bool Solenoid1() const {
+        #ifndef SCREEN_TEST
         return (HAL_GPIO_ReadPin(GPIOA, SOLENOID_VAVLE2_Pin) == GPIO_PIN_SET) ? true : false;
+        #else  // #ifndef SCREEN_TEST
+        return false;
+        #endif  // #ifndef SCREEN_TEST
     }
 
     float PSI0() const {

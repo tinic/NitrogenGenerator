@@ -24,14 +24,18 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <cstdio>
 #include <fixed_containers/fixed_map.hpp>
 
+#ifndef SCREEN_TEST
 #include "./Core/Inc/main.h"
+#endif  // #ifndef SCREEN_TEST
+
 #include "./mcp.h"
 #include "boot.h"
 #include "font_0.h"
 #include "version.h"
 
-
+#ifndef SCREEN_TEST
 extern "C" SPI_HandleTypeDef hspi1;
+#endif  // #ifndef SCREEN_TEST
 
 ST7525 &ST7525::instance() {
     static ST7525 st7525display;
@@ -43,6 +47,7 @@ ST7525 &ST7525::instance() {
 }
 
 void ST7525::init() {
+    #ifndef SCREEN_TEST
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
     HAL_Delay(1);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
@@ -57,6 +62,7 @@ void ST7525::init() {
     send_cmd(CMD_SOFT_RESET);
     HAL_Delay(2);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
+    #endif  // #ifndef SCREEN_TEST
 
     send_cmd(0xA0);  // Frame Rate
     send_cmd(0xEB);  // BR
@@ -75,6 +81,13 @@ void ST7525::set_pixel(int32_t x, int32_t y, uint8_t c) {
         framebuffer.at(idx) |= uint8_t((1 << (y % 8)));
     else
         framebuffer.at(idx) &= uint8_t(~(1 << (y % 8)));
+}
+
+bool ST7525::get_pixel(int32_t x, int32_t y) const {
+    if (x >= COLUMNS || y >= LINES)
+        return false;
+    const uint16_t idx = static_cast<uint16_t>((y / 8) * COLUMNS + x);
+    return (framebuffer.at(idx) & uint8_t((1 << (y % 8)))) ? true : false;
 }
 
 void ST7525::draw_line(int32_t x0, int32_t y0, int32_t x1, int32_t y1, uint8_t c) {
@@ -98,7 +111,7 @@ void ST7525::draw_line(int32_t x0, int32_t y0, int32_t x1, int32_t y1, uint8_t c
     }
 }
 
-void ST7525::draw_char(int32_t x, int32_t y, const CharInfo &ch, const uint8_t *data) {
+void ST7525::draw_char(int32_t x, int32_t y, const CharInfo &ch) {
     const int32_t stride = (FONT_BITMAP_WIDTH + 7) & ~(7);
     int32_t ch_data_off = (ch.y * stride + ch.x) / 8;
     x += ch.xoffset;
@@ -111,7 +124,7 @@ void ST7525::draw_char(int32_t x, int32_t y, const CharInfo &ch, const uint8_t *
             const int32_t bit_index = 7 - (x_off % 8);
             const int32_t byte_index = ch_data_off + x_off / 8;
             if (byte_index >= 0 && byte_index < (FONT_BITMAP_WIDTH * FONT_BITMAP_HEIGHT)) {
-                const uint8_t a = (data[byte_index] >> bit_index) & 1;
+                const uint8_t a = (font_bitmap_data[byte_index] >> bit_index) & 1;
                 if (!a) {
                     set_pixel(xx, yy, 1);
                 }
@@ -153,18 +166,14 @@ int32_t ST7525::draw_string(int32_t x, int32_t y, const char *str, bool calcWidt
             }
         }
 
-        const uint8_t *chData = 0;
         if (charInfoMap.contains(codePoint)) {
             chInfo = &charInfoMap.at(codePoint);
-            chData = &font_bitmap_data[0];
-        }
-
-        if (chInfo && chData) {
             if (!calcWidthOnly) {
-                draw_char(x, y, *chInfo, chData);
+                draw_char(x, y, *chInfo);
             }
             x += chInfo->xadvance;
         }
+
         lastCodePoint = codePoint;
     }
     if (calcWidthOnly && chInfo) {
@@ -261,17 +270,33 @@ void ST7525::update() {
 }
 
 void ST7525::send_cmd(uint8_t v) {
+    #ifndef SCREEN_TEST
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOA, LCD_CD_Pin, GPIO_PIN_RESET);
     HAL_SPI_Transmit(&hspi1, &v, 1, HAL_MAX_DELAY);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
+    #endif  // #ifndef SCREEN_TEST
 }
 
 void ST7525::send_dat(uint8_t v) {
+    #ifndef SCREEN_TEST
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOA, LCD_CD_Pin, GPIO_PIN_SET);
     HAL_SPI_Transmit(&hspi1, &v, 1, HAL_MAX_DELAY);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
+    #endif  // #ifndef SCREEN_TEST
+}
+
+std::array<uint32_t, ST7525::COLUMNS * ST7525::LINES> ST7525::bitmap() const {
+    std::array<uint32_t, COLUMNS * LINES> bitmap;
+
+    for (size_t y = 0; y < LINES; y++) {
+        for (size_t x = 0; x < COLUMNS; x++) {
+            bitmap.at(y * COLUMNS + x) = get_pixel(x,y) ? 0xFFFFFFFF : 0x00000000; 
+        }
+    }
+
+    return bitmap;
 }
 
 void screen_init() {
