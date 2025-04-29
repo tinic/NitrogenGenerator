@@ -23,16 +23,16 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <cstring>
 
 #include "./Core/Inc/main.h"
-
-#include "./screen.h"
 #include "./mcp.h"
+#include "./screen.h"
+
 
 extern "C" ADC_HandleTypeDef hadc1;
 
 static int32_t adc_channel = 0;
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *adc) {
-    if ( adc == &hadc1 ) {
+    if (adc == &hadc1) {
         if (__HAL_ADC_GET_FLAG(&hadc1, ADC_FLAG_EOS)) {
             uint32_t adc_value = HAL_ADC_GetValue(&hadc1);
             if (adc_channel == 1) {
@@ -51,12 +51,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (htim == &htim1) {
         // 1/10s interval
         static float system_time = 0;
-        system_time += 1.0f/10.0f;
+        system_time += 1.0f / 10.0f;
         MCP::instance().SetSystemTime(system_time);
         ST7525::instance().update();
 
         // Using ranked sampling seems to be broken on this MCU, so do one channel at a time.
-        ADC_ChannelConfTypeDef sConfig {};
+        ADC_ChannelConfTypeDef sConfig{};
         adc_channel ^= 1;
         sConfig.Channel = adc_channel ? ADC_CHANNEL_4 : ADC_CHANNEL_3;
         sConfig.Rank = ADC_REGULAR_RANK_1;

@@ -22,10 +22,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef _MCP_H_
 #define _MCP_H_
 
-#include <cstdint>
 #include <array>
+#include <cstdint>
 
 #include "./Core/Inc/main.h"
+
 
 class MCP {
    public:
@@ -45,10 +46,10 @@ class MCP {
     }
 
     float PSI0() const {
-        return ((float(rawPSI0)-450.0f) / 1675.0f) * 100.0f;
+        return ((float(rawPSI0) - 450.0f) / 1675.0f) * 100.0f;
     }
     float PSI1() const {
-        return ((float(rawPSI1)-450.0f) / 1675.0f) * 100.0f;
+        return ((float(rawPSI1) - 450.0f) / 1675.0f) * 100.0f;
     }
 
     float SystemTime() const {
@@ -90,14 +91,14 @@ class MCP {
     }
 
     float DutyCycleAverage(int32_t i) const {
-        if ( i < 0 || i >= 2) {
+        if (i < 0 || i >= 2) {
             return 0.0f;
         }
         float dutyCycle = 0;
         for (const float v : dutyCycleRecord.at(i)) {
             dutyCycle += v;
         }
-        return dutyCycle/float(dutyCycleRecordCount);
+        return dutyCycle / float(dutyCycleRecordCount);
     }
 
     void Slice();
@@ -114,10 +115,9 @@ class MCP {
     bool initialized = false;
 
     static constexpr size_t dutyCycleRecordCount = 8;
-    std::array<bool, 2> dutyCycleRecordFirstTime = { true, true };
-    std::array<std::array<float, dutyCycleRecordCount>, 2> dutyCycleRecord {};
+    std::array<bool, 2> dutyCycleRecordFirstTime = {true, true};
+    std::array<std::array<float, dutyCycleRecordCount>, 2> dutyCycleRecord{};
     size_t dutyCycleRecordIndex = 0;
-
 };
 
 #endif  // #ifndef _MCP_H_

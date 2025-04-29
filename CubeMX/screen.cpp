@@ -26,9 +26,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "./Core/Inc/main.h"
 #include "./mcp.h"
-#include "font_0.h"
 #include "boot.h"
+#include "font_0.h"
 #include "version.h"
+
 
 extern "C" SPI_HandleTypeDef hspi1;
 
@@ -83,10 +84,17 @@ void ST7525::draw_line(int32_t x0, int32_t y0, int32_t x1, int32_t y1, uint8_t c
 
     while (true) {
         set_pixel(x0, y0, c);
-        if (x0 == x1 && y0 == y1) break;
+        if (x0 == x1 && y0 == y1)
+            break;
         e2 = 2 * err;
-        if (e2 >= dy) { err += dy; x0 += sx; }
-        if (e2 <= dx) { err += dx; y0 += sy; }
+        if (e2 >= dy) {
+            err += dy;
+            x0 += sx;
+        }
+        if (e2 <= dx) {
+            err += dx;
+            y0 += sy;
+        }
     }
 }
 
@@ -167,7 +175,7 @@ int32_t ST7525::draw_string(int32_t x, int32_t y, const char *str, bool calcWidt
 }
 
 void ST7525::draw_center_string(int32_t y, const char *str) {
-    draw_string((192-draw_string(0,0,str,true))/2, y, str);
+    draw_string((192 - draw_string(0, 0, str, true)) / 2, y, str);
 }
 
 void ST7525::clear() {
@@ -175,14 +183,14 @@ void ST7525::clear() {
 }
 
 void ST7525::set_boot() {
-    static_assert( sizeof(framebuffer) == sizeof(boot_bitmap_data));
+    static_assert(sizeof(framebuffer) == sizeof(boot_bitmap_data));
     memset(framebuffer, 0, sizeof(framebuffer));
     const uint8_t *data = &boot_bitmap_data[0];
     for (size_t y = 0; y < LINES; y++) {
-        for (size_t x = 0; x < COLUMNS / 8; x ++) {
+        for (size_t x = 0; x < COLUMNS / 8; x++) {
             uint8_t bits = data[x];
             for (size_t xx = 0; xx < 8; xx++) {
-                set_pixel(x*8 + xx, y, (bits & (1<<(7-xx))) ? 0 : 1);
+                set_pixel(x * 8 + xx, y, (bits & (1 << (7 - xx))) ? 0 : 1);
             }
         }
         data += COLUMNS / 8;
@@ -207,7 +215,7 @@ void ST7525::update() {
     } else if (MCP::instance().SystemTime() < 10) {
         snprintf(output, sizeof(output), "www.aeron2.com");
         draw_center_string(0, output);
-        snprintf(output, sizeof(output), "build " GIT_REV_COUNT );
+        snprintf(output, sizeof(output), "build " GIT_REV_COUNT);
         draw_center_string(20, output);
         snprintf(output, sizeof(output), GIT_COMMIT_DATE_SHORT);
         draw_center_string(40, output);
