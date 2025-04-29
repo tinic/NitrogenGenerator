@@ -48,7 +48,7 @@ int main() {
     MCP::instance().SetRawPSI0(500);
     MCP::instance().SetRawPSI1(500);
 
-    MCP::instance().SetSystemTime(10);
+    MCP::instance().SetSystemTime(987*3600);
     MCP::instance().Slice();
     ST7525::instance().update();
 
@@ -58,7 +58,7 @@ int main() {
     MCP::instance().SetRawPSI1(2400);
 
 
-    MCP::instance().SetSystemTime(10000);
+    MCP::instance().SetSystemTime(654*3600+32*60+10);
     MCP::instance().Slice();
 
     MCP::instance().SetSolenoid0(true);
