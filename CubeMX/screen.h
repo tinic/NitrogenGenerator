@@ -36,7 +36,6 @@ void screen_init();
 
 #include "font.h"
 
-
 class ST7525 {
    public:
     static ST7525 &instance();
@@ -69,7 +68,7 @@ class ST7525 {
     void update();
 
    private:
-    uint8_t framebuffer[PAGES * COLUMNS] = {0xFF};
+    std::array<uint8_t, PAGES *COLUMNS> framebuffer = {0xFF};
 
     bool initialized = false;
 

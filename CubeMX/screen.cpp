@@ -72,9 +72,9 @@ void ST7525::set_pixel(int32_t x, int32_t y, uint8_t c) {
         return;
     const uint16_t idx = static_cast<uint16_t>((y / 8) * COLUMNS + x);
     if (c)
-        framebuffer[idx] |= uint8_t((1 << (y % 8)));
+        framebuffer.at(idx) |= uint8_t((1 << (y % 8)));
     else
-        framebuffer[idx] &= uint8_t(~(1 << (y % 8)));
+        framebuffer.at(idx) &= uint8_t(~(1 << (y % 8)));
 }
 
 void ST7525::draw_line(int32_t x0, int32_t y0, int32_t x1, int32_t y1, uint8_t c) {
@@ -179,12 +179,11 @@ void ST7525::draw_center_string(int32_t y, const char *str) {
 }
 
 void ST7525::clear() {
-    memset(framebuffer, 0, sizeof(framebuffer));
+    framebuffer.fill(0);
 }
 
 void ST7525::set_boot() {
-    static_assert(sizeof(framebuffer) == sizeof(boot_bitmap_data));
-    memset(framebuffer, 0, sizeof(framebuffer));
+    framebuffer.fill(0);
     const uint8_t *data = &boot_bitmap_data[0];
     for (size_t y = 0; y < LINES; y++) {
         for (size_t x = 0; x < COLUMNS / 8; x++) {
@@ -201,8 +200,8 @@ void ST7525::write_frame() {
     send_cmd(CMD_SET_PAGE_ADRESS);
     send_cmd(CMD_SET_COLUMN_MSB);
     send_cmd(CMD_SET_COLUMN_LSB);
-    for (size_t i = 0; i < sizeof(framebuffer); i++) {
-        send_dat(framebuffer[i]);
+    for (uint8_t d : framebuffer) {
+        send_dat(d);
     }
 }
 
