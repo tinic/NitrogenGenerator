@@ -287,17 +287,19 @@ void ST7525::send_dat(uint8_t v) {
 #endif  // #ifndef SCREEN_TEST
 }
 
+#ifdef SCREEN_TEST
 std::array<uint8_t, ST7525::bitmap1BitSize> ST7525::bitmap1Bit() const {
     std::array<uint8_t, bitmap1BitSize> bitmap{};
 
     for (size_t y = 0; y < LINES; y++) {
         for (size_t x = 0; x < COLUMNS; x++) {
-            bitmap.at(y * (COLUMNS / 8) + x / 8) |= (get_pixel(x, y) ? 1 : 0) << (7 - (x & 7));
+            bitmap.at(y * sixel::format_1bit<COLUMNS, LINES>::bytes_per_line + x / 8) |= (get_pixel(x, y) ? 1 : 0) << (7 - (x & 7));
         }
     }
 
     return bitmap;
 }
+#endif  // #ifdef SCREEN_TEST
 
 std::array<uint32_t, ST7525::bitmapbitmapRGBASize> ST7525::bitmapRGBA() const {
     std::array<uint32_t, bitmapbitmapRGBASize> bitmap{};

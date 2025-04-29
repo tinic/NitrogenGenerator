@@ -37,6 +37,10 @@ void screen_init();
 
 #include "font.h"
 
+#ifdef SCREEN_TEST
+#include "screen_test/sixel-tools/sixel.h"
+#endif  // #ifdef SCREEN_TEST
+
 class ST7525 {
    public:
     static ST7525 &instance();
@@ -68,14 +72,19 @@ class ST7525 {
     void init();
     void update();
 
-    static constexpr size_t bitmap1BitSize = ( COLUMNS + 7 ) / 8 * ( ( ( LINES + 5 ) / 6 ) * 6 );
+#ifdef SCREEN_TEST
+    static constexpr size_t bitmap1BitSize = sixel::format_1bit<COLUMNS, LINES>::image_size;
     std::array<uint8_t, bitmap1BitSize> bitmap1Bit() const;
+#endif  // #ifdef SCREEN_TEST
+
     static constexpr size_t bitmapbitmapRGBASize = COLUMNS * LINES;
     std::array<uint32_t, bitmapbitmapRGBASize> bitmapRGBA() const;
-    std::tuple<size_t, size_t> bitmapSize() const { return { COLUMNS, LINES }; }
+    std::tuple<size_t, size_t> bitmapSize() const {
+        return {COLUMNS, LINES};
+    }
 
    private:
-    std::array<uint8_t, PAGES * COLUMNS> framebuffer = {0xFF};
+    std::array<uint8_t, PAGES *COLUMNS> framebuffer = {0xFF};
 
     bool initialized = false;
 
