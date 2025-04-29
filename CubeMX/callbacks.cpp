@@ -55,6 +55,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
         MCP::instance().SetSystemTime(system_time);
         ST7525::instance().update();
 
+        // Using ranked sampling seems to be broken on this MCU, so do one channel at a time.
         ADC_ChannelConfTypeDef sConfig {};
         adc_channel ^= 1;
         sConfig.Channel = adc_channel ? ADC_CHANNEL_4 : ADC_CHANNEL_3;

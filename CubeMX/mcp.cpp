@@ -89,21 +89,22 @@ void MCP::Slice() {
     }
 
     static int32_t dutyTotal = 0;
-    static int32_t dutyRefill[2] = {0, 0};
+    static std::array<int32_t, 2> dutyRefill = {0, 0};
     dutyTotal++;
     if (solenoid0) {
-        dutyRefill[0]++;
+        dutyRefill.at(0)++;
     }
     if (solenoid1) {
-        dutyRefill[1]++;
+        dutyRefill.at(1)++;
     }
     if (resetDuty) {
-        AddDutyCycleRecord(0, static_cast<float>(dutyRefill[0]) / static_cast<float>(dutyTotal));
-        AddDutyCycleRecord(1, static_cast<float>(dutyRefill[1]) / static_cast<float>(dutyTotal));
+        AddDutyCycleRecord(0, static_cast<float>(dutyRefill.at(0)) / static_cast<float>(dutyTotal));
+        AddDutyCycleRecord(1, static_cast<float>(dutyRefill.at(1)) / static_cast<float>(dutyTotal));
+
+        dutyRefill.at(0) = 0;
+        dutyRefill.at(1) = 0;
 
         dutyTotal = 0;
-        dutyRefill[0] = 0;
-        dutyRefill[1] = 0;
     }
 
     SetSolenoid0(solenoid0);

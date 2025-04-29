@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define _MCP_H_
 
 #include <cstdint>
+#include <array>
 
 #include "./Core/Inc/main.h"
 
@@ -44,10 +45,10 @@ class MCP {
     }
 
     float PSI0() const {
-        return adc_rank0_to_psi();
+        return ((float(rawPSI0)-450.0f) / 1675.0f) * 100.0f;
     }
     float PSI1() const {
-        return adc_rank1_to_psi();
+        return ((float(rawPSI1)-450.0f) / 1675.0f) * 100.0f;
     }
 
     float SystemTime() const {
@@ -58,10 +59,10 @@ class MCP {
     }
 
     void SetRawPSI0(uint32_t v) {
-        rank0 = v;
+        rawPSI0 = v;
     }
     void SetRawPSI1(uint32_t v) {
-        rank1 = v;
+        rawPSI1 = v;
     }
     void SetSystemTime(float v) {
         system_time = v;
@@ -79,14 +80,12 @@ class MCP {
     }
 
     void AddDutyCycleRecord(int32_t i, float v) {
-        if (dutyCycleRecordFirstTime[i]) {
-            dutyCycleRecordFirstTime[i] = false;
-            for (size_t c = 0; c < dutyCycleRecordCount; c++) {
-                dutyCycleRecord[i][c++] = v;
-            }
+        if (dutyCycleRecordFirstTime.at(i)) {
+            dutyCycleRecordFirstTime.at(i) = false;
+            dutyCycleRecord.at(i).fill(v);
             return;
         }
-        dutyCycleRecord[i][dutyCycleRecordIndex++] = v;
+        dutyCycleRecord.at(i).at(dutyCycleRecordIndex++) = v;
         dutyCycleRecordIndex %= dutyCycleRecordCount;
     }
 
@@ -95,8 +94,8 @@ class MCP {
             return 0.0f;
         }
         float dutyCycle = 0;
-        for (size_t c = 0; c < dutyCycleRecordCount; c++) {
-            dutyCycle += dutyCycleRecord[i][c];
+        for (const float v : dutyCycleRecord.at(i)) {
+            dutyCycle += v;
         }
         return dutyCycle/float(dutyCycleRecordCount);
     }
@@ -108,24 +107,17 @@ class MCP {
     }
 
     bool faultState = false;
-    uint32_t rank0 = 0;
-    uint32_t rank1 = 0;
+    uint32_t rawPSI0 = 0;
+    uint32_t rawPSI1 = 0;
     float refillElapsedTime = 0;
     float system_time = 0;
     bool initialized = false;
 
     static constexpr size_t dutyCycleRecordCount = 8;
-    bool dutyCycleRecordFirstTime[2] = { true, true };
-    float dutyCycleRecord[2][dutyCycleRecordCount] {};
+    std::array<bool, 2> dutyCycleRecordFirstTime = { true, true };
+    std::array<std::array<float, dutyCycleRecordCount>, 2> dutyCycleRecord {};
     size_t dutyCycleRecordIndex = 0;
 
-    float adc_rank0_to_psi() const {
-        return ((float(rank0)-450.0f) / 1675.0f) * 100.0f;
-    }
-
-    float adc_rank1_to_psi() const {
-        return ((float(rank1)-450.0f) / 1675.0f) * 100.0f;
-    }
 };
 
 #endif  // #ifndef _MCP_H_
