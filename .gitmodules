@@ -13,6 +13,6 @@
 [submodule "CubeMX/magic_enum"]
 	path = CubeMX/magic_enum
 	url = https://github.com/Neargye/magic_enum.git
-[submodule "CubeMX/screen_test/sixel-tools"]
-	path = CubeMX/screen_test/sixel-tools
+[submodule "CubeMX/sixel-tools"]
+	path = CubeMX/sixel-tools
 	url = https://github.com/tinic/sixel-tools.git
