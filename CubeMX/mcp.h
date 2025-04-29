@@ -23,41 +23,44 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define _MCP_H_
 
 #include <array>
-#include <cstdint>
 #include <cstddef>
+#include <cstdint>
 
 #ifndef SCREEN_TEST
 #include "./Core/Inc/main.h"
-#endif // #ifndef SCREEN_TEST
-
+#endif  // #ifndef SCREEN_TEST
 
 class MCP {
    public:
     static MCP &instance();
 
     void SetSolenoid0(bool state) {
-        #ifndef SCREEN_TEST
+#ifndef SCREEN_TEST
         HAL_GPIO_WritePin(GPIOA, SOLENOID_VALVE1_Pin, state ? GPIO_PIN_SET : GPIO_PIN_RESET);
-        #endif  // #ifndef SCREEN_TEST
+#else   // #ifndef SCREEN_TEST
+        solenoid0 = state;
+#endif  // #ifndef SCREEN_TEST
     };
     void SetSolenoid1(bool state) {
-        #ifndef SCREEN_TEST
+#ifndef SCREEN_TEST
         HAL_GPIO_WritePin(GPIOA, SOLENOID_VAVLE2_Pin, state ? GPIO_PIN_SET : GPIO_PIN_RESET);
-        #endif  // #ifndef SCREEN_TEST
+#else   // #ifndef SCREEN_TEST
+        solenoid1 = state;
+#endif  // #ifndef SCREEN_TEST
     };
     bool Solenoid0() const {
-        #ifndef SCREEN_TEST
+#ifndef SCREEN_TEST
         return (HAL_GPIO_ReadPin(GPIOA, SOLENOID_VALVE1_Pin) == GPIO_PIN_SET) ? true : false;
-        #else  // #ifndef SCREEN_TEST
-        return false;
-        #endif  // #ifndef SCREEN_TEST
+#else   // #ifndef SCREEN_TEST
+        return solenoid0;
+#endif  // #ifndef SCREEN_TEST
     }
     bool Solenoid1() const {
-        #ifndef SCREEN_TEST
+#ifndef SCREEN_TEST
         return (HAL_GPIO_ReadPin(GPIOA, SOLENOID_VAVLE2_Pin) == GPIO_PIN_SET) ? true : false;
-        #else  // #ifndef SCREEN_TEST
-        return false;
-        #endif  // #ifndef SCREEN_TEST
+#else   // #ifndef SCREEN_TEST
+        return solenoid1;
+#endif  // #ifndef SCREEN_TEST
     }
 
     float PSI0() const {
@@ -128,6 +131,10 @@ class MCP {
     float refillElapsedTime = 0;
     float system_time = 0;
     bool initialized = false;
+#ifdef SCREEN_TEST
+    bool solenoid0 = false;
+    bool solenoid1 = false;
+#endif  // #ifdef SCREEN_TEST
 
     static constexpr size_t dutyCycleRecordCount = 8;
     std::array<bool, 2> dutyCycleRecordFirstTime = {true, true};
