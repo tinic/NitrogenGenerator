@@ -37,9 +37,7 @@ void screen_init();
 
 #include "font.h"
 
-#ifdef SCREEN_TEST
-#include "screen_test/sixel-tools/sixel.h"
-#endif  // #ifdef SCREEN_TEST
+#include "sixel-tools/sixel.h"
 
 class ST7525 {
    public:
