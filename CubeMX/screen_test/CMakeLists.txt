@@ -3,9 +3,11 @@ cmake_minimum_required(VERSION 3.16.3)
 #set(CMAKE_C_COMPILER "/opt/homebrew/bin/gcc-14")
 #set(CMAKE_CXX_COMPILER "/opt/homebrew/bin/g++-14")
 
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 26)
 
 project(screen_test)
+
+set(CMAKE_CXX_FLAGS "-Wall -Werror -fconstexpr-steps=33554432")
 
 add_executable (screen_test screen_test.cpp ../screen.cpp ../mcp.cpp)
 
