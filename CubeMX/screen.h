@@ -70,16 +70,8 @@ class ST7525 {
     void init();
     void update();
 
-#ifdef SCREEN_TEST
-    static constexpr size_t bitmap1BitSize = sixel::format_1bit<COLUMNS, LINES>::image_size;
+    static constexpr size_t bitmap1BitSize = sixel::format_1bit<COLUMNS*2, LINES*2>::image_size;
     std::array<uint8_t, bitmap1BitSize> bitmap1Bit() const;
-#endif  // #ifdef SCREEN_TEST
-
-    static constexpr size_t bitmapbitmapRGBASize = COLUMNS * LINES;
-    std::array<uint32_t, bitmapbitmapRGBASize> bitmapRGBA() const;
-    std::tuple<size_t, size_t> bitmapSize() const {
-        return {COLUMNS, LINES};
-    }
 
    private:
     std::array<uint8_t, PAGES *COLUMNS> framebuffer = {0xFF};

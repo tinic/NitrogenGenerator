@@ -7,7 +7,7 @@
 #include "../sixel-tools/sixel.h"
 
 static void output() {
-    sixel::image<sixel::format_1bit, ST7525::COLUMNS, ST7525::LINES> image;
+    sixel::image<sixel::format_1bit, ST7525::COLUMNS*2, ST7525::LINES*2> image;
     image.clear();
     image.copy(ST7525::instance().bitmap1Bit());
     image.sixel([](uint8_t ch){
