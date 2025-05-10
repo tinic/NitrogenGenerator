@@ -30,10 +30,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "./mcp.h"
 #include "boot.h"
-#include "constixel/constixel.h"
-#include "constixel/fonts/ibmplexsans_regular_18_mono.h"
 #include "font_0.h"
 #include "version.h"
+
+#include "constixel/constixel.h"
+#include "constixel/fonts/ibmplexsans_regular_18_mono.h"
 using font = constixel::ibmplexsans_regular_18_mono;
 
 #ifndef SCREEN_TEST
