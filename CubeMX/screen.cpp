@@ -33,9 +33,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "font_0.h"
 #include "version.h"
 
+// clang-format off
 #include "constixel/constixel.h"
 #include "constixel/fonts/ibmplexsans_regular_18_mono.h"
 using font = constixel::ibmplexsans_regular_18_mono;
+// clang-format on
 
 #ifndef SCREEN_TEST
 extern "C" SPI_HandleTypeDef hspi1;
