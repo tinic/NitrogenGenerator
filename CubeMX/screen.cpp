@@ -40,7 +40,8 @@ using font = constixel::ibmplexsans_regular_18_mono;
 extern "C" SPI_HandleTypeDef hspi1;
 #endif  // #ifndef SCREEN_TEST
 
-static constixel::image<constixel::format_1bit, 192, 64, 4> screen;
+using image_type = constixel::image<constixel::format_1bit, 192, 64, 4>;
+static image_type screen;
 
 ST7525 &ST7525::instance() {
     static ST7525 st7525display;
@@ -95,7 +96,7 @@ void ST7525::write_frame() {
         [=, this](char ch) mutable {
             send_dat(ch);
         },
-        constixel::Y_TOP_TO_BOTTOM_1BIT);
+        image_type::Y_TOP_TO_BOTTOM_1BIT);
 }
 
 #ifdef SCREEN_TEST
