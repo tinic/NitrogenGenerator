@@ -30,10 +30,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "./mcp.h"
 #include "boot.h"
-#include "font_0.h"
-#include "version.h"
 #include "constixel/constixel.h"
 #include "constixel/fonts/ibmplexsans_regular_18_mono.h"
+#include "font_0.h"
+#include "version.h"
 using font = constixel::ibmplexsans_regular_18_mono;
 
 #ifndef SCREEN_TEST
@@ -79,11 +79,11 @@ void ST7525::init() {
 }
 
 void ST7525::clear() {
-    framebuffer.fill(0);
+    screen.clear();
 }
 
 void ST7525::set_boot() {
-    memcpy(framebuffer.data(), boot_bitmap_data, framebuffer.size());
+    screen.copy<sizeof(boot_bitmap_data)>(boot_bitmap_data);
 }
 
 void ST7525::write_frame() {
@@ -91,15 +91,11 @@ void ST7525::write_frame() {
     send_cmd(CMD_SET_COLUMN_MSB);
     send_cmd(CMD_SET_COLUMN_LSB);
 
-    size_t index = 0;
     screen.convert(
-        [=,this](char ch) mutable {
-            framebuffer.data()[index++] = static_cast<uint8_t>(ch);
+        [=, this](char ch) mutable {
+            send_dat(ch);
         },
         constixel::Y_TOP_TO_BOTTOM_1BIT);
-    for (uint8_t d : framebuffer) {
-        send_dat(d);
-    }
 }
 
 void ST7525::update() {

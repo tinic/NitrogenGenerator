@@ -94,50 +94,24 @@ configure_file("${PROJECT_SOURCE_DIR}/version.h.in" "${CMAKE_BINARY_DIR}/version
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${CMAKE_BINARY_DIR}/version.h)
 
 IF(${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
-    set(FONTBM_BINARY ${PROJECT_SOURCE_DIR}/fontbm/build/Debug/fontbm.exe)
-    set(FONTBM_CMAKE_COMMAND cmake --preset=default ..)
+    set(GENFONT_BINARY ${PROJECT_SOURCE_DIR}/constixel/genfont/build/Debug/genfont.exe)
+    set(FONTBM_BINARY ${PROJECT_SOURCE_DIR}/constixel/genfont/fontbm/build/Debug/fontbm.exe)
+    set(GENFONT_CMAKE_COMMAND cmake --preset=default ..)
 ELSE(${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
-    set(FONTBM_BINARY ${PROJECT_SOURCE_DIR}/fontbm/build/fontbm)
-    set(FONTBM_CMAKE_COMMAND cmake -Wno-deprecated -G "Ninja" ..)
+    set(GENFONT_BINARY ${PROJECT_SOURCE_DIR}/constixel/genfont/build/genfont)
+    set(FONTBM_BINARY ${PROJECT_SOURCE_DIR}/constixel/genfont/fontbm/build/fontbm)
+    set(GENFONT_CMAKE_COMMAND cmake -Wno-deprecated -G "Ninja" ..)
 ENDIF(${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
 
-file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/fontbm/build)
+file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/constixel/genfont/build)
 add_custom_command(
-    OUTPUT ${FONTBM_BINARY}
-    COMMAND ${FONTBM_CMAKE_COMMAND}
+    OUTPUT ${GENFONT_BINARY}
+    COMMAND ${GENFONT_CMAKE_COMMAND}
     COMMAND cmake --build .
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/fontbm/build
-    DEPENDS ${PROJECT_SOURCE_DIR}/fontbm/src/main.cpp
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/constixel/genfont/build
+    DEPENDS ${PROJECT_SOURCE_DIR}/constixel/genfont/genfont.cpp
     USES_TERMINAL)
 
-set(FONT_FNT ${PROJECT_BINARY_DIR}/font.fnt)
-set(FONT_PNG ${PROJECT_BINARY_DIR}/font_0.png)
-add_custom_command(
-    OUTPUT ${FONT_PNG} ${FONT_FNT}
-    # 0x10042b // clock 1049643
-    # 0x10042f // stop 1049647
-    # 0x1001e4 // wind 1049060
-    COMMAND ${FONTBM_BINARY} --font-file ${PROJECT_SOURCE_DIR}/SF-Compact-Display-Bold.otf --chars 32-126,178,9716,9888,1049643,1049647,1049060 --texture-crop-width --texture-crop-height --kerning-pairs regular --tabular-numbers --slashed-zero --monochrome --font-size 18 --output font --data-format json
-    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-    DEPENDS ${FONTBM_BINARY}
-    USES_TERMINAL)
-
-set(FONT_BITMAP_HEADER ${PROJECT_BINARY_DIR}/font_0.h)
-add_custom_command(
-    OUTPUT ${FONT_BITMAP_HEADER}
-    COMMAND python3 ${PROJECT_SOURCE_DIR}/png_to_header.py -i ${FONT_PNG} -o ${FONT_BITMAP_HEADER} -n font_bitmap
-    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-    DEPENDS ${FONT_PNG}
-    USES_TERMINAL)
-target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${FONT_BITMAP_HEADER})
-
-set(FONT_HEADER ${PROJECT_BINARY_DIR}/font.h)
-add_custom_command(
-    OUTPUT ${FONT_HEADER}
-    COMMAND python3 ${PROJECT_SOURCE_DIR}/font_to_header.py -i ${FONT_FNT} -o ${FONT_HEADER}
-    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-    DEPENDS ${FONT_FNT}
-    USES_TERMINAL)
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${FONT_HEADER})
 
 set(BOOT_BITMAP_HEADER ${PROJECT_BINARY_DIR}/boot.h)
