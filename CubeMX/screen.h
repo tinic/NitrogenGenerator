@@ -70,20 +70,10 @@ class ST7525 {
     void init();
     void update();
 
-    static constexpr size_t bitmap1BitSize = sixel::format_1bit<COLUMNS*2, LINES*2>::image_size;
-    std::array<uint8_t, bitmap1BitSize> bitmap1Bit() const;
-
    private:
-    std::array<uint8_t, PAGES *COLUMNS> framebuffer = {0xFF};
+    std::array<uint8_t, PAGES * COLUMNS> framebuffer = {0xFF};
 
     bool initialized = false;
-
-    void set_pixel(int32_t x, int32_t y, uint8_t c);
-    bool get_pixel(int32_t x, int32_t y) const;
-    void draw_line(int32_t x0, int32_t y0, int32_t x1, int32_t y1, uint8_t c);
-    void draw_char(int32_t x, int32_t y, const CharInfo &ch);
-    int32_t draw_string(int32_t x, int32_t y, const char *str, bool calcWidthOnly = false);
-    void draw_center_string(int32_t y, const char *str);
 
     void clear();
     void set_boot();

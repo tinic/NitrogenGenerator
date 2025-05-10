@@ -22,10 +22,10 @@ endif()
 set(CMAKE_PROJECT_NAME NitrogenGenerator)
 
 # init sub modules
-if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.gitmodules")
-  execute_process (COMMAND git submodule update --init --recursive
-                   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-endif() 
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.gitmodules")
+    execute_process(COMMAND git submodule update --init --recursive
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+endif()
 
 # Include toolchain file
 include("cmake/gcc-arm-none-eabi.cmake")
@@ -93,13 +93,13 @@ execute_process(COMMAND ${GIT_EXECUTABLE} show -s --format=%as HEAD --date=iso-s
 configure_file("${PROJECT_SOURCE_DIR}/version.h.in" "${CMAKE_BINARY_DIR}/version.h" @ONLY)
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${CMAKE_BINARY_DIR}/version.h)
 
-IF (${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
+IF(${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
     set(FONTBM_BINARY ${PROJECT_SOURCE_DIR}/fontbm/build/Debug/fontbm.exe)
-    set(FONTBM_CMAKE_COMMAND cmake --preset=default .. )
-ELSE (${CMAKE_HOST_SYSTEM_NAME} STREQUAL  "Windows")
+    set(FONTBM_CMAKE_COMMAND cmake --preset=default ..)
+ELSE(${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
     set(FONTBM_BINARY ${PROJECT_SOURCE_DIR}/fontbm/build/fontbm)
-    set(FONTBM_CMAKE_COMMAND cmake -Wno-deprecated -G "Ninja" .. )
-ENDIF (${CMAKE_HOST_SYSTEM_NAME} STREQUAL  "Windows")
+    set(FONTBM_CMAKE_COMMAND cmake -Wno-deprecated -G "Ninja" ..)
+ENDIF(${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
 
 file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/fontbm/build)
 add_custom_command(
@@ -124,30 +124,30 @@ add_custom_command(
 
 set(FONT_BITMAP_HEADER ${PROJECT_BINARY_DIR}/font_0.h)
 add_custom_command(
-        OUTPUT ${FONT_BITMAP_HEADER}
-        COMMAND python3 ${PROJECT_SOURCE_DIR}/png_to_header.py -i ${FONT_PNG} -o ${FONT_BITMAP_HEADER} -n font_bitmap
-        WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-        DEPENDS ${FONT_PNG}
-        USES_TERMINAL)
+    OUTPUT ${FONT_BITMAP_HEADER}
+    COMMAND python3 ${PROJECT_SOURCE_DIR}/png_to_header.py -i ${FONT_PNG} -o ${FONT_BITMAP_HEADER} -n font_bitmap
+    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+    DEPENDS ${FONT_PNG}
+    USES_TERMINAL)
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${FONT_BITMAP_HEADER})
 
 set(FONT_HEADER ${PROJECT_BINARY_DIR}/font.h)
 add_custom_command(
-        OUTPUT ${FONT_HEADER}
-        COMMAND python3 ${PROJECT_SOURCE_DIR}/font_to_header.py -i ${FONT_FNT} -o ${FONT_HEADER}
-        WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-        DEPENDS ${FONT_FNT}
-        USES_TERMINAL)
+    OUTPUT ${FONT_HEADER}
+    COMMAND python3 ${PROJECT_SOURCE_DIR}/font_to_header.py -i ${FONT_FNT} -o ${FONT_HEADER}
+    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+    DEPENDS ${FONT_FNT}
+    USES_TERMINAL)
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${FONT_HEADER})
 
 set(BOOT_BITMAP_HEADER ${PROJECT_BINARY_DIR}/boot.h)
 set(BOOT_PNG ${PROJECT_SOURCE_DIR}/media/aeron2.png)
 add_custom_command(
-        OUTPUT ${BOOT_BITMAP_HEADER}
-        COMMAND python3 ${PROJECT_SOURCE_DIR}/png_to_header.py -i ${BOOT_PNG} -o ${BOOT_BITMAP_HEADER} -n boot_bitmap
-        WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-        DEPENDS ${BOOT_PNG}
-        USES_TERMINAL)
+    OUTPUT ${BOOT_BITMAP_HEADER}
+    COMMAND python3 ${PROJECT_SOURCE_DIR}/png_to_header.py -i ${BOOT_PNG} -o ${BOOT_BITMAP_HEADER} -n boot_bitmap
+    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+    DEPENDS ${BOOT_PNG}
+    USES_TERMINAL)
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${BOOT_BITMAP_HEADER})
 
 add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD

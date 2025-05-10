@@ -16,3 +16,6 @@
 [submodule "CubeMX/sixel-tools"]
 	path = CubeMX/sixel-tools
 	url = https://github.com/tinic/sixel-tools.git
+[submodule "CubeMX/constixel"]
+	path = CubeMX/constixel
+	url = https://github.com/tinic/constixel.git
