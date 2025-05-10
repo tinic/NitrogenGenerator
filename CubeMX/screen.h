@@ -67,6 +67,10 @@ class ST7525 {
     void init();
     void update();
 
+#ifdef SCREEN_TEST
+    void output();
+#endif  // #ifdef SCREEN_TEST
+
    private:
     bool initialized = false;
 

@@ -98,6 +98,12 @@ void ST7525::write_frame() {
         constixel::Y_TOP_TO_BOTTOM_1BIT);
 }
 
+#ifdef SCREEN_TEST
+void ST7525::output() {
+    screen.sixel_to_cout();
+}
+#endif  // #ifdef SCREEN_TEST
+
 void ST7525::update() {
     clear();
 
@@ -110,7 +116,7 @@ void ST7525::update() {
         snprintf(output, sizeof(output), "build " GIT_REV_COUNT);
         screen.draw_string_centered_mono<font>(192 / 2, 20, output, 1);
         snprintf(output, sizeof(output), GIT_COMMIT_DATE_SHORT);
-        screen.draw_string_centered_mono<font>(192 / 2, 0, output, 1);
+        screen.draw_string_centered_mono<font>(192 / 2, 40, output, 1);
     } else {
         snprintf(output, sizeof(output), "􀇤");
         screen.draw_string_mono<font>(0, -2, output, 1);
