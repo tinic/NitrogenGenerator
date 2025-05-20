@@ -11,18 +11,21 @@ int main() {
     ST7525::instance().update();
 
     ST7525::instance().output();
+    printf("\n");
 
     MCP::instance().SetSystemTime(5);
     MCP::instance().Slice();
     ST7525::instance().update();
 
     ST7525::instance().output();
+    printf("\n");
 
     MCP::instance().SetSystemTime(10);
     MCP::instance().Slice();
     ST7525::instance().update();
 
     ST7525::instance().output();
+    printf("\n");
 
     MCP::instance().SetRawPSI0(500);
     MCP::instance().SetRawPSI1(500);
@@ -32,6 +35,7 @@ int main() {
     ST7525::instance().update();
 
     ST7525::instance().output();
+    printf("\n");
 
     MCP::instance().SetRawPSI0(2400);
     MCP::instance().SetRawPSI1(2400);
@@ -46,4 +50,5 @@ int main() {
     ST7525::instance().update();
 
     ST7525::instance().output();
+    printf("\n");
 }

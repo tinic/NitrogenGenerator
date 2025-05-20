@@ -34,7 +34,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // clang-format off
 #include "constixel/constixel.hpp"
-#include "constixel/fonts/ibmplexsans_regular_18_mono.hpp"
+#include "./ibmplexsans_regular_18_mono.hpp"
 using font = constixel::ibmplexsans_regular_18_mono;
 // clang-format on
 
@@ -150,6 +150,8 @@ void ST7525::update() {
         const int32_t s = (static_cast<int32_t>(MCP::instance().SystemTime())) % 60;
         snprintf(output, sizeof(output), "􀐫%03d:%02d:%02d", static_cast<int>(h), static_cast<int>(m), static_cast<int>(s));
         screen.draw_string_mono<font>(0, 43, output, 1);
+
+        // 0x1001E4, 0x10042B, 0x10042F, 0x000B2, 0x26A0
 
         if (MCP::instance().FaultState()) {
             snprintf(output, sizeof(output), "⚠Fault!");
