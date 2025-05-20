@@ -45,6 +45,8 @@ add_executable(${CMAKE_PROJECT_NAME})
 
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)
+add_subdirectory(constixel)
+
 
 add_subdirectory(magic_enum EXCLUDE_FROM_ALL)
 target_link_libraries(${CMAKE_PROJECT_NAME} magic_enum::magic_enum)
@@ -79,6 +81,7 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
 # Add linked libraries
 target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
+    constixel::constixel
     # Add user defined libraries
 )
 

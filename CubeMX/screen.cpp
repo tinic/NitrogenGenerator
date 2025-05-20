@@ -30,12 +30,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "./mcp.h"
 #include "boot.h"
-#include "font_0.h"
 #include "version.h"
 
 // clang-format off
-#include "constixel/constixel.h"
-#include "constixel/fonts/ibmplexsans_regular_18_mono.h"
+#include "constixel/constixel.hpp"
+#include "constixel/fonts/ibmplexsans_regular_18_mono.hpp"
 using font = constixel::ibmplexsans_regular_18_mono;
 // clang-format on
 
@@ -43,8 +42,11 @@ using font = constixel::ibmplexsans_regular_18_mono;
 extern "C" SPI_HandleTypeDef hspi1;
 #endif  // #ifndef SCREEN_TEST
 
-using image_type = constixel::image<constixel::format_1bit, 192, 64, 4>;
+using image_type = constixel::image<constixel::format_1bit, 192, 64>;
 static image_type screen;
+
+using buffer_type = constixel::image<constixel::format_1bit, 64, 192>;
+static buffer_type buffer;
 
 ST7525 &ST7525::instance() {
     static ST7525 st7525display;
@@ -95,16 +97,12 @@ void ST7525::write_frame() {
     send_cmd(CMD_SET_COLUMN_MSB);
     send_cmd(CMD_SET_COLUMN_LSB);
 
-    screen.convert(
-        [=, this](char ch) mutable {
-            send_dat(ch);
-        },
-        image_type::Y_TOP_TO_BOTTOM_1BIT);
+    screen.transpose(buffer);
 }
 
 #ifdef SCREEN_TEST
 void ST7525::output() {
-    screen.sixel_to_cout();
+    screen.sixel_to_cout<4>();
 }
 #endif  // #ifdef SCREEN_TEST
 
