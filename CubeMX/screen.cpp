@@ -98,6 +98,9 @@ void ST7525::write_frame() {
     send_cmd(CMD_SET_COLUMN_LSB);
 
     screen.transpose(buffer);
+    for (auto c : buffer.data_ref()) {
+        send_dat(c);
+    }
 }
 
 #ifdef SCREEN_TEST
