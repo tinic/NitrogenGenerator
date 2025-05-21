@@ -149,18 +149,18 @@ void ST7525::update() {
         const int32_t m = (static_cast<int32_t>(MCP::instance().SystemTime()) / 60) % 60;
         const int32_t s = (static_cast<int32_t>(MCP::instance().SystemTime())) % 60;
         snprintf(output, sizeof(output), "􀐫%03d:%02d:%02d", static_cast<int>(h), static_cast<int>(m), static_cast<int>(s));
-        screen.draw_string_mono<font>(0, 43, output, 1);
+        screen.draw_string_mono<font>(0, 42, output, 1);
 
         // 0x1001E4, 0x10042B, 0x10042F, 0x000B2, 0x26A0
 
         if (MCP::instance().FaultState()) {
             snprintf(output, sizeof(output), "⚠Fault!");
-            screen.draw_string_mono<font>(191 - screen.string_width<font>(output), 43, output, 1);
+            screen.draw_string_mono<font>(191 - screen.string_width<font>(output), 42, output, 1);
         } else {
             const int32_t em = (static_cast<int32_t>(MCP::instance().RefillElapsedTime()) / 60) % 60;
             const int32_t es = (static_cast<int32_t>(MCP::instance().RefillElapsedTime())) % 60;
             snprintf(output, sizeof(output), "􀐯%03d:%02d", static_cast<int>(em), static_cast<int>(es));
-            screen.draw_string_mono<font>(191 - screen.string_width<font>(output), 43, output, 1);
+            screen.draw_string_mono<font>(191 - screen.string_width<font>(output), 42, output, 1);
         }
     }
     write_frame();
