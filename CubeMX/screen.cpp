@@ -34,7 +34,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // clang-format off
 #include "constixel/constixel.hpp"
-#include "./ibmplexsans_regular_18_mono.hpp"
+#include "fonts/ibmplexsans_regular_18_mono.hpp"
 using font = constixel::ibmplexsans_regular_18_mono;
 // clang-format on
 
