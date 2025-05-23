@@ -22,19 +22,20 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "./screen.h"
 
 #include <cstdio>
-#include <fixed_containers/fixed_map.hpp>
 
 #ifndef SCREEN_TEST
 #include "./Core/Inc/main.h"
 #endif  // #ifndef SCREEN_TEST
 
 #include "./mcp.h"
+#ifndef SCREEN_TEST
 #include "boot.h"
 #include "version.h"
+#endif  // #ifndef SCREEN_TEST
 
 // clang-format off
 #include "constixel/constixel.hpp"
-#include "./ibmplexsans_regular_18_mono.hpp"
+#include "ibmplexsans_regular_18_mono.hpp"
 using font = constixel::ibmplexsans_regular_18_mono;
 // clang-format on
 
@@ -89,7 +90,9 @@ void ST7525::clear() {
 }
 
 void ST7525::set_boot() {
+#ifndef SCREEN_TEST
     screen.copy<sizeof(boot_bitmap_data)>(boot_bitmap_data);
+#endif  // #ifndef SCREEN_TEST
 }
 
 void ST7525::write_frame() {
@@ -117,50 +120,62 @@ void ST7525::update() {
         set_boot();
     } else if (MCP::instance().SystemTime() < 10) {
         snprintf(output, sizeof(output), "www.aeron2.com");
-        screen.draw_string_centered_mono<font>(192 / 2, 0, output, 1);
-        snprintf(output, sizeof(output), "build " GIT_REV_COUNT);
-        screen.draw_string_centered_mono<font>(192 / 2, 20, output, 1);
-        snprintf(output, sizeof(output), GIT_COMMIT_DATE_SHORT);
-        screen.draw_string_centered_mono<font>(192 / 2, 40, output, 1);
+        screen.text_centered_mono<font>(192 / 2, 0, output).color(1);
+        snprintf(output, sizeof(output), "build %s", 
+#ifndef SCREEN_TEST
+            GIT_REV_COUNT
+#else
+            "test"
+#endif
+        );
+        screen.text_centered_mono<font>(192 / 2, 20, output).color(1);
+        snprintf(output, sizeof(output), "%s", 
+#ifndef SCREEN_TEST
+            GIT_COMMIT_DATE_SHORT
+#else
+            "test-date"
+#endif
+        );
+        screen.text_centered_mono<font>(192 / 2, 40, output).color(1);
     } else {
         snprintf(output, sizeof(output), "􀇤");
-        screen.draw_string_mono<font>(0, -2, output, 1);
+        screen.text_mono<font>(0, -2, output).color(1);
         snprintf(output, sizeof(output), "%dpsi", static_cast<int>(MCP::instance().PSI0()));
-        screen.draw_string_mono<font>(192 / 2 - screen.string_width<font>(output) - 4, -2, output, 1);
+        screen.text_mono<font>(192 / 2 - screen.string_width<font>(output) - 4, -2, output).color(1);
         snprintf(output, sizeof(output), "N²");
-        screen.draw_string_mono<font>(192 / 2 + 4, -2, output, 1);
+        screen.text_mono<font>(192 / 2 + 4, -2, output).color(1);
         snprintf(output, sizeof(output), "%dpsi", static_cast<int>(MCP::instance().PSI1()));
-        screen.draw_string_mono<font>(191 - screen.string_width<font>(output), -2, output, 1);
+        screen.text_mono<font>(191 - screen.string_width<font>(output), -2, output).color(1);
 
         snprintf(output, sizeof(output), "%s", MCP::instance().Solenoid0() ? "Open" : "Clsd");
-        screen.draw_string_mono<font>(0, 18, output, 1);
+        screen.text_mono<font>(0, 18, output).color(1);
         snprintf(output, sizeof(output), "%s", MCP::instance().Solenoid1() ? "Open" : "Clsd");
-        screen.draw_string_mono<font>(192 / 2 + 4, 18, output, 1);
+        screen.text_mono<font>(192 / 2 + 4, 18, output).color(1);
 
-        screen.draw_line(192 / 2 + 1, 0, 192 / 2 + 1, 42, 1);
-        screen.draw_line(0, 42, 192, 42, 1);
+        screen.line(192 / 2 + 1, 0, 192 / 2 + 1, 42).stroke(1);
+        screen.line(0, 42, 192, 42).stroke(1);
 
         snprintf(output, sizeof(output), "%02d%%", static_cast<int>(MCP::instance().DutyCycleAverage(0) * 100.0f));
-        screen.draw_string_mono<font>(192 / 2 - screen.string_width<font>(output) - 4, 18, output, 1);
+        screen.text_mono<font>(192 / 2 - screen.string_width<font>(output) - 4, 18, output).color(1);
         snprintf(output, sizeof(output), "%02d%%", static_cast<int>(MCP::instance().DutyCycleAverage(1) * 100.0f));
-        screen.draw_string_mono<font>(191 - screen.string_width<font>(output), 18, output, 1);
+        screen.text_mono<font>(191 - screen.string_width<font>(output), 18, output).color(1);
 
         const int32_t h = (static_cast<int32_t>(MCP::instance().SystemTime()) / 3600);
         const int32_t m = (static_cast<int32_t>(MCP::instance().SystemTime()) / 60) % 60;
         const int32_t s = (static_cast<int32_t>(MCP::instance().SystemTime())) % 60;
         snprintf(output, sizeof(output), "􀐫%03d:%02d:%02d", static_cast<int>(h), static_cast<int>(m), static_cast<int>(s));
-        screen.draw_string_mono<font>(0, 42, output, 1);
+        screen.text_mono<font>(0, 42, output).color(1);
 
         // 0x1001E4, 0x10042B, 0x10042F, 0x000B2, 0x26A0
 
         if (MCP::instance().FaultState()) {
             snprintf(output, sizeof(output), "⚠Fault!");
-            screen.draw_string_mono<font>(191 - screen.string_width<font>(output), 42, output, 1);
+            screen.text_mono<font>(191 - screen.string_width<font>(output), 42, output).color(1);
         } else {
             const int32_t em = (static_cast<int32_t>(MCP::instance().RefillElapsedTime()) / 60) % 60;
             const int32_t es = (static_cast<int32_t>(MCP::instance().RefillElapsedTime())) % 60;
             snprintf(output, sizeof(output), "􀐯%03d:%02d", static_cast<int>(em), static_cast<int>(es));
-            screen.draw_string_mono<font>(191 - screen.string_width<font>(output), 42, output, 1);
+            screen.text_mono<font>(191 - screen.string_width<font>(output), 42, output).color(1);
         }
     }
     write_frame();

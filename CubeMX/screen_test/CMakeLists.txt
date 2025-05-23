@@ -11,11 +11,27 @@ set(CMAKE_CXX_FLAGS "-Wall -Werror -fconstexpr-steps=33554432")
 
 add_executable (screen_test screen_test.cpp ../screen.cpp ../mcp.cpp)
 
-add_subdirectory(../magic_enum ${CMAKE_BINARY_DIR}/magic_enum EXCLUDE_FROM_ALL)
-target_link_libraries(screen_test magic_enum::magic_enum)
-
-add_subdirectory(../fixed-containers ${CMAKE_BINARY_DIR}/fixed-containers EXCLUDE_FROM_ALL)
-target_link_libraries(screen_test fixed_containers::fixed_containers)
 
 target_compile_definitions(screen_test PRIVATE SCREEN_TEST)
-target_include_directories(screen_test PRIVATE "../" "../build/Debug" "./sixel-tools")
+target_include_directories(screen_test PRIVATE "../" "../build" "./sixel-tools")
+
+# Generate font for screen_test as well
+set(FONT_HEADER ${CMAKE_BINARY_DIR}/ibmplexsans_regular_18_mono.hpp)
+set(FONT_SCRIPT "${CMAKE_SOURCE_DIR}/../cmake/generate_font.cmake")
+
+add_custom_target(generate_font_test ALL
+    COMMAND ${CMAKE_COMMAND} 
+        -DPROJECT_SOURCE_DIR="${CMAKE_SOURCE_DIR}/.."
+        -DCMAKE_BINARY_DIR="${CMAKE_BINARY_DIR}"
+        -P "${FONT_SCRIPT}"
+    DEPENDS ${FONT_SCRIPT}
+    COMMENT "Generating custom font for test"
+    USES_TERMINAL)
+
+add_custom_command(
+    OUTPUT ${FONT_HEADER}
+    DEPENDS generate_font_test
+    COMMENT "Font header generated for test"
+)
+
+target_sources(screen_test PRIVATE ${FONT_HEADER})

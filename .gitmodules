@@ -4,18 +4,6 @@
 [submodule "pnid-lib"]
 	path = pnid-lib
 	url = https://github.com/SpaceTeam/pnid-lib.git
-[submodule "CubeMX/fontbm"]
-	path = CubeMX/fontbm
-	url = https://gitlab.local.tinic.net/forks/fontbm.git
-[submodule "CubeMX/fixed-containers"]
-	path = CubeMX/fixed-containers
-	url = https://github.com/teslamotors/fixed-containers.git
-[submodule "CubeMX/magic_enum"]
-	path = CubeMX/magic_enum
-	url = https://github.com/Neargye/magic_enum.git
-[submodule "CubeMX/sixel-tools"]
-	path = CubeMX/sixel-tools
-	url = https://github.com/tinic/sixel-tools.git
 [submodule "CubeMX/constixel"]
 	path = CubeMX/constixel
 	url = https://github.com/tinic/constixel.git
