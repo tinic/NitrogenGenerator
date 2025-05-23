@@ -43,18 +43,12 @@ enable_language(C CXX ASM)
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME})
 
-# Add STM32CubeMX generated sources
+# Add dependencies
 add_subdirectory(cmake/stm32cubemx)
 add_subdirectory(constixel)
 
-# Link directories setup
-target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user defined library search paths
-)
-
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user sources here
     screen.cpp
     callbacks.cpp
     mcp.cpp
@@ -62,20 +56,13 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user defined include paths
     ${PROJECT_BINARY_DIR}
-)
-
-# Add project symbols (macros)
-target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user defined symbols
 )
 
 # Add linked libraries
 target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
     constixel::constixel
-    # Add user defined libraries
 )
 
 # Generate version.h
