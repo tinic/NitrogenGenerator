@@ -29,12 +29,14 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #endif  // #ifndef SCREEN_TEST
 
 #include "./mcp.h"
+#ifndef SCREEN_TEST
 #include "boot.h"
 #include "version.h"
+#endif  // #ifndef SCREEN_TEST
 
 // clang-format off
 #include "constixel/constixel.hpp"
-#include "fonts/ibmplexsans_regular_18_mono.hpp"
+#include "ibmplexsans_regular_18_mono.hpp"
 using font = constixel::ibmplexsans_regular_18_mono;
 // clang-format on
 
@@ -89,7 +91,9 @@ void ST7525::clear() {
 }
 
 void ST7525::set_boot() {
+#ifndef SCREEN_TEST
     screen.copy<sizeof(boot_bitmap_data)>(boot_bitmap_data);
+#endif  // #ifndef SCREEN_TEST
 }
 
 void ST7525::write_frame() {
@@ -118,9 +122,21 @@ void ST7525::update() {
     } else if (MCP::instance().SystemTime() < 10) {
         snprintf(output, sizeof(output), "www.aeron2.com");
         screen.text_centered_mono<font>(192 / 2, 0, output).color(1);
-        snprintf(output, sizeof(output), "build " GIT_REV_COUNT);
+        snprintf(output, sizeof(output), "build %s", 
+#ifndef SCREEN_TEST
+            GIT_REV_COUNT
+#else
+            "test"
+#endif
+        );
         screen.text_centered_mono<font>(192 / 2, 20, output).color(1);
-        snprintf(output, sizeof(output), GIT_COMMIT_DATE_SHORT);
+        snprintf(output, sizeof(output), "%s", 
+#ifndef SCREEN_TEST
+            GIT_COMMIT_DATE_SHORT
+#else
+            "test-date"
+#endif
+        );
         screen.text_centered_mono<font>(192 / 2, 40, output).color(1);
     } else {
         snprintf(output, sizeof(output), "􀇤");

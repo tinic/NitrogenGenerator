@@ -96,24 +96,30 @@ execute_process(COMMAND ${GIT_EXECUTABLE} show -s --format=%as HEAD --date=iso-s
 configure_file("${PROJECT_SOURCE_DIR}/version.h.in" "${CMAKE_BINARY_DIR}/version.h" @ONLY)
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${CMAKE_BINARY_DIR}/version.h)
 
-IF(${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
-    set(GENFONT_BINARY ${PROJECT_SOURCE_DIR}/constixel/genfont/build/Debug/genfont.exe)
-    set(FONTBM_BINARY ${PROJECT_SOURCE_DIR}/constixel/genfont/fontbm/build/Debug/fontbm.exe)
-    set(GENFONT_CMAKE_COMMAND cmake --preset=default ..)
-ELSE(${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
-    set(GENFONT_BINARY ${PROJECT_SOURCE_DIR}/constixel/genfont/build/genfont)
-    set(FONTBM_BINARY ${PROJECT_SOURCE_DIR}/constixel/genfont/fontbm/build/fontbm)
-    set(GENFONT_CMAKE_COMMAND cmake -Wno-deprecated -G "Ninja" ..)
-ENDIF(${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
+# Generate custom font with SF-Compact characters (always regenerate)
+set(FONT_HEADER ${CMAKE_BINARY_DIR}/ibmplexsans_regular_18_mono.hpp)
+set(PRIMARY_FONT ${PROJECT_SOURCE_DIR}/constixel/genfonts/otf/IBMPlexSans-Regular.otf)
+set(SECONDARY_FONT ${PROJECT_SOURCE_DIR}/otf/SF-Compact-Display-Regular.otf)
 
-file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/constixel/genfont/build)
-add_custom_command(
-    OUTPUT ${GENFONT_BINARY}
-    COMMAND ${GENFONT_CMAKE_COMMAND}
-    COMMAND cmake --build .
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/constixel/genfont/build
-    DEPENDS ${PROJECT_SOURCE_DIR}/constixel/genfont/genfont.cpp
+# Create CMake script for font generation
+set(FONT_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/cmake/generate_font.cmake")
+
+# Always regenerate the font by using a custom target instead of OUTPUT
+add_custom_target(generate_font ALL
+    COMMAND ${CMAKE_COMMAND} 
+        -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
+        -DCMAKE_BINARY_DIR="${CMAKE_BINARY_DIR}"
+        -P "${FONT_SCRIPT}"
+    DEPENDS ${PRIMARY_FONT} ${SECONDARY_FONT} ${FONT_SCRIPT}
+    COMMENT "Generating custom font with SF-Compact characters"
     USES_TERMINAL)
+
+# Create a dummy custom command to represent the font header
+add_custom_command(
+    OUTPUT ${FONT_HEADER}
+    DEPENDS generate_font
+    COMMENT "Font header generated"
+)
 
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${FONT_HEADER})
 
