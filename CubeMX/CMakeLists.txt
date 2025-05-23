@@ -47,13 +47,6 @@ add_executable(${CMAKE_PROJECT_NAME})
 add_subdirectory(cmake/stm32cubemx)
 add_subdirectory(constixel)
 
-
-add_subdirectory(magic_enum EXCLUDE_FROM_ALL)
-target_link_libraries(${CMAKE_PROJECT_NAME} magic_enum::magic_enum)
-
-add_subdirectory(fixed-containers EXCLUDE_FROM_ALL)
-target_link_libraries(${CMAKE_PROJECT_NAME} fixed_containers::fixed_containers)
-
 # Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined library search paths

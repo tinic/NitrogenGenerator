@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "./screen.h"
 
 #include <cstdio>
-#include <fixed_containers/fixed_map.hpp>
 
 #ifndef SCREEN_TEST
 #include "./Core/Inc/main.h"
