@@ -57,8 +57,9 @@ Resulting technical metrics for my application:
 7. 2 x solenoid
 8. 2 x needle valve
 9. 2 x pressure inducer
-10. misc connector, fittings, tubing, cables
-11. enclosure
+10. 1 x low crack pressure check valve
+11. misc connector, fittings, tubing, cables
+12. enclosure
 
 ### Details
 
