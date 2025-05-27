@@ -118,7 +118,7 @@ Total cost (assuming one membrane) was $2222. That's still only about half the p
 
 This is the system completed, with custom enclosure:
 
-[<img src="./images/final_inside.jpg" width="100"/>](./images/final_inside.jpg)
+[<img src="./images/final_inside.jpg" width="100%"/>](./images/final_inside.jpg)
 
 ## System Design
 
