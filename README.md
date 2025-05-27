@@ -116,6 +116,10 @@ Be careful when looking on eBay for used membranes. There will be a good chance 
 
 Total cost (assuming one membrane) was $2222. That's still only about half the price of a commerical solution!
 
+This is the system completed, with custom enclosure:
+
+[<img src="./images/final_inside.jpg" width="100"/>](./images/final_inside.jpg)
+
 ## System Design
 
 ### P&ID alike schematic which shows the how the air goes through the system:
