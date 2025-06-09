@@ -5,6 +5,7 @@
 A DIY membrane-based nitrogen generator that produces 50L/h (2CFH) of high-purity nitrogen at 100 PSI for serving non-carbonated beverages like cold brew coffee. Built for home brewers who want professional nitrogen service without the ongoing cost of N2 cylinders.
 
 [<img src="./images/final_inside.jpg" width="100%"/>](./images/final_inside.jpg)
+[<img src="./images/solidworks.jpg" width="100%"/>](./images/solidworks.jpg)
 
 ## 🎯 Key Specifications
 
