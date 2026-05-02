@@ -1,3 +1,10 @@
+![License](https://img.shields.io/github/license/tinic/NitrogenGenerator)
+![Last Commit](https://img.shields.io/github/last-commit/tinic/NitrogenGenerator)
+![Hardware](https://img.shields.io/badge/hardware-KiCad-blue)
+![Firmware](https://img.shields.io/badge/firmware-STM32-green)
+![Mechanical](https://img.shields.io/badge/mechanical-SolidWorks-orange)
+![License](https://img.shields.io/badge/license-Unlicense-lightgrey)
+
 # Nitrogen Generator for Home Brewing
 
 > DIY membrane nitrogen generator for **nitro cold brew coffee**, **nitro stout**, and beverage push-gas service. Extracts **99.5%+ pure N₂** from compressed air. Total build cost **$2,222** — about half the price of commercial alternatives like NitroBev 360 or NitroBrew.
