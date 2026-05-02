@@ -1,532 +1,344 @@
 # Nitrogen Generator for Home Brewing
 
-> **Extract 99.5%+ pure nitrogen from air for less than half the cost of commercial solutions**
+> DIY membrane nitrogen generator for **nitro cold brew coffee**, **nitro stout**, and beverage push-gas service. Extracts **99.5%+ pure N₂** from compressed air. Total build cost **$2,222** — about half the price of commercial alternatives like NitroBev 360 or NitroBrew.
 
-A DIY membrane-based nitrogen generator that produces 50L/h (2CFH) of high-purity nitrogen at 100 PSI for serving non-carbonated beverages like cold brew coffee. Built for home brewers who want professional nitrogen service without the ongoing cost of N2 cylinders.
+[<img src="./images/final_inside.jpg" width="100%" alt="Completed nitrogen generator inside its stainless-steel enclosure"/>](./images/final_inside.jpg)
+[<img src="./images/solidworks.jpg" width="100%" alt="SolidWorks render of the final enclosure design"/>](./images/solidworks.jpg)
+[<img src="./images/airschematic.png" width="100%" alt="P&ID-style pneumatic schematic of the system"/>](./images/airschematic.png)
 
-[<img src="./images/final_inside.jpg" width="100%"/>](./images/final_inside.jpg)
-[<img src="./images/solidworks.jpg" width="100%"/>](./images/solidworks.jpg)
+## At a glance
 
-## 🎯 Key Specifications
+| Spec | Value |
+|---|---|
+| Output flow | 50 L/h (2 CFH) at 100 PSI |
+| Output purity | 99.5%+ nitrogen (≤0.5% O₂) |
+| Compressed-air input | ≤ 30 L/h (1 CFM) |
+| Operating pressure | 75–100 PSI |
+| Air-to-N₂ ratio | ~5:1 |
+| Power | 120/240 V AC (idle = 0 W; runs only when refilling) |
+| Membrane | KL-AIR MNH-1512A |
+| Holding tank | 5 gal Cornelius keg |
+| Total cost | **$2,222** |
 
-| Specification | Value |
-|---------------|-------|
-| **Nitrogen Output** | 50L/h (2 CFH) at 100 PSI |
-| **Nitrogen Purity** | 99.5%+ (≤0.5% oxygen) |
-| **Air Input Required** | 30L/h (1 CFM) max |
-| **System Pressure** | 75-100 PSI operating range |
-| **Power Requirements** | 120V/240V household power |
-| **Total Build Cost** | ~$2,200 (vs $4,500+ commercial) |
+### Cost vs. commercial alternatives
 
-## 📋 Table of Contents
+| Option | Cost |
+|---|---|
+| **This DIY build** | **$2,222** |
+| NitroBev 360 | ~$4,500 |
+| Industrial PSA nitrogen generator | $8,000+ |
 
-- [Quick Start](#-quick-start)
-- [Why Build This?](#-why-build-this)
-- [How It Works](#-how-it-works)
-- [Bill of Materials](#-bill-of-materials)
-- [Safety Requirements](#️-safety-requirements)
-- [Build Guide](#-build-guide)
-- [System Design](#-system-design)
-- [Component Selection Guide](#-component-selection-guide)
-- [Setup & Calibration](#️-setup--calibration)
-- [Troubleshooting](#-troubleshooting)
+## Motivation
 
-## 🚀 Quick Start
+As a home brewer CO₂ is the gas of choice for most purposes, including pushing beverages to the tap. But sometimes you don't want to just serve beer but also cold brew coffee and other non-carbonated beverages. In most cases a simple N₂ cylinder does the job — but given that air is 78% nitrogen, why not just extract it from the air? Recently products like NitroBev 360 have introduced this possibility on a small scale, at a price. Given the huge margins these niche products have to have, my thought was to build a nitrogen generator from scratch for less.
 
-### Prerequisites
-- Experience with pressurized systems (kegging knowledge helpful)
-- Basic electronics/PLC programming skills
-- Familiarity with compressed air fittings and NPT connections
-- Safety equipment and proper workspace
+**Use cases this build is sized for:**
 
-### Cost Breakdown
-| Category | Cost Range |
-|----------|------------|
-| Nitrogen membrane | $400-800 |
-| Air filtration | $200-300 |
-| Controller & sensors | $200-400 |
-| Valves & fittings | $300-500 |
-| Enclosure & misc | $200-600 |
-| **Total** | **$1,300-2,600** |
+- Nitro cold brew coffee on draft
+- Nitro stout / Guinness-style cascading head
+- Wine and whiskey blanketing during long pours
+- Generic beverage push gas where CO₂ would over-carbonate
 
-### What You'll Need
-- 3-4 weekends for assembly and testing
-- Basic workshop with compressed air access
-- Oxygen analyzer for calibration
-- Multimeter and basic tools
+## How nitrogen generators work
 
-## 💡 Why Build This?
+This project uses **membrane separation**. A membrane-based nitrogen generator works by passing compressed air through a semi-permeable membrane made of bundles of hollow polymer fibers. Oxygen and water vapor molecules, being smaller and having a higher permeation rate, pass through the membrane walls and are vented out as permeate. Nitrogen molecules, being larger and slower to permeate, remain inside the fibers and exit at the outlet as a high-purity nitrogen stream. Purity is adjustable down to about 0.5% residual oxygen — well within spec for beverage service.
 
-### The Problem
-Home brewers often want to serve non-carbonated beverages like cold brew coffee alongside their beer. While CO2 works great for beer, nitrogen provides the smooth, creamy mouthfeel these drinks require. Commercial N2 cylinders work but are expensive to refill and inconvenient.
+A membrane generator needs **continuous compressed-air flow** to work. The separation relies on a sustained pressure differential across the fiber walls; if the air supply is intermittent or undersized, the differential collapses and oxygen leaks straight through. The membrane is also engineered for a specific air-flow band — undershoot it and the gas dynamics break down well before you're starving on volume.
 
-### The Solution
-Since air is 78% nitrogen, we can extract it using membrane separation technology. Commercial nitrogen generators exist but cost $4,500+ and are designed for continuous industrial use, not intermittent home brewing needs.
+A small **needle valve on the membrane output** controls purity. Open it too far and the residence time inside the fiber drops, producing high-O₂ output. Close it too far and most of your compressed air is dumped overboard as permeate, killing efficiency. This adjustment is per-membrane and is the single most important calibration step in the build.
 
-### Our Approach
-- **Intermittent operation**: Only runs when nitrogen is needed
-- **Optimized for home use**: 50L/h output fills one keg per hour
-- **Cost-effective**: Half the price of commercial solutions
-- **Portable**: Compact design for mobile brewing setups
+The membrane needs **clean air**. Compressed air carries dust, oil aerosols, water vapor, and hydrocarbons; any of those will foul the polymer fibers. Without proper filtration, a membrane that should last *years* will die in *hours*. We filter down to **0.01 µm** before the air sees the membrane.
 
-## ⚙️ How It Works
+### Membrane vs. PSA — why membrane
 
-### Membrane Separation Process
-1. **Compressed air input**: Filtered air enters the hollow fiber membrane
-2. **Selective permeation**: Oxygen and water vapor pass through membrane walls
-3. **Nitrogen concentration**: Larger nitrogen molecules remain in the fiber cores
-4. **Purity control**: Output needle valve fine-tunes final nitrogen concentration
+PSA (Pressure Swing Adsorption) generators reach higher purity (down to a few ppm O₂) but use molecular-sieve beds, twin-tower switching valves, and large compressors — overkill for home use, expensive, and noisy. Membrane is the right scale here: no moving parts, low power, scales down to 50 L/h cleanly, and 99.5% purity is more than enough for beverage service.
 
-### Control Logic
-```
-┌─────────────────────────────────────────────────────────┐
-│ SYSTEM IDLE                                             │
-│ • Both solenoids closed                                 │
-│ • Monitoring tank pressure                              │
-└─────────────────┬───────────────────────────────────────┘
-                  │
-                  ▼ Tank pressure < 75 PSI
-┌─────────────────────────────────────────────────────────┐
-│ REFILL CYCLE START                                      │
-│ • Open input solenoid (10s delay for soft start)       │
-│ • Wait for membrane pressure > 75 PSI                  │
-└─────────────────┬───────────────────────────────────────┘
-                  │
-                  ▼ Membrane pressure > 75 PSI
-┌─────────────────────────────────────────────────────────┐
-│ NITROGEN PRODUCTION                                     │
-│ • Open output solenoid                                  │
-│ • Fill tank with high-purity nitrogen                  │
-└─────────────────┬───────────────────────────────────────┘
-                  │
-                  ▼ Tank pressure ≥ 100 PSI
-┌─────────────────────────────────────────────────────────┐
-│ CYCLE COMPLETE                                          │
-│ • Close both solenoids                                  │
-│ • Return to idle state                                  │
-└─────────────────────────────────────────────────────────┘
-```
+## Goals & target metrics
 
-## 📦 Bill of Materials
+Most commercial large-scale nitrogen equipment is built for continuous N₂ blanketing. We don't need that — a home brewer fills a keg now and then. The design priorities:
 
-### Core Components
+- Optimize for **low power** and **casual use**
+- **Idle = zero power** (the system only runs when nitrogen is being made)
+- Use **readily available, serviceable** components
+- **Reasonable N₂ output** for the application — one keg per hour is plenty
+- **Portable** — fits in a stainless enclosure, plugs into 120 V
+- Reuse equipment home brewers already have (Cornelius keg as accumulator)
 
-| Component | Specification | Source | Approx. Cost |
-|-----------|---------------|--------|--------------|
-| **Nitrogen Membrane** | MNH-1512A (50L/h @ 100 PSI) | Alibaba (KL-AIR) | $400 |
-| **3-Stage Air Filter** | 0.01μm coalescing final stage | PneumaticPlus SAFU460-N04-MEP | $200 |
-| **Air Compressor** | Quiet, 1+ CFM output | Makita MAC100Q | $250 |
-| **Oxygen Analyzer** | 0-30% range, flow-through | FORENSICS O2 Analyzer | $200 |
-| **Holding Tank** | 5-gallon Cornelius keg | Standard homebrew supplier | $130 |
+Resulting numbers:
 
-### Control System
+- **120/240 V household power** — works on a generator too
+- **~50 L/h (2 CFH)** N₂ output — about one keg per hour
+- **≤30 L/h (1 CFM)** compressed-air input — small quiet portable compressor is fine
+- **100 PSI max** system pressure — Cornelius keg territory
 
-| Component | Specification | Source | Approx. Cost |
-|-----------|---------------|--------|--------------|
-| **Controller** | Custom STM32 PCB or Click PLC | DIY/Automation Direct | $130-300 |
-| **Pressure Sensors** | 0-200 PSI, 1/8" NPT (2x) | AUTEX Amazon | $52 |
-| **Solenoid Valves** | 24V DC, normally closed (2x) | AirTAC 2WA030-08 | $80 |
-| **Needle Valves** | 1/4" NPT, fine adjustment (2x) | SURUIKE INDUSTRY | $40 |
+## Skills required
 
-### Fittings & Misc
+- Hands-on experience with pressurized vessels (kegging-pressure literacy is enough)
+- Programming a PLC, Arduino, or microcontroller — the controller is custom firmware here, but ladder logic is fine too
+- Comfort with NPT and 8 mm push-in pneumatic fittings, basic leak chasing
+- Reading a P&ID
+- Multimeter and soldering iron at the level of "I've put together a kit before"
 
-| Category | Description | Approx. Cost |
-|----------|-------------|--------------|
-| **Check Valve** | Low cracking pressure (<2 PSI) | $15 |
-| **Fittings & Tubing** | NPT adapters, push-connect, tubing | $200 |
-| **Enclosure** | Stainless steel or powder-coated | $200-400 |
-| **Fasteners & Misc** | Mounting hardware, wire, etc. | $100 |
+## Bill of materials
 
-**Total Estimated Cost: $1,997-2,597**
+These are the actual parts I bought, with what I paid. Substitutes are fine where noted; the membrane and the air filter are the two parts you should not cheap out on.
 
-## ⚠️ Safety Requirements
+| # | Component | Model / part | Source | Paid | Notes |
+|---|---|---|---|---|---|
+| 1 | Nitrogen membrane | [MNH-1512A](./docs/MNH-1512A.pdf) | KL-AIR (Alibaba) | $400 | 50 L/h @ 100 PSI, 99.5%; 120 PSI max input |
+| 2 | 3-stage air filter | PneumaticPlus SAFU460-N04-MEP | Amazon | $200 | 0.01 µm coalescing final stage — **don't skimp** |
+| 3 | Air compressor | Makita MAC100Q | Hardware store | $250 | Quiet, ~1 CFM, oil-free |
+| 4 | O₂ analyzer | FORENSICS O₂ Analyzer | Amazon | $200 | 0–30%, must support flow-through (tube fitting) |
+| 5 | Holding tank | 5 gal Cornelius keg | Homebrew supplier | $130 | |
+| 6 | Controller | Custom STM32G030 PCB | DigiKey + PCBWay | $130 | $80 BOM + $50 for 5 prototype boards. Click PLC works too (~$300) |
+| 7 | Solenoid valves (×2) | AirTAC 2WA030-08 | Amazon | $80 | 24 V DC, normally closed, 1/4″ NPT, Viton seals |
+| 8 | Needle valves (×2) | SURUIKE INDUSTRY 3 mm orifice | Amazon | $40 | Stainless, 1/4″ NPT |
+| 9 | Pressure transducers (×2) | AUTEX 0–200 PSI | Amazon | $52 | 1/8″-27 NPT, with connector harness |
+| 10 | Check valve | Low-cracking-pressure (<2 PSI) | Hardware store | $15 | |
+| 11 | Fittings, tubing, cable | Mixed NPT + 8 mm push-in | Hardware store | ~$200 | |
+| 12 | Enclosure | Stainless steel, laser-cut + bent | OshCut | $380 | 17-gauge (1.9 mm) — overkill, powder-coated steel halves the price |
+| | | | **Total** | **$2,222** | |
 
-> **⚠️ HIGH PRESSURE SYSTEM** - Always wear safety equipment and follow proper procedures
+[<img src="./images/membrane.jpeg" width="100" alt="MNH-1512A nitrogen separation membrane"/>](./images/membrane.jpeg)
+[<img src="./images/airfilter.jpg" width="100" alt="3-stage compressed air filter"/>](./images/airfilter.jpg)
+[<img src="./images/compressor.png" width="100" alt="Makita MAC100Q quiet air compressor"/>](./images/compressor.png)
+[<img src="./images/oxygensensor.jpg" width="100" alt="FORENSICS oxygen analyzer with flow-through fitting"/>](./images/oxygensensor.jpg)
+[<img src="./images/corneliouskeg.jpeg" width="100" alt="5-gallon Cornelius keg used as nitrogen accumulator"/>](./images/corneliouskeg.jpeg)
+[<img src="./images/plc.jpg" width="100" alt="Click PLC used in the early prototype"/>](./images/plc.jpg)
+[<img src="./images/pcb1.jpg" width="100" alt="Custom STM32G030 controller PCB, top side"/>](./images/pcb1.jpg)
+[<img src="./images/pcb2.jpg" width="100" alt="Custom STM32G030 controller PCB, bottom side"/>](./images/pcb2.jpg)
+[<img src="./images/solenoid.jpg" width="100" alt="AirTAC 2WA030-08 24V solenoid valve"/>](./images/solenoid.jpg)
+[<img src="./images/needlevalve.jpg" width="100" alt="Stainless steel needle valve, 1/4 inch NPT"/>](./images/needlevalve.jpg)
+[<img src="./images/checkvalve.png" width="100" alt="Low-cracking-pressure check valve"/>](./images/checkvalve.png)
+[<img src="./images/pressureinducer.jpg" width="100" alt="AUTEX 0-200 PSI pressure transducer"/>](./images/pressureinducer.jpg)
 
-### Critical Safety Points
+### Don't buy these mistakes
 
-| ⚠️ **MEMBRANE PROTECTION** |
-|---------------------------|
-| • **Never exceed 120 PSI input pressure** - Can destroy membrane instantly |
-| • **Use soft-start valve** - Sudden pressure can shatter internal fibers |
-| • **Monitor input pressure continuously** - Automated shutoff required |
+- **Used eBay membranes.** No seller can verify the polymer fibers haven't been clogged with oil or particulates. A fouled membrane looks fine but won't separate. Spend the $400 new.
+- **Oversized membranes.** I once snagged an "almost free" deal on a membrane that turned out to need **170 L/min (6 CFM)** of input air. That's an industrial compressor. Read the datasheet's input-flow column before you click buy.
+- **Harbor Freight 5 µm filters.** Membrane manufacturers spec **0.01 µm** for a reason. A coarse filter will reduce your membrane lifetime from years to hours. Don't.
 
-| ⚠️ **ELECTRICAL SAFETY** |
-|-------------------------|
-| • **24V DC system** - Proper grounding essential |
-| • **Moisture protection** - IP-rated enclosures in humid environments |
-| • **Fuse protection** - All circuits properly protected |
+## System design
 
-| ⚠️ **OXYGEN DEPLETION** |
-|------------------------|
-| • **Adequate ventilation** - Nitrogen displaces oxygen |
-| • **No confined spaces** - Test in well-ventilated areas only |
-| • **Monitor O2 levels** - Use oxygen analyzer during setup |
+### Pneumatic schematic
 
-### Required Safety Equipment
-- Safety glasses and gloves
-- Pressure relief valve (set to 110 PSI)
-- Leak detection solution
-- Multimeter for electrical testing
-- Fire extinguisher rated for electrical fires
+[<img src="./images/airschematic.png" width="100%" alt="Full P&ID-style pneumatic schematic showing compressor, filter stages, soft-start needle valve, input solenoid, membrane, output needle valve, output solenoid, check valve, accumulator keg, and pressure transducers"/>](./images/airschematic.png)
 
-## 🔧 Build Guide
+The KiCad source for the P&ID lives at [`PnID.kicad_sch`](./PnID.kicad_sch).
 
-### Phase 1: Planning & Preparation
+### Control logic — solenoid sequence
 
-**1. Design Your Layout**
-- Sketch component placement in enclosure
-- Plan air flow routing and electrical connections
-- Ensure easy access to adjustment valves
-- Consider serviceability and maintenance access
+The two solenoids (input air, output nitrogen) gate when air enters the membrane and when nitrogen leaves it. The controller runs this loop:
 
-**2. Workspace Setup**
-- Adequate ventilation for testing
-- Compressed air source (for initial testing)
-- Electrical testing equipment
-- Proper lighting and organization
+1. When **NitrogenPressure1** (holding-tank side) drops below **75 PSI**, open **AirSolenoid1** (input) to start filtering.
+2. Hold **NitrogenSolenoid1** (output) closed until **AirPressure1** (membrane side) reaches **75 PSI**. This guarantees the membrane is at full operating pressure before any gas hits the keg, so the first nitrogen is at full purity.
+3. When **NitrogenPressure1** reaches **100 PSI**, close both solenoids and return to step 1.
 
-### Phase 2: Pneumatic Assembly
+Short hysteresis timers (5–10 s) stagger the solenoid transitions to avoid oscillation around the setpoint.
 
-**3. Install Air Filtration**
-- Mount 3-stage filter in easily accessible location
-- Connect input from compressor with proper fittings
-- Install pressure gauge after filter
-- Test for leaks at all connections
+### Safety interlocks
 
-**4. Mount Nitrogen Membrane**
-- Secure membrane horizontally or per manufacturer specs
-- Connect filtered air input through input needle valve
-- Install input pressure sensor after needle valve
-- Route permeate (waste) air to exhaust
+The controller continuously enforces:
 
-**5. Install Control Valves**
-- Mount input solenoid between filter and membrane
-- Install output solenoid between membrane and holding tank
-- Connect output needle valve for purity adjustment
-- Install output pressure sensor at holding tank
+- **AirPressure1 < 75 PSI at any point** → both solenoids closed. Prevents back-feed and nitrogen loss from the keg.
+- **AirPressure1 > 120 PSI at any point** → both solenoids closed. The membrane's mechanical limit; exceed it and the fibers can shatter.
+- **Either pressure < 0 or > 150 PSI** (out of physical range) → both solenoids closed. Fail-safe for sensor failure.
 
-### Phase 3: Control System
+### What the firmware does on every tick
 
-**6. Electrical Assembly**
-- Install controller in protected enclosure
-- Wire pressure sensors to analog inputs
-- Connect solenoid control outputs (24V switching)
-- Install emergency stop and status indicators
-
-**7. Programming/Configuration**
-- Load control logic (PLC ladder or microcontroller code)
-- Set pressure thresholds and timing parameters
-- Configure safety interlocks and fault handling
-- Test all inputs and outputs
-
-### Phase 4: Testing & Calibration
-
-**8. System Testing**
-- Pressure test all pneumatic connections
-- Verify electrical safety and grounding
-- Test control logic with simulated inputs
-- Perform end-to-end system validation
-
-## 🔬 System Design
-
-### Process Flow Diagram
-
-[<img src="./images/airschematic.png" width="100%"/>](./images/airschematic.png)
-
-### Control Logic Details
-
-#### Operating States
-
-| State | Input Solenoid | Output Solenoid | Conditions |
-|-------|----------------|-----------------|------------|
-| **Idle** | Closed | Closed | Tank pressure ≥ 100 PSI |
-| **Soft Start** | Open | Closed | Tank < 75 PSI, membrane building pressure |
-| **Production** | Open | Open | Membrane > 75 PSI, tank < 100 PSI |
-| **Fault** | Closed | Closed | Any safety condition triggered |
-
-#### Safety Interlocks
+The state machine in [`CubeMX/mcp.cpp`](./CubeMX/mcp.cpp) (function `Slice()`) reduces to:
 
 ```
-Continuous Monitoring:
-├── Input Pressure Range: 75-120 PSI
-├── Output Pressure Range: 0-130 PSI  
-├── Sensor Fault Detection: <-5 PSI or >150 PSI
-├── Maximum Run Time: 120 seconds per cycle
-└── Emergency Stop: Manual override
+read AirPressure1, NitrogenPressure1
+if any sensor out of range:           goto FAULT
+if AirPressure1 > 120:                goto FAULT
+if AirPressure1 < 75:                 close both solenoids, hold
+if NitrogenPressure1 >= 100:          close both solenoids
+if NitrogenPressure1 < 75:            open AirSolenoid1 (after 10 s soft-start delay)
+if AirPressure1 >= 75:                open NitrogenSolenoid1
+update LCD with pressures + state
 ```
 
-#### Timing Parameters
+The status LCD is a 192×64 monochrome panel driven via SPI (ST7525) using the [constixel](https://github.com/tinic/constixel) graphics library. UI rendering lives in [`CubeMX/screen.cpp`](./CubeMX/screen.cpp).
 
-| Parameter | Value | Purpose |
-|-----------|-------|---------|
-| **Soft Start Delay** | 10 seconds | Gentle membrane pressurization |
-| **Pressure Hysteresis** | 5 PSI | Prevent oscillation |
-| **Fault Reset Time** | 30 seconds | Allow system stabilization |
-| **Maximum Cycle Time** | 120 seconds | Prevent runaway conditions |
+## Calibration
 
-## 🛠️ Component Selection Guide
+Two needle valves to set, in this order: input first (membrane protection), then output (purity).
 
-### Nitrogen Membrane Selection
+### Input needle valve — protect the membrane
 
-| Model | Output @ 100 PSI | Air Input | Max Pressure | Cost | Notes |
-|-------|------------------|-----------|--------------|------|-------|
-| **MNH-1512A** ⭐ | 50L/h (2 CFH) | 30L/h | 120 PSI | $400 | Recommended for this build |
-| MNH-2024A | 120L/h (4.2 CFH) | 170L/h | 120 PSI | $800 | Oversized for home use |
-| Generic eBay | Variable | Unknown | Unknown | $100-300 | ⚠️ Quality/specs uncertain |
+The input needle valve dampens the pressure step that hits the membrane when the input solenoid suddenly opens. Without it, the membrane sees the full upstream pressure as a step function and the polymer fibers can shatter. **Set this before assembling the rest of the system.**
 
-**Key Selection Criteria:**
-- Target 50L/h output at 100 PSI and 99.5% purity
-- Maximum input pressure rating ≥120 PSI
-- Reasonable air consumption (<50L/h input)
-- Verified specifications and datasheets
+1. Rig the input needle valve to a regulated air supply.
+2. Step the upstream pressure to 100 PSI suddenly.
+3. The downstream side should feel like 5–10 PSI bleeding out of a compressor — not a "bang".
+4. If you hear a bang, tighten the needle until the step is gentle.
 
-### Air Filtration Options
+### Output needle valve — set the purity
 
-| Option | Filtration | Features | Cost | Maintenance |
-|--------|------------|----------|------|-------------|
-| **PneumaticPlus 3-Stage** ⭐ | 0.01μm final | Auto-drain, modular | $200 | 6-month elements |
-| Parker Finite 3-Stage | 0.01μm final | Industrial grade | $500 | 12-month elements |
-| Harbor Freight Basic | 5μm only | Basic protection | $50 | ⚠️ Insufficient filtration |
+This sets your final O₂ content. **You need an O₂ analyzer for this step**; eyeballing it is not possible.
 
-**Critical Requirements:**
-- Final stage must be 0.01μm coalescing filter
-- Automatic or manual drain capability
-- Replaceable filter elements
-- Pressure rating ≥150 PSI
+1. Set the output needle valve to fully closed during initial leak-testing of the rest of the system.
+2. To avoid blasting the analyzer with raw permeate-rich air, open the output valve **only ~4 turns** before any nitrogen flow.
+3. Connect the O₂ analyzer directly to the system output via tubing — **no air gaps in the path**, room air contaminating the sample is the #1 calibration mistake.
+4. Start the system and slowly close the output needle valve while watching the analyzer. O₂ will start dropping once the membrane has time to flush.
+5. Continue patiently — gas takes minutes to flush the analyzer chamber. Make 1/8-turn adjustments and wait 2–5 minutes between them.
+6. Stop when you reach **≤ 1% O₂**. Closing further shoots permeate-to-product ratio above ~5:1 with no purity gain.
+7. **What success feels like:** at 99.5% purity and 50 L/h, you can barely feel air on your lips at the output. That's normal. If you can clearly feel flow, you're at higher O₂.
 
-### Controller Comparison
+Mark the final valve position with a paint pen so you can return to it after maintenance.
 
-| Option | Complexity | Cost | Features | Programming |
-|--------|------------|------|----------|-------------|
-| **Custom STM32 PCB** ⭐ | Medium | $130 | Compact, LCD display | C/C++ |
-| Click PLC | Low | $300 | Industrial reliability | Ladder logic |
-| Arduino + Shields | High | $100 | Flexible, expandable | C/C++ |
-| Raspberry Pi | High | $150 | Over-featured | Python/C++ |
+## Repository layout
 
-### Solenoid Valve Guide
-
-| Type | Pressure Rating | Response Time | Cost | Reliability |
-|------|----------------|---------------|------|-------------|
-| **Direct Acting** ⭐ | 150 PSI | <100ms | $40 | High |
-| Pilot Operated | 300+ PSI | <500ms | $80 | Very High |
-| Proportional | Variable | Variable | $200+ | Medium |
-
-**Recommended Specs:**
-- 24V DC operation
-- Normally closed (fail-safe)
-- 1/4" NPT ports
-- Viton seals for air service
-
-## ⚙️ Setup & Calibration
-
-### Initial System Setup
-
-**1. Pre-Assembly Checks**
 ```
-□ All fittings properly tightened with thread sealant
-□ Electrical connections secure and properly insulated  
-□ Pressure relief valve installed and set to 110 PSI
-□ All sensors and actuators tested individually
-□ Control program loaded and basic functionality verified
+.
+├── CubeMX/                   STM32G030 firmware (CMake + arm-none-eabi-gcc)
+│   ├── mcp.cpp               Control state machine (Slice())
+│   ├── screen.cpp            LCD UI rendering (constixel-based)
+│   ├── build.sh              One-shot build
+│   └── CMakeLists.txt
+├── NitrogenGenerator.kicad_*  KiCad PCB project (controller board)
+├── PnID.kicad_sch            P&ID schematic of the pneumatic system
+├── solidworks/               Mechanical CAD for the stainless enclosure
+├── docs/                     Datasheets (membrane, components)
+├── images/                   Photos and renders used in this README
+├── kicad-makefile/           Production-file generation (gerbers, BOM)
+└── pnid-lib/                 KiCad symbols for P&ID drawing
 ```
 
-**2. Pneumatic Testing**
-```
-□ Pressure test system to 120 PSI and hold for 10 minutes
-□ Check for leaks using soap solution at all joints
-□ Verify pressure sensors read accurately with calibrated gauge
-□ Test solenoid operation at working pressure
-□ Confirm check valve operation and cracking pressure
-```
+## Building
 
-### Input Needle Valve Adjustment
+### Firmware
 
-**Objective:** Prevent membrane damage from pressure shock
-
-**Procedure:**
-1. **Setup**: Connect regulated air supply to input needle valve
-2. **Initial Setting**: Close valve completely, then open 2 turns
-3. **Pressure Test**: Gradually increase input pressure to 100 PSI
-4. **Adjustment**: Fine-tune until sudden valve opening produces gentle flow (no "bang")
-5. **Verification**: Test multiple pressure scenarios
-
-**Target Result:** Smooth, controlled pressure rise when input solenoid opens
-
-### Output Needle Valve Calibration
-
-**Objective:** Achieve ≤1% oxygen content in output nitrogen
-
-**Required Equipment:**
-- Oxygen analyzer with flow-through capability
-- Sample tubing with no dead volume
-- Patience (this process takes time!)
-
-**Procedure:**
-
-**Step 1: Initial Setup**
-```
-1. Set output needle valve to fully closed position
-2. Connect oxygen analyzer to system output with minimal dead volume
-3. Start system and allow input pressure to stabilize
-4. Open output valve exactly 4 turns from closed
+```bash
+git clone https://github.com/tinic/nitrogengenerator.git
+cd nitrogengenerator/CubeMX
+./build.sh
 ```
 
-**Step 2: Coarse Adjustment**
-```
-5. Start nitrogen production cycle
-6. Monitor oxygen analyzer (may read ambient 21% initially)
-7. Slowly close output valve 1/4 turn at a time
-8. Wait 2-3 minutes between adjustments for gas to flush
-9. Continue until oxygen reading begins to drop
-```
+Requirements:
 
-**Step 3: Fine Tuning**
-```
-10. When oxygen drops below 10%, slow adjustment pace
-11. Make 1/8 turn or smaller adjustments
-12. Wait 5+ minutes between changes
-13. Target: ≤1% oxygen (99%+ nitrogen purity)
-14. Mark final valve position for reference
+- [ARM GCC toolchain](https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain) (`arm-none-eabi-gcc`)
+- CMake 3.22+
+- Python 3 (for font and image asset conversion)
+
+Flash with your favourite STM32 programmer (ST-Link, Black Magic Probe, etc.) — the build emits a `.elf`, `.bin`, and `.hex` in `CubeMX/build/`.
+
+### PCB
+
+Open `NitrogenGenerator.kicad_pro` in KiCad 7+. Production files (gerbers, drill, BOM) are generated by:
+
+```bash
+make -C kicad-makefile
 ```
 
-**Step 4: Verification**
-```
-15. Run multiple production cycles
-16. Verify consistent oxygen readings
-17. Test flow rate (should feel minimal but present)
-18. Document final settings for future reference
-```
+Send the resulting zip to PCBWay or any fab. 5 prototype boards came out to ~$50 including shipping at the time of writing.
 
-**⚠️ Critical Notes:**
-- Closing valve too far reduces efficiency dramatically
-- Very little flow is normal at high purity (50L/h = barely perceptible)
-- Patience is essential - gas takes time to flush analyzer chamber
-- Mark valve position before major adjustments
+### Enclosure
 
-### Performance Validation
+`solidworks/` contains the mechanical CAD. The DXF flat patterns in that folder are what I sent to OshCut. Powder-coated steel will halve the cost vs. the 17-gauge stainless I used.
 
-**Flow Rate Testing**
-- Use flow meter or timed displacement method
-- Target: 45-55L/h at 100 PSI output pressure
-- Document actual performance vs. specifications
+## Reproduction checklist
 
-**Efficiency Monitoring**
-- Measure air consumption vs. nitrogen output
-- Calculate air-to-nitrogen ratio (target: 4:1 to 6:1)
-- Monitor duty cycle during normal operation
+If you want to build this exact one:
 
-**Purity Verification**
-- Regular oxygen analysis during operation
-- Verify purity remains stable over extended runs
-- Check for purity degradation over time
+1. Order MNH-1512A from KL-AIR on Alibaba (~$400 + shipping/tariffs).
+2. Order PneumaticPlus SAFU460-N04-MEP 3-stage filter (~$200).
+3. Get a Makita MAC100Q (or any quiet 1 CFM oil-free compressor).
+4. Order 2× AirTAC 2WA030-08 solenoids and 2× SURUIKE 3 mm needle valves (~$120 total).
+5. Order the controller PCB from PCBWay using the KiCad files in this repo.
+6. Source DigiKey BOM for the PCB (~$80).
+7. Order the enclosure from OshCut using `solidworks/` DXFs (or build your own from any rigid material).
+8. Flash the firmware: `cd CubeMX && ./build.sh`.
+9. Wire per [`PnID.kicad_sch`](./PnID.kicad_sch).
+10. Calibrate per the procedure above. Push your first nitro cold brew.
 
-## 🔍 Troubleshooting
+## Safety
 
-### Common Issues
+- **High-pressure system.** Wear safety glasses while pressurizing. Pressure-test all joints with soap solution before energising electrically.
+- **Membrane shock.** Never exceed 120 PSI on the membrane input — the soft-start needle valve is what protects you. Don't ever bypass it.
+- **Asphyxiation hazard.** N₂ at 99.5% will displace breathable oxygen in a small enclosed space. Keep the area ventilated. The output stream is small (50 L/h), but a leak in a closet matters.
+- **Electrical.** 24 V DC is present at the solenoid driver outputs. Use an IP-rated enclosure if the unit lives anywhere humid (kegerators, garages).
+- **Pressure relief.** Install a relief valve set to 110 PSI between the membrane output and the keg, in case the output solenoid fails closed and the input doesn't shut off.
 
-| Problem | Symptoms | Likely Causes | Solutions |
-|---------|----------|---------------|-----------|
-| **No Nitrogen Output** | Zero flow, no pressure build | • Membrane damaged<br>• Output valve closed<br>• Control logic fault | • Check valve positions<br>• Verify pressure sensors<br>• Inspect membrane for damage |
-| **High Oxygen Content** | >2% O2 in output | • Output valve too open<br>• Membrane degradation<br>• Insufficient input pressure | • Close output valve gradually<br>• Check input pressure stability<br>• Replace membrane if old |
-| **Low Flow Rate** | <40L/h output | • Output valve too closed<br>• Input pressure too low<br>• Membrane fouling | • Open output valve slightly<br>• Check air filter condition<br>• Verify input air quality |
-| **System Won't Start** | No solenoid activation | • Control system fault<br>• Power supply issues<br>• Sensor out of range | • Check power connections<br>• Verify sensor readings<br>• Reset control system |
+## Troubleshooting
 
-### Diagnostic Procedures
+| Problem | Symptoms | Likely cause | Fix |
+|---|---|---|---|
+| No N₂ flow | Tank pressure stays flat | Output valve too closed; membrane fouled; control fault | Open output 1/4 turn; check filter element; check sensor readings on LCD |
+| O₂ reading > 2% | Analyzer never drops below 2% | Output valve too open; membrane degraded; air gap in sample line | Close output 1/8 turn; verify no leaks in analyzer hose; if problem persists with new tubing, suspect membrane end-of-life |
+| Flow rate < 40 L/h | Slow keg fill | Filter element clogged; output valve too closed; input pressure low | Replace filter element; open output slightly; check compressor duty |
+| Compressor short-cycles | Compressor kicks on every few seconds | Check valve cracking pressure too high or leaking | Replace check valve with one that opens below 2 PSI |
+| Initial high O₂ on startup | Analyzer reads room air for the first few minutes | Normal — gas needs to flush analyzer chamber | Wait 2–5 minutes after first start before adjusting |
+| LCD blank but solenoids click | Display SPI fault | Loose ribbon cable; constixel bug | Reseat the LCD connector; reflash firmware |
 
-**Electrical Diagnostics**
-```
-1. Verify 24V power supply voltage and current capacity
-2. Check all ground connections and electrical continuity  
-3. Test pressure sensor outputs with multimeter
-4. Verify solenoid coil resistance and operation
-5. Review control system logs/status indicators
-```
+## Maintenance
 
-**Pneumatic Diagnostics**
-```
-1. Check system for air leaks with soap solution
-2. Verify air filter condition and differential pressure
-3. Test pressure relief valve operation
-4. Confirm check valve proper operation direction
-5. Inspect all tubing for kinks or restrictions
-```
+| Interval | Task |
+|---|---|
+| Weekly (in active use) | Drain water from filter bowls; verify O₂ reading on a test pull |
+| Monthly | Visual leak check; tighten compression fittings if any have shifted |
+| Quarterly | Replace 0.01 µm coalescing filter element; inspect tubing for kinks |
+| Annually | Calibrate pressure transducers against a known gauge; full system pressure test |
 
-**Performance Diagnostics**
-```
-1. Monitor system pressures during complete cycle
-2. Time production cycles and compare to specifications
-3. Measure actual nitrogen flow rate vs. target
-4. Analyze oxygen content trends over time
-5. Calculate overall system efficiency
-```
+## FAQ
 
-### Maintenance Schedule
+<details>
+<summary><b>Can I just use a CO₂ cylinder instead?</b></summary>
 
-**Weekly (During Active Use)**
-- Check oxygen content and adjust if needed
-- Verify system pressure readings
-- Inspect for visible air leaks
-- Monitor performance metrics
+CO₂ is the wrong gas for nitro. The cascading creamy mouthfeel comes from N₂'s low solubility in water — CO₂ over-carbonates and changes the taste. For stout faucets and nitro cold brew you need nitrogen (or a 75/25 N₂/CO₂ blend for some stouts).
+</details>
 
-**Monthly**
-- Drain water from air filter stages
-- Check electrical connections for tightness
-- Verify solenoid operation smoothness
-- Review control system logs
+<details>
+<summary><b>How long does the membrane last?</b></summary>
 
-**Quarterly**
-- Replace air filter elements
-- Calibrate pressure sensors
-- Deep clean oxygen analyzer
-- Performance verification testing
+**Years** with proper 0.01 µm pre-filtration and clean dry air. **Hours** if the filter element fails or you let oil aerosols through. The filter is the single biggest determinant of membrane lifetime.
+</details>
 
-**Annually**
-- Complete system pressure test
-- Electrical safety inspection
-- Control system backup/update
-- Consider membrane replacement evaluation
+<details>
+<summary><b>What's the difference between nitro coffee gas and stout gas?</b></summary>
 
-### Emergency Procedures
+Nitro cold brew uses ~100% N₂. Traditional Guinness-style stout faucets use a 75/25 N₂/CO₂ blend ("Beer Gas") because the small CO₂ fraction keeps a bit of carbonation in the beer. This generator produces 99.5%+ N₂; for stout-blend service you'd add a CO₂ cylinder and a blender.
+</details>
 
-**Overpressure Condition**
-1. Immediately shut off air supply
-2. Activate emergency stop if equipped
-3. Allow system to depressurize safely
-4. Investigate cause before restart
+<details>
+<summary><b>Do I need a stout faucet?</b></summary>
 
-**Electrical Fault**
-1. De-energize system at main disconnect
-2. Do not attempt repairs under pressure
-3. Check for ground faults or short circuits
-4. Professional electrical inspection if needed
+Yes — a stout faucet has a restrictor plate that breaks dissolved nitrogen out of solution as the beverage passes, which is what creates the cascading head. A standard tap won't produce the effect.
+</details>
 
-**Membrane Failure**
-1. System will typically fail safe (no nitrogen output)
-2. Check for unusual sounds or air leaks
-3. Depressurize system completely before inspection
-4. Replace membrane following manufacturer procedures
+<details>
+<summary><b>Is this safe to run in a small room?</b></summary>
+
+The output flow (50 L/h) is small enough that a normally ventilated room is fine. **Don't** run it in a sealed closet, walk-in cooler, or fermentation chamber without a vent — N₂ is an asphyxiant at high concentrations and you won't notice it before you're hypoxic.
+</details>
+
+<details>
+<summary><b>Why a custom PCB instead of a Click PLC or Arduino?</b></summary>
+
+The PLC works fine — my first prototype used one — but it's bulky, uses ladder logic, and the BOM is ~$300. The custom STM32G030 board is $130 in parts and parts-on-board, fits in the same enclosure as the pneumatics, and drives the LCD directly. An Arduino would also work at similar BOM cost.
+</details>
+
+<details>
+<summary><b>Can I scale this up?</b></summary>
+
+Yes — the MNH-2024A membrane outputs ~120 L/h with a proportionally larger compressor (~170 L/h input). Same control logic, bigger plumbing, bigger compressor (which kills the "quiet portable" goal — at that scale you're better off with PSA).
+</details>
+
+## Related
+
+- KL-AIR membranes: [alibaba.com](https://www.alibaba.com/) — search "MNH-1512A"
+- PneumaticPlus filters: [PneumaticPlus.com](https://pneumaticplus.com/)
+- OshCut laser cutting: [oshcut.com](https://www.oshcut.com/)
+- PCBWay: [pcbway.com](https://www.pcbway.com/)
+- constixel graphics library: [github.com/tinic/constixel](https://github.com/tinic/constixel)
+
+## License
+
+This project is released under [The Unlicense](./LICENSE) — public-domain dedication. Use any part of it for any purpose, commercial or private. **No warranty, no liability.** If you blow yourself up with a misconfigured nitrogen system, that is on you, not me.
 
 ---
 
-## 📚 Additional Resources
+<sub>If you build one, tag your photos with **#DIYNitrogenGenerator** so others can find it. Pull requests with improvements, alternative BOMs, or photos of working builds welcome.</sub>
 
-### Technical References
-- [MNH-1512A Membrane Specifications](./docs/MNH-1512A.pdf)
-- [System P&ID Diagram](./PnID.kicad_sch)
-- [PCB Design Files](./NitrogenGenerator.kicad_pro)
-
-### Supplier Links
-- **Nitrogen Membranes**: Alibaba.com (KL-AIR manufacturer)
-- **Air Filtration**: PneumaticPlus, Parker Hannifin
-- **Control Components**: Automation Direct, McMaster-Carr
-- **Oxygen Analyzers**: Amazon, scuba diving suppliers
-
-### Community Support
-- Home brewing forums for nitrogen serving discussions
-- DIY automation communities for control system help
-- Compressed air forums for pneumatic system guidance
-
----
-
-*Built with ❤️ for the home brewing community. Share your builds and improvements!*
+<!-- keywords: DIY nitrogen generator, home brewing nitrogen, membrane nitrogen separator, nitro cold brew at home, nitro coffee maker DIY, nitrogen for cold brew, nitro stout home, nitrogen generator from air, MNH-1512A, KL-AIR nitrogen membrane, PneumaticPlus SAFU460, NitroBev 360 alternative, NitroBrew DIY, PSA vs membrane nitrogen, nitrogen on draft, beverage push gas, Cornelius keg nitrogen, stout faucet nitrogen, STM32G030 controller, oxygen analyzer calibration, hollow fiber membrane, nitrogen purity 99.5%, compressed air filter 0.01 micron, oil-free compressor nitrogen, soft start needle valve, asphyxiation safety, beer gas blend, KiCad PCB project, open hardware nitrogen, brewing automation -->
